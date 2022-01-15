@@ -13,10 +13,42 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\engine">
+      <UniqueIdentifier>{da0733cf-b89d-4c96-90bf-b868a37c8bb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine\resources">
+      <UniqueIdentifier>{243d89a0-ae2b-4496-b9ab-6f7aef2ef9ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\engine">
+      <UniqueIdentifier>{14d40ee2-b022-4ae5-a3b4-5782febdfe84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\engine\resources">
+      <UniqueIdentifier>{82bb86c6-eb62-4832-8d44-009bcaf4872f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine\window">
+      <UniqueIdentifier>{a54cd607-d021-4333-a2f1-ebd14f759dc0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ResourcesManager.cpp">
+      <Filter>Source Files\engine\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ResourcesManager.h">
+      <Filter>Header Files\engine\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowEventListener.hpp">
+      <Filter>Source Files\engine\window</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
