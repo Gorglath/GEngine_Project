@@ -1,28 +1,20 @@
 #pragma once
 
-#include "OgreCamera.h"
-#include "OgreRoot.h"
-
-#include "OgreWindowEventUtilities.h"
-
-#include "Compositor/OgreCompositorManager2.h"
-
-#include "WindowEventListener.hpp"
-using namespace Ogre;
+#include "GameState.h"
+#include "GraphicSystem.hpp"
+#include "Time.h"
+using namespace Demo;
 
 class Engine
 {
 public:
-	Engine() = default;
+	Engine()  =default;
 	~Engine();
-	void init();
+	bool init();
 	bool update();
 	void clean();
-
-	bool getWindowQuit() const { return m_windowEventListener.getQuit(); }
 private:
-	Root* m_root = nullptr;
-	Window* m_window = nullptr;
-	MyWindowEventListener m_windowEventListener;
+	GraphicSystem m_graphicsSystem;
+	Time m_time;
 };
 

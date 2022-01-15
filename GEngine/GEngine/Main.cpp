@@ -1,14 +1,12 @@
 #include "Engine.h"
-int main(int argc, const char* argv[])
+int main(int argc, char *argv[])
 {
     Engine engine;
 
     engine.init();
     bool quit = false;
-    while (!quit)
+    while (!engine.update())
     {
-        quit = engine.getWindowQuit();
-        if (!quit)
-            quit = !engine.update();
+
     }
 }

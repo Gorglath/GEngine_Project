@@ -5,58 +5,43 @@ Engine::~Engine()
     clean();
 }
 
-void Engine::init()
+bool Engine::init()
 {
-    const String pluginsFolder = "";
-    const String writeAccessFolder = pluginsFolder;
+    GameState gameState;
+    m_graphicsSystem = GraphicSystem(&gameState);
 
-    const char* pluginsFile = nullptr;
+    // MyGraphicsSystem::setupResources overrode the folder setup process to minimize errors.
+    // But this also means you'll see "WARNING: LTC matrix textures could not be loaded.
+    // Accurate specular IBL reflections and LTC area lights won't be available or may not
+    // function properly!" message in the Log
+    m_graphicsSystem.initialize("Tutorial 01: Initialization");
 
-    m_root = OGRE_NEW Root();
+    if (m_graphicsSystem.getQuit())
+    {
+        m_graphicsSystem.deinitialize();
+        return false;
+    }
 
-    m_root->showConfigDialog();
+    m_graphicsSystem.createScene01();
+    m_graphicsSystem.createScene02();
 
-    // Initialize Root
-    m_root->getRenderSystem()->setConfigOption("sRGB Gamma Conversion", "Yes");
-    Window* window = m_root->initialise(true, "Tutorial 00: Basic");
-
-    //registerHlms();
-
-    // Create SceneManager
-    const size_t numThreads = 1u;
-    SceneManager* sceneManager = m_root->createSceneManager(ST_GENERIC, numThreads, "ExampleSMInstance");
-
-    // Create & setup camera
-    Camera* camera = sceneManager->createCamera("Main Camera");
-
-    // Position it at 500 in Z direction
-    camera->setPosition(Vector3(0, 5, 15));
-    // Look back along -Z
-    camera->lookAt(Vector3(0, 0, 0));
-    camera->setNearClipDistance(0.2f);
-    camera->setFarClipDistance(1000.0f);
-    camera->setAutoAspectRatio(true);
-
-    // Setup a basic compositor with a blue clear colour
-    CompositorManager2* compositorManager = m_root->getCompositorManager2();
-    const String workspaceName("Demo Workspace");
-    const ColourValue backgroundColour(0.2f, 0.4f, 0.6f);
-    compositorManager->createBasicWorkspaceDef(workspaceName, backgroundColour, IdString());
-    compositorManager->addWorkspace(sceneManager, window->getTexture(), camera, workspaceName, true);
-
-    WindowEventUtilities::addWindowEventListener(window, &m_windowEventListener);
+    m_time.init();
 }
 
 bool Engine::update()
 {
-    WindowEventUtilities::messagePump();
-    return m_root->renderOneFrame();
+    m_graphicsSystem.beginFrameParallel();
+    m_graphicsSystem.update(static_cast<float>(m_time.getDeltaTime()));
+    m_graphicsSystem.finishFrameParallel();
+    m_graphicsSystem.finishFrame();
+
+    m_time.update();
+
+    return m_graphicsSystem.getQuit();
 }
 
 void Engine::clean()
 {
-    WindowEventUtilities::removeWindowEventListener(m_window, &m_windowEventListener);
-
-    OGRE_DELETE m_root;
-    m_root = 0;
+    m_graphicsSystem.destroyScene();
+    m_graphicsSystem.deinitialize();
 }

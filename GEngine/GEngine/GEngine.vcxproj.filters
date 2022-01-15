@@ -28,6 +28,12 @@
     <Filter Include="Source Files\engine\window">
       <UniqueIdentifier>{a54cd607-d021-4333-a2f1-ebd14f759dc0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\engine\Utils">
+      <UniqueIdentifier>{69765d96-94c4-4868-ace2-65d07cc8fd1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine\Utils">
+      <UniqueIdentifier>{0a13637b-fba3-4cd7-b6e9-e0b328204c93}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -39,6 +45,12 @@
     <ClCompile Include="Engine.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>Source Files\engine\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ResourcesManager.h">
@@ -47,8 +59,11 @@
     <ClInclude Include="Engine.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="WindowEventListener.hpp">
+    <ClInclude Include="GraphicSystem.hpp">
       <Filter>Source Files\engine\window</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Header Files\engine\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
