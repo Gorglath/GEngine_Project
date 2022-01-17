@@ -6,7 +6,7 @@ using namespace Demo;
 
 class GraphicSystem final : public GraphicsSystem 
 {
-    void setupResources() override {}
+    //void setupResources() override {}
 
 public:
     GraphicSystem() {}

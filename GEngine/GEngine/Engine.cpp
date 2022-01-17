@@ -5,16 +5,14 @@ Engine::~Engine()
     clean();
 }
 
-bool Engine::init()
+void Engine::init(GameState& gameState)
 {
-    GameState gameState;
     m_graphicsSystem = GraphicSystem(&gameState);
+    m_graphicsSystem.initialize("GEngine");
+}
 
-    // MyGraphicsSystem::setupResources overrode the folder setup process to minimize errors.
-    // But this also means you'll see "WARNING: LTC matrix textures could not be loaded.
-    // Accurate specular IBL reflections and LTC area lights won't be available or may not
-    // function properly!" message in the Log
-    m_graphicsSystem.initialize("Tutorial 01: Initialization");
+bool Engine::loadScene()
+{
 
     if (m_graphicsSystem.getQuit())
     {
@@ -26,6 +24,8 @@ bool Engine::init()
     m_graphicsSystem.createScene02();
 
     m_time.init();
+    
+    return true;
 }
 
 bool Engine::update()

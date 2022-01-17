@@ -34,6 +34,18 @@
     <Filter Include="Source Files\engine\Utils">
       <UniqueIdentifier>{0a13637b-fba3-4cd7-b6e9-e0b328204c93}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\game">
+      <UniqueIdentifier>{18970f7a-69bd-45a1-8fff-43785fd07737}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{efa2a56b-b36f-433e-a44a-28961ec28654}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\Sliding A Sphere">
+      <UniqueIdentifier>{15570765-6a6f-4e30-be88-4a6d800a2b6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\SlidingASphere">
+      <UniqueIdentifier>{23901daa-da4a-49ce-8240-823076f6b439}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -48,8 +60,14 @@
     <ClCompile Include="Time.cpp">
       <Filter>Source Files\engine\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="GraphicSystem.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="SlidingSphereGame.cpp">
+      <Filter>Source Files\game\Sliding A Sphere</Filter>
+    </ClCompile>
+    <ClCompile Include="SlidingSphere.cpp">
+      <Filter>Source Files\game\Sliding A Sphere</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +82,15 @@
     </ClInclude>
     <ClInclude Include="Time.h">
       <Filter>Header Files\engine\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="SlidingSphereGame.h">
+      <Filter>Header Files\Game\SlidingASphere</Filter>
+    </ClInclude>
+    <ClInclude Include="SlidingSphere.h">
+      <Filter>Header Files\Game\SlidingASphere</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

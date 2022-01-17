@@ -10,11 +10,12 @@ class Engine
 public:
 	Engine()  =default;
 	~Engine();
-	bool init();
+	void init(GameState& gameState);
+	bool loadScene();
 	bool update();
 	void clean();
-private:
 	GraphicSystem m_graphicsSystem;
+private:
 	Time m_time;
 };
 

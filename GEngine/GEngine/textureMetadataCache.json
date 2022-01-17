@@ -12,25 +12,25 @@
 	{
 		"ltcMatrix1.dds" : 
 		{
-			"resolution" : [2, 2, 1],
+			"resolution" : [64, 64, 1],
 			"mipmaps" : 1,
-			"format" : "PFG_RGBA8_UNORM_SRGB",
+			"format" : "PFG_RGBA16_FLOAT",
 			"texture_type" : 3,
 			"poolId" : 992044
 		},
 		"brtfLutDfg.dds" : 
 		{
-			"resolution" : [2, 2, 1],
+			"resolution" : [64, 64, 1],
 			"mipmaps" : 1,
-			"format" : "PFG_RGBA8_UNORM_SRGB",
+			"format" : "PFG_RGBA16_FLOAT",
 			"texture_type" : 3,
 			"poolId" : 992044
 		},
 		"ltcMatrix0.dds" : 
 		{
-			"resolution" : [2, 2, 1],
+			"resolution" : [64, 64, 1],
 			"mipmaps" : 1,
-			"format" : "PFG_RGBA8_UNORM_SRGB",
+			"format" : "PFG_RGBA16_FLOAT",
 			"texture_type" : 3,
 			"poolId" : 992044
 		}

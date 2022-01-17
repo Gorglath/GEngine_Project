@@ -1,12 +1,20 @@
 #include "Engine.h"
+#include "SlidingSphereGame.h"
+
 int main(int argc, char *argv[])
 {
+    SlidingSphereGame game;
     Engine engine;
 
-    engine.init();
+    engine.init(game);
+
+    game.init(&engine.m_graphicsSystem);
+    
+    engine.loadScene();
+
     bool quit = false;
     while (!engine.update())
     {
-
+        game.update(Time::getDeltaTime());
     }
 }
