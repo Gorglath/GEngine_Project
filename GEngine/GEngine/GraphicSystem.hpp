@@ -15,7 +15,7 @@ class GraphicSystem final : public GraphicsSystem
         // Look back along -Z
         mCamera->lookAt(Ogre::Vector3(0, 0, 0));
 
-        mCamera->rotate(Ogre::Vector3(0, 1, 0), Radian(Degree(90.0f)));
+        mCamera->rotate(Ogre::Vector3(0, 1, 0), Radian(Degree(180.0f)));
         mCamera->setNearClipDistance(0.2f);
         mCamera->setFarClipDistance(1000.0f);
         mCamera->setAutoAspectRatio(true);

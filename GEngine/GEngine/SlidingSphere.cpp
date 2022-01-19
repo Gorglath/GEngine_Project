@@ -1,5 +1,5 @@
 #include "SlidingSphere.h"
-
+#include <math.h>
 void SlidingSphere::createSphere(SceneManager* sceneManager)
 {
     m_sphereMesh = sceneManager->createItem(
@@ -10,29 +10,39 @@ void SlidingSphere::createSphere(SceneManager* sceneManager)
         ->createChildSceneNode(Ogre::SCENE_DYNAMIC);
 
     m_sphereNode->attachObject(m_sphereMesh);
-    m_sphereNode->setPosition(0.0f, m_sphereNode->getScale().y/2.0f, 0.0f);
+    m_sphereYPosition = m_sphereNode->getScale().y / 2.0f;
+    m_sphereNode->setPosition(0.0f, m_sphereYPosition, 0.0f);
 }
 
 void SlidingSphere::update(float dt,InputData inputData)
 {
-    Ogre::Log log("Input.txt");
-    String s = "Input : ";
+    Vector2 playerInput = Vector2::ZERO;
     if (inputData.m_isWKeyPressed)
     {
-        s += "W ";
+        playerInput.y += 1;
     }
     if (inputData.m_isAKeyPressed)
     {
-        s += "A ";
+        playerInput.x += 1;
     }
     if (inputData.m_isSKeyPressed)
     {
-        s += "S ";
+        playerInput.y -= 1;
     }
     if (inputData.m_isDKeyPressed)
     {
-        s += "D ";
+        playerInput.x -= 1;
     }
-    log.logMessage(s);
+    
+    if (!playerInput.isZeroLength()) 
+    {
+        //Clamp the input magnitude.
+        float minValue = fminf(playerInput.length(), 1.0f) / playerInput.length();
+        playerInput = Vector2(minValue * playerInput.x, minValue * playerInput.y);
 
+        Vector3 currentPos = m_sphereNode->getPosition();
+        currentPos.z += playerInput.y * dt;
+        currentPos.x += playerInput.x * dt;
+        m_sphereNode->setPosition(currentPos);
+    }
 }
