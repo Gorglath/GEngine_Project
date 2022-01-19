@@ -51,9 +51,6 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ResourcesManager.cpp">
-      <Filter>Source Files\engine\resources</Filter>
-    </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>

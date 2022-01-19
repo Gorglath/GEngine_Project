@@ -10,13 +10,13 @@ void SlidingSphere::createSphere(SceneManager* sceneManager)
         ->createChildSceneNode(Ogre::SCENE_DYNAMIC);
 
     m_sphereNode->attachObject(m_sphereMesh);
-    m_sphereNode->setPosition(0.0f, 5.0f, 0.0f);
+    m_sphereNode->setPosition(0.0f, m_sphereNode->getScale().y/2.0f, 0.0f);
 }
 
 void SlidingSphere::update(float dt)
 {
-    if (m_shouldApplyGravity)
+   /* if (m_shouldApplyGravity)
     {
         m_sphereNode->translate(Vector3::NEGATIVE_UNIT_Y * dt);
-    }
+    }*/
 }

@@ -148,7 +148,6 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="ResourcesManager.cpp" />
     <ClCompile Include="SlidingSphereGame.cpp" />
     <ClCompile Include="SlidingSphere.cpp" />
     <ClCompile Include="Time.cpp" />
