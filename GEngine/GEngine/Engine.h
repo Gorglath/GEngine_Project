@@ -3,6 +3,7 @@
 #include "GameState.h"
 #include "GraphicSystem.hpp"
 #include "Time.h"
+#include "InputData.hpp"
 using namespace Demo;
 
 class Engine

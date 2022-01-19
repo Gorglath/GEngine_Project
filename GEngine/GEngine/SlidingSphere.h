@@ -2,6 +2,7 @@
 #include "Ogre.h"
 #include "OgreSceneManager.h"
 #include "OgreItem.h"
+#include "InputData.hpp"
 
 using namespace Ogre;
 	class SlidingSphere
@@ -10,7 +11,7 @@ using namespace Ogre;
 		SlidingSphere() = default;
 		~SlidingSphere() = default;
 		void createSphere(SceneManager* sceneManager);
-		void update(float dt);
+		void update(float dt, InputData inputData);
 		void setShouldApplyGravity(bool state) { m_shouldApplyGravity = state; }
 		Item* getSphereMesh() const { return m_sphereMesh; }
 	private:

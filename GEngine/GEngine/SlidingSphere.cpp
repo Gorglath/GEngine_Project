@@ -13,10 +13,26 @@ void SlidingSphere::createSphere(SceneManager* sceneManager)
     m_sphereNode->setPosition(0.0f, m_sphereNode->getScale().y/2.0f, 0.0f);
 }
 
-void SlidingSphere::update(float dt)
+void SlidingSphere::update(float dt,InputData inputData)
 {
-   /* if (m_shouldApplyGravity)
+    Ogre::Log log("Input.txt");
+    String s = "Input : ";
+    if (inputData.m_isWKeyPressed)
     {
-        m_sphereNode->translate(Vector3::NEGATIVE_UNIT_Y * dt);
-    }*/
+        s += "W ";
+    }
+    if (inputData.m_isAKeyPressed)
+    {
+        s += "A ";
+    }
+    if (inputData.m_isSKeyPressed)
+    {
+        s += "S ";
+    }
+    if (inputData.m_isDKeyPressed)
+    {
+        s += "D ";
+    }
+    log.logMessage(s);
+
 }

@@ -89,5 +89,8 @@
     <ClInclude Include="SlidingSphere.h">
       <Filter>Header Files\Game\SlidingASphere</Filter>
     </ClInclude>
+    <ClInclude Include="InputData.hpp">
+      <Filter>Source Files\engine\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
