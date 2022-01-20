@@ -10,8 +10,7 @@ void SlidingSphere::createSphere(SceneManager* sceneManager)
         ->createChildSceneNode(Ogre::SCENE_DYNAMIC);
 
     m_sphereNode->attachObject(m_sphereMesh);
-    m_sphereYPosition = m_sphereNode->getScale().y / 2.0f;
-    m_sphereNode->setPosition(0.0f, m_sphereYPosition, 0.0f);
+    m_sphereNode->setPosition(0.0f, m_sphereNode->getScale().y / 2.0f, 0.0f);
 }
 
 void SlidingSphere::update(float dt,InputData inputData)
@@ -34,15 +33,58 @@ void SlidingSphere::update(float dt,InputData inputData)
         playerInput.x -= 1;
     }
     
-    if (!playerInput.isZeroLength()) 
+    if (!playerInput.isZeroLength())
     {
         //Clamp the input magnitude.
         float minValue = fminf(playerInput.length(), 1.0f) / playerInput.length();
         playerInput = Vector2(minValue * playerInput.x, minValue * playerInput.y);
-
-        Vector3 currentPos = m_sphereNode->getPosition();
-        currentPos.z += playerInput.y * dt;
-        currentPos.x += playerInput.x * dt;
-        m_sphereNode->setPosition(currentPos);
     }
+        Vector3 desiredVelocity = Vector3(playerInput.x, 0.0f, playerInput.y) * m_movementSpeed;
+        
+        clampAcceleration(desiredVelocity, dt);
+        
+        Vector3 translation = m_velocity * dt;
+        Vector3 newPosition = m_sphereNode->getPosition();
+        newPosition += translation;
+
+        clampNewPositionToBounds(newPosition);
+        
+        m_sphereNode->setPosition(newPosition);
+}
+
+void SlidingSphere::clampNewPositionToBounds(Vector3& newPos)
+{
+    if (m_allowedArea.top < newPos.z)
+    {
+        newPos.z = m_allowedArea.top;
+        m_velocity.z = -m_velocity.z * m_bounceiness;
+    }
+    else if (m_allowedArea.bottom > newPos.z)
+    {
+        newPos.z = m_allowedArea.bottom;
+        m_velocity.z = -m_velocity.z * m_bounceiness;
+    }
+
+    if (m_allowedArea.right < newPos.x)
+    {
+        newPos.x = m_allowedArea.right;
+        m_velocity.x = -m_velocity.x * m_bounceiness;
+    }
+    else if (m_allowedArea.left > newPos.x)
+    {
+        newPos.x = m_allowedArea.left;
+        m_velocity.x = -m_velocity.x * m_bounceiness;
+    }
+}
+
+void SlidingSphere::clampAcceleration(Vector3 desiredVelocity,float dt)
+{
+    float maxSpeedChange = m_accelerationSpeed * dt;
+
+    m_velocity.x = (abs(desiredVelocity.x - m_velocity.x) <= maxSpeedChange) ?
+        desiredVelocity.x :
+        m_velocity.x + ((desiredVelocity.x - m_velocity.x >= 0) ? 1.0f : -1.0f) * maxSpeedChange;
+    m_velocity.z = (abs(desiredVelocity.z - m_velocity.z) <= maxSpeedChange) ?
+        desiredVelocity.z :
+        m_velocity.z + ((desiredVelocity.z - m_velocity.z >= 0) ? 1.0f : -1.0f) * maxSpeedChange;
 }
