@@ -2,7 +2,7 @@
 #include "Ogre.h"
 #include "OgreSceneManager.h"
 #include "OgreItem.h"
-#include "InputData.hpp"
+#include "../engine/InputData.hpp"
 
 using namespace Ogre;
 	class SlidingSphere

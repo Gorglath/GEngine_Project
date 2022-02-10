@@ -145,22 +145,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="SlidingSphereGame.cpp" />
-    <ClCompile Include="SlidingSphere.cpp" />
-    <ClCompile Include="Time.cpp" />
+    <ClCompile Include="code\engine\Engine.cpp" />
+    <ClCompile Include="code\engine\Time.cpp" />
+    <ClCompile Include="code\game\Game.cpp" />
+    <ClCompile Include="code\game\SlidingSphere.cpp" />
+    <ClCompile Include="code\game\SlidingSphereGame.cpp" />
+    <ClCompile Include="code\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="InputData.hpp" />
-    <ClInclude Include="ResourcesManager.h" />
-    <ClInclude Include="GraphicSystem.hpp" />
-    <ClInclude Include="SlidingSphereGame.h" />
-    <ClInclude Include="SlidingSphere.h" />
-    <ClInclude Include="Time.h" />
+    <ClInclude Include="code\engine\Engine.h" />
+    <ClInclude Include="code\engine\GraphicSystem.hpp" />
+    <ClInclude Include="code\engine\InputData.hpp" />
+    <ClInclude Include="code\engine\ResourcesManager.h" />
+    <ClInclude Include="code\engine\Time.h" />
+    <ClInclude Include="code\game\Game.h" />
+    <ClInclude Include="code\game\SlidingSphere.h" />
+    <ClInclude Include="code\game\SlidingSphereGame.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

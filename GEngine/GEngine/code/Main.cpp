@@ -1,5 +1,5 @@
-#include "Engine.h"
-#include "SlidingSphereGame.h"
+#include "engine/Engine.h"
+#include "game/SlidingSphereGame.h"
 
 int main(int argc, char *argv[])
 {

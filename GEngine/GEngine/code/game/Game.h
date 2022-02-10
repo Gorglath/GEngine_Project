@@ -3,7 +3,7 @@
 #include "OgreItem.h"
 #include "OgreSceneManager.h"
 #include "OgreMeshManager2.h"
-#include "GraphicSystem.hpp"
+#include "../engine/GraphicSystem.hpp"
 #include "TutorialGameState.h"
 
 using namespace Ogre;

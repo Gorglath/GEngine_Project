@@ -48,49 +48,49 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine.cpp">
-      <Filter>Source Files\engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Time.cpp">
+    <ClCompile Include="code\engine\Time.cpp">
       <Filter>Source Files\engine\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="code\engine\Engine.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game\Game.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
-    <ClCompile Include="SlidingSphereGame.cpp">
+    <ClCompile Include="code\Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game\SlidingSphere.cpp">
       <Filter>Source Files\game\Sliding A Sphere</Filter>
     </ClCompile>
-    <ClCompile Include="SlidingSphere.cpp">
+    <ClCompile Include="code\game\SlidingSphereGame.cpp">
       <Filter>Source Files\game\Sliding A Sphere</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ResourcesManager.h">
+    <ClInclude Include="code\engine\ResourcesManager.h">
       <Filter>Header Files\engine\resources</Filter>
     </ClInclude>
-    <ClInclude Include="Engine.h">
-      <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicSystem.hpp">
-      <Filter>Source Files\engine\window</Filter>
-    </ClInclude>
-    <ClInclude Include="Time.h">
+    <ClInclude Include="code\engine\Time.h">
       <Filter>Header Files\engine\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="code\engine\Engine.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game\Game.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="SlidingSphereGame.h">
-      <Filter>Header Files\Game\SlidingASphere</Filter>
-    </ClInclude>
-    <ClInclude Include="SlidingSphere.h">
-      <Filter>Header Files\Game\SlidingASphere</Filter>
-    </ClInclude>
-    <ClInclude Include="InputData.hpp">
+    <ClInclude Include="code\engine\InputData.hpp">
       <Filter>Source Files\engine\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\GraphicSystem.hpp">
+      <Filter>Source Files\engine\window</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game\SlidingSphere.h">
+      <Filter>Header Files\Game\SlidingASphere</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game\SlidingSphereGame.h">
+      <Filter>Header Files\Game\SlidingASphere</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
