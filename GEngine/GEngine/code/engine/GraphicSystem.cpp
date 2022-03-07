@@ -15,8 +15,6 @@
 
 #include "OgreArchiveManager.h"
 #include "OgreHlmsManager.h"
-#include "OgreHlmsPbs.h"
-#include "OgreHlmsUnlit.h"
 
 #include "Compositor/OgreCompositorManager2.h"
 
@@ -37,79 +35,53 @@
 
 #include "OgrePlatformInformation.h"
 
-#include "System/Android/AndroidSystems.h"
-
 #include <fstream>
 
-#if OGRE_USE_SDL2
-#    include <SDL_syswm.h>
-#endif
+#include <SDL_syswm.h>
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE || OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-#    include "OSX/macUtils.h"
-#    if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-#        include "System/iOS/iOSUtils.h"
-#    else
-#        include "System/OSX/OSXUtils.h"
-#    endif
-#endif
-
-namespace Demo
-{
-    GraphicsSystem::GraphicsSystem(GameState* gameState, Ogre::String resourcePath,
+GraphicSystem::GraphicSystem(GameState* gameState, Ogre::String resourcePath,
         Ogre::ColourValue backgroundColour) :
         BaseSystem(gameState),
-        mLogicSystem(0),
-#if OGRE_USE_SDL2
-        mSdlWindow(0),
-        mInputHandler(0),
-#endif
-        mRoot(0),
-        mRenderWindow(0),
-        mSceneManager(0),
-        mCamera(0),
-        mWorkspace(0),
-        mPluginsFolder("./"),
-        mResourcePath(resourcePath),
-        mOverlaySystem(0),
-        mAccumTimeSinceLastLogicFrame(0),
-        mCurrentTransformIdx(0),
-        mThreadGameEntityToUpdate(0),
-        mThreadWeight(0),
-        mQuit(false),
-        mAlwaysAskForConfig(true),
-        mUseHlmsDiskCache(true),
-        mUseMicrocodeCache(true),
-        mBackgroundColour(backgroundColour)
+        m_logicSystem(0),
+        m_sdlWindow(0),
+        m_inputHandler(0),
+        m_root(0),
+        m_renderWindow(0),
+        m_sceneManager(0),
+        m_camera(0),
+        m_workspace(0),
+        m_pluginsFolder("./"),
+        m_resourcePath(resourcePath),
+        m_overlaySystem(0),
+        m_accumTimeSinceLastLogicFrame(0),
+        m_currentTransformIdx(0),
+        m_threadGameObjectsToUpdate(0),
+        m_threadWeight(0),
+        m_quit(false),
+        m_alwaysAskForConfig(true),
+        m_useHlmsDiskCache(true),
+        m_useMicrocodeCache(true),
+        m_backgroundColour(backgroundColour)
     {
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-        // Note:  macBundlePath works for iOS too. It's misnamed.
-        mResourcePath = Ogre::macBundlePath() + "/Contents/Resources/";
-#elif OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-        mResourcePath = Ogre::macBundlePath() + "/";
-#endif
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-        mPluginsFolder = mResourcePath;
-#endif
-        if (isWriteAccessFolder(mPluginsFolder, "Ogre.log"))
-            mWriteAccessFolder = mPluginsFolder;
+        if (isWriteAccessFolder(m_pluginsFolder, "Ogre.log"))
+            m_writeAccessFolder = m_pluginsFolder;
         else
         {
             Ogre::FileSystemLayer filesystemLayer(OGRE_VERSION_NAME);
-            mWriteAccessFolder = filesystemLayer.getWritablePath("");
+            m_writeAccessFolder = filesystemLayer.getWritablePath("");
         }
     }
     //-----------------------------------------------------------------------------------
-    GraphicsSystem::~GraphicsSystem()
+    GraphicSystem::~GraphicSystem()
     {
-        if (mRoot)
+        if (m_root)
         {
             Ogre::LogManager::getSingleton().logMessage(
-                "WARNING: GraphicsSystem::deinitialize() not called!!!", Ogre::LML_CRITICAL);
+                "WARNING: GraphicSystem::deinitialize() not called!!!", Ogre::LML_CRITICAL);
         }
     }
     //-----------------------------------------------------------------------------------
-    bool GraphicsSystem::isWriteAccessFolder(const Ogre::String& folderPath,
+    bool GraphicSystem::isWriteAccessFolder(const Ogre::String& folderPath,
         const Ogre::String& fileToSave)
     {
         if (!Ogre::FileSystemLayer::createDirectory(folderPath))
@@ -123,46 +95,37 @@ namespace Demo
         return true;
     }
     //-----------------------------------------------------------------------------------
-    void GraphicsSystem::initialize(const Ogre::String& windowTitle)
+    void GraphicSystem::initialize(const Ogre::String& windowTitle)
     {
-#if OGRE_USE_SDL2
         // if( SDL_Init( SDL_INIT_EVERYTHING ) != 0 )
         if (SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_GAMECONTROLLER |
             SDL_INIT_EVENTS) != 0)
         {
             OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "Cannot initialize SDL2!",
-                "GraphicsSystem::initialize");
+                "GraphicSystem::initialize");
         }
-#endif
-
         Ogre::String pluginsPath;
         // only use plugins.cfg if not static
 #ifndef OGRE_STATIC_LIB
 #    if OGRE_DEBUG_MODE && \
         !( ( OGRE_PLATFORM == OGRE_PLATFORM_APPLE ) || ( OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS ) )
-        pluginsPath = mPluginsFolder + "plugins_d.cfg";
+        pluginsPath = m_pluginsFolder + "plugins_d.cfg";
 #    else
-        pluginsPath = mPluginsFolder + "plugins.cfg";
+        pluginsPath = m_pluginsFolder + "plugins.cfg";
 #    endif
 #endif
 
 #if OGRE_PLATFORM != OGRE_PLATFORM_ANDROID
-        const Ogre::String cfgPath = mWriteAccessFolder + "ogre.cfg";
-#else
-        const Ogre::String cfgPath = "";
+        const Ogre::String cfgPath = m_writeAccessFolder + "ogre.cfg";
 #endif
 
-        mRoot =
-            OGRE_NEW Ogre::Root(pluginsPath, cfgPath, mWriteAccessFolder + "Ogre.log", windowTitle);
-
-        AndroidSystems::registerArchiveFactories();
-
-        mStaticPluginLoader.install(mRoot);
+        m_root =
+            OGRE_NEW Ogre::Root(pluginsPath, cfgPath, m_writeAccessFolder + "Ogre.log", windowTitle);
 
         // enable sRGB Gamma Conversion mode by default for all renderers,
         // but still allow to override it via config dialog
-        Ogre::RenderSystemList::const_iterator itor = mRoot->getAvailableRenderers().begin();
-        Ogre::RenderSystemList::const_iterator endt = mRoot->getAvailableRenderers().end();
+        Ogre::RenderSystemList::const_iterator itor = m_root->getAvailableRenderers().begin();
+        Ogre::RenderSystemList::const_iterator endt = m_root->getAvailableRenderers().end();
 
         while (itor != endt)
         {
@@ -171,46 +134,21 @@ namespace Demo
             ++itor;
         }
 
-        if (mAlwaysAskForConfig || !mRoot->restoreConfig())
+        if (m_alwaysAskForConfig || !m_root->restoreConfig())
         {
-            if (!mRoot->showConfigDialog())
+            if (!m_root->showConfigDialog())
             {
-                mQuit = true;
+                m_quit = true;
                 return;
             }
         }
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-        if (!mRoot->getRenderSystem())
-        {
-            Ogre::RenderSystem* renderSystem =
-                mRoot->getRenderSystemByName("Metal Rendering Subsystem");
-            mRoot->setRenderSystem(renderSystem);
-        }
-#endif
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-        if (!mRoot->getRenderSystem())
-        {
-            Ogre::RenderSystem* renderSystem =
-                mRoot->getRenderSystemByName("Vulkan Rendering Subsystem");
-            mRoot->setRenderSystem(renderSystem);
-        }
-#endif
+        m_root->initialise(false, windowTitle);
 
-        mRoot->initialise(false, windowTitle);
-
-        Ogre::ConfigOptionMap& cfgOpts = mRoot->getRenderSystem()->getConfigOptions();
+        Ogre::ConfigOptionMap& cfgOpts = m_root->getRenderSystem()->getConfigOptions();
 
         int width = 1280;
         int height = 720;
-
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-        {
-            Ogre::Vector2 screenRes = iOSUtils::getScreenResolutionInPoints();
-            width = static_cast<int>(screenRes.x);
-            height = static_cast<int>(screenRes.y);
-        }
-#endif
 
         Ogre::ConfigOptionMap::iterator opt = cfgOpts.find("Video Mode");
         if (opt != cfgOpts.end() && !opt->second.currentValue.empty())
@@ -229,7 +167,7 @@ namespace Demo
 
         Ogre::NameValuePairList params;
         bool fullscreen = Ogre::StringConverter::parseBool(cfgOpts["Full Screen"].currentValue);
-#if OGRE_USE_SDL2
+
         unsigned int screen = 0;
         unsigned int posX = SDL_WINDOWPOS_CENTERED_DISPLAY(screen);
         unsigned int posY = SDL_WINDOWPOS_CENTERED_DISPLAY(screen);
@@ -240,7 +178,7 @@ namespace Demo
             posY = SDL_WINDOWPOS_UNDEFINED_DISPLAY(screen);
         }
 
-        mSdlWindow = SDL_CreateWindow(
+        m_sdlWindow = SDL_CreateWindow(
             windowTitle.c_str(),       // window title
             static_cast<int>(posX),  // initial x position
             static_cast<int>(posY),  // initial y position
@@ -252,10 +190,10 @@ namespace Demo
         SDL_SysWMinfo wmInfo;
         SDL_VERSION(&wmInfo.version);
 
-        if (SDL_GetWindowWMInfo(mSdlWindow, &wmInfo) == SDL_FALSE)
+        if (SDL_GetWindowWMInfo(m_sdlWindow, &wmInfo) == SDL_FALSE)
         {
             OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "Couldn't get WM Info! (SDL2)",
-                "GraphicsSystem::initialize");
+                "GraphicSystem::initialize");
         }
 
         Ogre::String winHandle;
@@ -287,7 +225,7 @@ namespace Demo
 #    endif
         default:
             OGRE_EXCEPT(Ogre::Exception::ERR_NOT_IMPLEMENTED, "Unexpected WM! (SDL2)",
-                "GraphicsSystem::initialize");
+                "GraphicSystem::initialize");
             break;
         }
 
@@ -296,13 +234,6 @@ namespace Demo
 #    else
         params.insert(std::make_pair("parentWindowHandle", winHandle));
 #    endif
-#endif
-
-#if OGRE_PLATFORM == OGRE_PLATFORM_ANDROID
-        params.insert(std::make_pair(
-            "ANativeWindow",
-            Ogre::StringConverter::toString((uintptr_t)AndroidSystems::getNativeWindow())));
-#endif
 
         params.insert(std::make_pair("title", windowTitle));
         params.insert(std::make_pair("gamma", cfgOpts["sRGB Gamma Conversion"].currentValue));
@@ -314,23 +245,21 @@ namespace Demo
 
         initMiscParamsListener(params);
 
-        mRenderWindow = Ogre::Root::getSingleton().createRenderWindow(
+        m_renderWindow = Ogre::Root::getSingleton().createRenderWindow(
             windowTitle,                                                      //
             static_cast<uint32_t>(width), static_cast<uint32_t>(height),  //
             fullscreen, &params);
 
-        mOverlaySystem = OGRE_NEW Ogre::v1::OverlaySystem();
+        m_overlaySystem = OGRE_NEW Ogre::v1::OverlaySystem();
 
         setupResources();
         loadResources();
         chooseSceneManager();
         createCamera();
-        mWorkspace = setupCompositor();
+        m_workspace = setupCompositor();
 
-#if OGRE_USE_SDL2
-        mInputHandler =
-            new SdlInputHandler(mSdlWindow, mCurrentGameState, mCurrentGameState, mCurrentGameState);
-#endif
+        m_inputHandler =
+            new SdlInputHandler(m_sdlWindow, m_currentGameState, m_currentGameState, m_currentGameState);
 
         BaseSystem::initialize();
 
@@ -341,50 +270,45 @@ namespace Demo
 #    endif
 #    if OGRE_PROFILING == OGRE_PROFILING_INTERNAL_OFFLINE
         Ogre::Profiler::getSingleton().getOfflineProfiler().setDumpPathsOnShutdown(
-            mWriteAccessFolder + "ProfilePerFrame", mWriteAccessFolder + "ProfileAccum");
+            m_writeAccessFolder + "ProfilePerFrame", m_writeAccessFolder + "ProfileAccum");
 #    endif
 #endif
     }
     //-----------------------------------------------------------------------------------
-    void GraphicsSystem::deinitialize()
+    void GraphicSystem::deinitialize()
     {
         BaseSystem::deinitialize();
 
         saveTextureCache();
         saveHlmsDiskCache();
 
-        if (mSceneManager)
-            mSceneManager->removeRenderQueueListener(mOverlaySystem);
+        if (m_sceneManager)
+            m_sceneManager->removeRenderQueueListener(m_overlaySystem);
 
-        OGRE_DELETE mOverlaySystem;
-        mOverlaySystem = 0;
+        OGRE_DELETE m_overlaySystem;
+        m_overlaySystem = 0;
 
-#if OGRE_USE_SDL2
-        delete mInputHandler;
-        mInputHandler = 0;
-#endif
+        delete m_inputHandler;
+        m_inputHandler = 0;
 
-        OGRE_DELETE mRoot;
-        mRoot = 0;
+        OGRE_DELETE m_root;
+        m_root = 0;
 
-#if OGRE_USE_SDL2
-        if (mSdlWindow)
+        if (m_sdlWindow)
         {
             // Restore desktop resolution on exit
-            SDL_SetWindowFullscreen(mSdlWindow, 0);
-            SDL_DestroyWindow(mSdlWindow);
-            mSdlWindow = 0;
+            SDL_SetWindowFullscreen(m_sdlWindow, 0);
+            SDL_DestroyWindow(m_sdlWindow);
+            m_sdlWindow = 0;
         }
 
         SDL_Quit();
-#endif
     }
     //-----------------------------------------------------------------------------------
-    void GraphicsSystem::update(float timeSinceLast)
+    void GraphicSystem::update(float timeSinceLast)
     {
         Ogre::WindowEventUtilities::messagePump();
 
-#if OGRE_USE_SDL2
         SDL_Event evt;
         while (SDL_PollEvent(&evt))
         {
@@ -394,134 +318,97 @@ namespace Demo
                 handleWindowEvent(evt);
                 break;
             case SDL_QUIT:
-                mQuit = true;
+                m_quit = true;
                 break;
             default:
                 break;
             }
 
-            mInputHandler->_handleSdlEvents(evt);
+            m_inputHandler->_handleSdlEvents(evt);
         }
-#endif
 
         BaseSystem::update(timeSinceLast);
 
-        if (mRenderWindow->isVisible())
-            mQuit |= !mRoot->renderOneFrame();
+        if (m_renderWindow->isVisible())
+            m_quit |= !m_root->renderOneFrame();
 
-        mAccumTimeSinceLastLogicFrame += timeSinceLast;
+        m_accumTimeSinceLastLogicFrame += timeSinceLast;
 
-        // SDL_SetWindowPosition( mSdlWindow, 0, 0 );
-        /*SDL_Rect rect;
-        SDL_GetDisplayBounds( 0, &rect );
-        SDL_GetDisplayBounds( 0, &rect );*/
     }
     //-----------------------------------------------------------------------------------
-#if OGRE_USE_SDL2
-    void GraphicsSystem::handleWindowEvent(const SDL_Event& evt)
+    void GraphicSystem::handleWindowEvent(const SDL_Event& evt)
     {
         switch (evt.window.event)
         {
-            /*case SDL_WINDOWEVENT_MAXIMIZED:
-                SDL_SetWindowBordered( mSdlWindow, SDL_FALSE );
-                break;
-            case SDL_WINDOWEVENT_MINIMIZED:
-            case SDL_WINDOWEVENT_RESTORED:
-                SDL_SetWindowBordered( mSdlWindow, SDL_TRUE );
-                break;*/
         case SDL_WINDOWEVENT_SIZE_CHANGED:
             int w, h;
-            SDL_GetWindowSize(mSdlWindow, &w, &h);
-#    if OGRE_PLATFORM == OGRE_PLATFORM_LINUX
-            mRenderWindow->requestResolution(static_cast<uint32_t>(w), static_cast<uint32_t>(h));
-#    endif
-            mRenderWindow->windowMovedOrResized();
-            break;
-        case SDL_WINDOWEVENT_RESIZED:
-#    if OGRE_PLATFORM == OGRE_PLATFORM_LINUX
-            mRenderWindow->requestResolution(static_cast<uint32_t>(evt.window.data1),
-                static_cast<uint32_t>(evt.window.data2));
-#    endif
-            mRenderWindow->windowMovedOrResized();
+            SDL_GetWindowSize(m_sdlWindow, &w, &h);
+            m_renderWindow->windowMovedOrResized();
             break;
         case SDL_WINDOWEVENT_CLOSE:
             break;
         case SDL_WINDOWEVENT_SHOWN:
-            mRenderWindow->_setVisible(true);
+            m_renderWindow->_setVisible(true);
             break;
         case SDL_WINDOWEVENT_HIDDEN:
-            mRenderWindow->_setVisible(false);
+            m_renderWindow->_setVisible(false);
             break;
         case SDL_WINDOWEVENT_FOCUS_GAINED:
-            mRenderWindow->setFocused(true);
+            m_renderWindow->setFocused(true);
             break;
         case SDL_WINDOWEVENT_FOCUS_LOST:
-            mRenderWindow->setFocused(false);
+            m_renderWindow->setFocused(false);
             break;
         }
     }
-#endif
+
     //-----------------------------------------------------------------------------------
-    void GraphicsSystem::processIncomingMessage(Mq::MessageId messageId, const void* data)
+    void GraphicSystem::processIncomingMessage(MessageId messageId, const void* data)
     {
         switch (messageId)
         {
-        case Mq::LOGICFRAME_FINISHED:
+        case LOGICFRAME_FINISHED:
         {
             Ogre::uint32 newIdx = *reinterpret_cast<const Ogre::uint32*>(data);
 
             if (newIdx != std::numeric_limits<Ogre::uint32>::max())
             {
-                mAccumTimeSinceLastLogicFrame = 0;
+                m_accumTimeSinceLastLogicFrame = 0;
                 // Tell the LogicSystem we're no longer using the index previous to the current one.
                 this->queueSendMessage(
-                    mLogicSystem, Mq::LOGICFRAME_FINISHED,
-                    (mCurrentTransformIdx + NUM_GAME_ENTITY_BUFFERS - 1) % NUM_GAME_ENTITY_BUFFERS);
+                    m_logicSystem, LOGICFRAME_FINISHED,
+                    (m_currentTransformIdx + 4 - 1) % 4);
 
-                assert((mCurrentTransformIdx + 1) % NUM_GAME_ENTITY_BUFFERS == newIdx &&
+                assert((m_currentTransformIdx + 1) % 4 == newIdx &&
                     "Graphics is receiving indices out of order!!!");
 
                 // Get the new index the LogicSystem is telling us to use.
-                mCurrentTransformIdx = newIdx;
+                m_currentTransformIdx = newIdx;
             }
         }
         break;
-        case Mq::GAME_ENTITY_ADDED:
-            gameEntityAdded(reinterpret_cast<const GameEntityManager::CreatedGameEntity*>(data));
+        case GAME_ENTITY_ADDED:
+            gameObjectAdded(reinterpret_cast<const GameObjectManager::CreatedGameObject*>(data));
             break;
-        case Mq::GAME_ENTITY_REMOVED:
-            gameEntityRemoved(*reinterpret_cast<GameEntity* const*>(data));
+        case GAME_ENTITY_REMOVED:
+            gameObjectRemove(*reinterpret_cast<GameObject* const*>(data));
             break;
-        case Mq::GAME_ENTITY_SCHEDULED_FOR_REMOVAL_SLOT:
+        case GAME_ENTITY_SCHEDULED_FOR_REMOVAL_SLOT:
             // Acknowledge/notify back that we're done with this slot.
-            this->queueSendMessage(mLogicSystem, Mq::GAME_ENTITY_SCHEDULED_FOR_REMOVAL_SLOT,
+            this->queueSendMessage(m_logicSystem, GAME_ENTITY_SCHEDULED_FOR_REMOVAL_SLOT,
                 *reinterpret_cast<const Ogre::uint32*>(data));
             break;
         default:
             break;
         }
     }
-    //-----------------------------------------------------------------------------------
-    void GraphicsSystem::addResourceLocation(const Ogre::String& archName, const Ogre::String& typeName,
-        const Ogre::String& secName)
-    {
-#if( OGRE_PLATFORM == OGRE_PLATFORM_APPLE ) || ( OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS )
-        // OS X does not set the working directory relative to the app,
-        // In order to make things portable on OS X we need to provide
-        // the loading with it's own bundle path location
-        Ogre::ResourceGroupManager::getSingleton().addResourceLocation(
-            Ogre::String(Ogre::macBundlePath() + "/" + archName), typeName, secName);
-#else
-        Ogre::ResourceGroupManager::getSingleton().addResourceLocation(archName, typeName, secName);
-#endif
-    }
-    //-----------------------------------------------------------------------------------
-    void GraphicsSystem::loadTextureCache()
+    
+    void GraphicSystem::loadTextureCache()
     {
 #if !OGRE_NO_JSON
         Ogre::ArchiveManager& archiveManager = Ogre::ArchiveManager::getSingleton();
         Ogre::Archive* rwAccessFolderArchive =
-            archiveManager.load(mWriteAccessFolder, "FileSystem", true);
+            archiveManager.load(m_writeAccessFolder, "FileSystem", true);
         try
         {
             const Ogre::String filename = "textureMetadataCache.json";
@@ -536,14 +423,14 @@ namespace Demo
                     // Add null terminator just in case (to prevent bad input)
                     fileData.back() = '\0';
                     Ogre::TextureGpuManager* textureManager =
-                        mRoot->getRenderSystem()->getTextureGpuManager();
+                        m_root->getRenderSystem()->getTextureGpuManager();
                     textureManager->importTextureMetadataCache(stream->getName(), &fileData[0], false);
                 }
             }
             else
             {
                 Ogre::LogManager::getSingleton().logMessage("[INFO] Texture cache not found at " +
-                    mWriteAccessFolder +
+                    m_writeAccessFolder +
                     "/textureMetadataCache.json");
             }
         }
@@ -556,16 +443,16 @@ namespace Demo
 #endif
     }
     //-----------------------------------------------------------------------------------
-    void GraphicsSystem::saveTextureCache()
+    void GraphicSystem::saveTextureCache()
     {
-        if (mRoot->getRenderSystem())
+        if (m_root->getRenderSystem())
         {
-            Ogre::TextureGpuManager* textureManager = mRoot->getRenderSystem()->getTextureGpuManager();
+            Ogre::TextureGpuManager* textureManager = m_root->getRenderSystem()->getTextureGpuManager();
             if (textureManager)
             {
                 Ogre::String jsonString;
                 textureManager->exportTextureMetadataCache(jsonString);
-                const Ogre::String path = mWriteAccessFolder + "/textureMetadataCache.json";
+                const Ogre::String path = m_writeAccessFolder + "/textureMetadataCache.json";
                 std::ofstream file(path.c_str(), std::ios::binary | std::ios::out);
                 if (file.is_open())
                     file.write(jsonString.c_str(), static_cast<std::streamsize>(jsonString.size()));
@@ -574,20 +461,20 @@ namespace Demo
         }
     }
     //-----------------------------------------------------------------------------------
-    void GraphicsSystem::loadHlmsDiskCache()
+    void GraphicSystem::loadHlmsDiskCache()
     {
-        if (!mUseMicrocodeCache && !mUseHlmsDiskCache)
+        if (!m_useMicrocodeCache && !m_useHlmsDiskCache)
             return;
 
-        Ogre::HlmsManager* hlmsManager = mRoot->getHlmsManager();
+        Ogre::HlmsManager* hlmsManager = m_root->getHlmsManager();
         Ogre::HlmsDiskCache diskCache(hlmsManager);
 
         Ogre::ArchiveManager& archiveManager = Ogre::ArchiveManager::getSingleton();
 
         Ogre::Archive* rwAccessFolderArchive =
-            archiveManager.load(mWriteAccessFolder, "FileSystem", true);
+            archiveManager.load(m_writeAccessFolder, "FileSystem", true);
 
-        if (mUseMicrocodeCache)
+        if (m_useMicrocodeCache)
         {
             // Make sure the microcode cache is enabled.
             Ogre::GpuProgramManager::getSingleton().setSaveMicrocodesToCache(true);
@@ -599,7 +486,7 @@ namespace Demo
             }
         }
 
-        if (mUseHlmsDiskCache)
+        if (m_useHlmsDiskCache)
         {
             for (size_t i = Ogre::HLMS_LOW_LEVEL + 1u; i < Ogre::HLMS_MAX; ++i)
             {
@@ -621,7 +508,7 @@ namespace Demo
                     catch (Ogre::Exception&)
                     {
                         Ogre::LogManager::getSingleton().logMessage(
-                            "Error loading cache from " + mWriteAccessFolder + "/" + filename +
+                            "Error loading cache from " + m_writeAccessFolder + "/" + filename +
                             "! If you have issues, try deleting the file "
                             "and restarting the app");
                     }
@@ -629,23 +516,23 @@ namespace Demo
             }
         }
 
-        archiveManager.unload(mWriteAccessFolder);
+        archiveManager.unload(m_writeAccessFolder);
     }
     //-----------------------------------------------------------------------------------
-    void GraphicsSystem::saveHlmsDiskCache()
+    void GraphicSystem::saveHlmsDiskCache()
     {
-        if (mRoot->getRenderSystem() && Ogre::GpuProgramManager::getSingletonPtr() &&
-            (mUseMicrocodeCache || mUseHlmsDiskCache))
+        if (m_root->getRenderSystem() && Ogre::GpuProgramManager::getSingletonPtr() &&
+            (m_useMicrocodeCache || m_useHlmsDiskCache))
         {
-            Ogre::HlmsManager* hlmsManager = mRoot->getHlmsManager();
+            Ogre::HlmsManager* hlmsManager = m_root->getHlmsManager();
             Ogre::HlmsDiskCache diskCache(hlmsManager);
 
             Ogre::ArchiveManager& archiveManager = Ogre::ArchiveManager::getSingleton();
 
             Ogre::Archive* rwAccessFolderArchive =
-                archiveManager.load(mWriteAccessFolder, "FileSystem", false);
+                archiveManager.load(m_writeAccessFolder, "FileSystem", false);
 
-            if (mUseHlmsDiskCache)
+            if (m_useHlmsDiskCache)
             {
                 for (size_t i = Ogre::HLMS_LOW_LEVEL + 1u; i < Ogre::HLMS_MAX; ++i)
                 {
@@ -661,145 +548,19 @@ namespace Demo
                 }
             }
 
-            if (Ogre::GpuProgramManager::getSingleton().isCacheDirty() && mUseMicrocodeCache)
+            if (Ogre::GpuProgramManager::getSingleton().isCacheDirty() && m_useMicrocodeCache)
             {
                 const Ogre::String filename = "microcodeCodeCache.cache";
                 Ogre::DataStreamPtr shaderCacheFile = rwAccessFolderArchive->create(filename);
                 Ogre::GpuProgramManager::getSingleton().saveMicrocodeCache(shaderCacheFile);
             }
 
-            archiveManager.unload(mWriteAccessFolder);
+            archiveManager.unload(m_writeAccessFolder);
         }
     }
-    //-----------------------------------------------------------------------------------
-    void GraphicsSystem::setupResources()
+    
+    void GraphicSystem::loadResources()
     {
-        // Load resource paths from config file
-        Ogre::ConfigFile cf;
-        cf.load(AndroidSystems::openFile(mResourcePath + "resources2.cfg"));
-
-        // Go through all sections & settings in the file
-        Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
-
-        Ogre::String secName, typeName, archName;
-        while (seci.hasMoreElements())
-        {
-            secName = seci.peekNextKey();
-            Ogre::ConfigFile::SettingsMultiMap* settings = seci.getNext();
-
-            if (secName != "Hlms")
-            {
-                Ogre::ConfigFile::SettingsMultiMap::iterator i;
-                for (i = settings->begin(); i != settings->end(); ++i)
-                {
-                    typeName = i->first;
-                    archName = i->second;
-                    addResourceLocation(archName, typeName, secName);
-                }
-            }
-        }
-    }
-    //-----------------------------------------------------------------------------------
-    void GraphicsSystem::registerHlms()
-    {
-        Ogre::ConfigFile cf;
-        cf.load(AndroidSystems::openFile(mResourcePath + "resources2.cfg"));
-
-#if OGRE_PLATFORM == OGRE_PLATFORM_APPLE || OGRE_PLATFORM == OGRE_PLATFORM_APPLE_IOS
-        Ogre::String rootHlmsFolder =
-            Ogre::macBundlePath() + '/' + cf.getSetting("DoNotUseAsResource", "Hlms", "");
-#else
-        Ogre::String rootHlmsFolder = mResourcePath + cf.getSetting("DoNotUseAsResource", "Hlms", "");
-#endif
-
-        if (rootHlmsFolder.empty())
-            rootHlmsFolder = AndroidSystems::isAndroid() ? "/" : "./";
-        else if (*(rootHlmsFolder.end() - 1) != '/')
-            rootHlmsFolder += "/";
-
-        // At this point rootHlmsFolder should be a valid path to the Hlms data folder
-
-        Ogre::HlmsUnlit* hlmsUnlit = 0;
-        Ogre::HlmsPbs* hlmsPbs = 0;
-
-        // For retrieval of the paths to the different folders needed
-        Ogre::String mainFolderPath;
-        Ogre::StringVector libraryFoldersPaths;
-        Ogre::StringVector::const_iterator libraryFolderPathIt;
-        Ogre::StringVector::const_iterator libraryFolderPathEn;
-
-        Ogre::ArchiveManager& archiveManager = Ogre::ArchiveManager::getSingleton();
-
-        const Ogre::String& archiveType = getMediaReadArchiveType();
-
-        {
-            // Create & Register HlmsUnlit
-            // Get the path to all the subdirectories used by HlmsUnlit
-            Ogre::HlmsUnlit::getDefaultPaths(mainFolderPath, libraryFoldersPaths);
-            Ogre::Archive* archiveUnlit =
-                archiveManager.load(rootHlmsFolder + mainFolderPath, archiveType, true);
-            Ogre::ArchiveVec archiveUnlitLibraryFolders;
-            libraryFolderPathIt = libraryFoldersPaths.begin();
-            libraryFolderPathEn = libraryFoldersPaths.end();
-            while (libraryFolderPathIt != libraryFolderPathEn)
-            {
-                Ogre::Archive* archiveLibrary =
-                    archiveManager.load(rootHlmsFolder + *libraryFolderPathIt, archiveType, true);
-                archiveUnlitLibraryFolders.push_back(archiveLibrary);
-                ++libraryFolderPathIt;
-            }
-
-            // Create and register the unlit Hlms
-            hlmsUnlit = OGRE_NEW Ogre::HlmsUnlit(archiveUnlit, &archiveUnlitLibraryFolders);
-            Ogre::Root::getSingleton().getHlmsManager()->registerHlms(hlmsUnlit);
-        }
-
-        {
-            // Create & Register HlmsPbs
-            // Do the same for HlmsPbs:
-            Ogre::HlmsPbs::getDefaultPaths(mainFolderPath, libraryFoldersPaths);
-            Ogre::Archive* archivePbs =
-                archiveManager.load(rootHlmsFolder + mainFolderPath, archiveType, true);
-
-            // Get the library archive(s)
-            Ogre::ArchiveVec archivePbsLibraryFolders;
-            libraryFolderPathIt = libraryFoldersPaths.begin();
-            libraryFolderPathEn = libraryFoldersPaths.end();
-            while (libraryFolderPathIt != libraryFolderPathEn)
-            {
-                Ogre::Archive* archiveLibrary =
-                    archiveManager.load(rootHlmsFolder + *libraryFolderPathIt, archiveType, true);
-                archivePbsLibraryFolders.push_back(archiveLibrary);
-                ++libraryFolderPathIt;
-            }
-
-            // Create and register
-            hlmsPbs = OGRE_NEW Ogre::HlmsPbs(archivePbs, &archivePbsLibraryFolders);
-            Ogre::Root::getSingleton().getHlmsManager()->registerHlms(hlmsPbs);
-        }
-
-        Ogre::RenderSystem* renderSystem = mRoot->getRenderSystem();
-        if (renderSystem->getName() == "Direct3D11 Rendering Subsystem")
-        {
-            // Set lower limits 512kb instead of the default 4MB per Hlms in D3D 11.0
-            // and below to avoid saturating AMD's discard limit (8MB) or
-            // saturate the PCIE bus in some low end machines.
-            bool supportsNoOverwriteOnTextureBuffers;
-            renderSystem->getCustomAttribute("MapNoOverwriteOnDynamicBufferSRV",
-                &supportsNoOverwriteOnTextureBuffers);
-
-            if (!supportsNoOverwriteOnTextureBuffers)
-            {
-                hlmsPbs->setTextureBufferDefaultSize(512 * 1024);
-                hlmsUnlit->setTextureBufferDefaultSize(512 * 1024);
-            }
-        }
-    }
-    //-----------------------------------------------------------------------------------
-    void GraphicsSystem::loadResources()
-    {
-        registerHlms();
-
         loadTextureCache();
         loadHlmsDiskCache();
 
@@ -807,24 +568,11 @@ namespace Demo
         Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups(true);
 
         // Initialize resources for LTC area lights and accurate specular reflections (IBL)
-        Ogre::Hlms* hlms = mRoot->getHlmsManager()->getHlms(Ogre::HLMS_PBS);
+        Ogre::Hlms* hlms = m_root->getHlmsManager()->getHlms(Ogre::HLMS_PBS);
         OGRE_ASSERT_HIGH(dynamic_cast<Ogre::HlmsPbs*>(hlms));
-        Ogre::HlmsPbs* hlmsPbs = static_cast<Ogre::HlmsPbs*>(hlms);
-        try
-        {
-            hlmsPbs->loadLtcMatrix();
-        }
-        catch (Ogre::FileNotFoundException& e)
-        {
-            Ogre::LogManager::getSingleton().logMessage(e.getFullDescription(), Ogre::LML_CRITICAL);
-            Ogre::LogManager::getSingleton().logMessage(
-                "WARNING: LTC matrix textures could not be loaded. Accurate specular IBL reflections "
-                "and LTC area lights won't be available or may not function properly!",
-                Ogre::LML_CRITICAL);
-        }
     }
     //-----------------------------------------------------------------------------------
-    void GraphicsSystem::chooseSceneManager()
+    void GraphicSystem::chooseSceneManager()
     {
 #if OGRE_DEBUG_MODE >= OGRE_DEBUG_HIGH
         // Debugging multithreaded code is a PITA, disable it.
@@ -834,54 +582,54 @@ namespace Demo
         const size_t numThreads = std::max<size_t>(1, Ogre::PlatformInformation::getNumLogicalCores());
 #endif
         // Create the SceneManager, in this case a generic one
-        mSceneManager = mRoot->createSceneManager(Ogre::ST_GENERIC, numThreads, "ExampleSMInstance");
+        m_sceneManager = m_root->createSceneManager(Ogre::ST_GENERIC, numThreads, "ExampleSMInstance");
 
-        mSceneManager->addRenderQueueListener(mOverlaySystem);
-        mSceneManager->getRenderQueue()->setSortRenderQueue(
+        m_sceneManager->addRenderQueueListener(m_overlaySystem);
+        m_sceneManager->getRenderQueue()->setSortRenderQueue(
             Ogre::v1::OverlayManager::getSingleton().mDefaultRenderQueueId,
             Ogre::RenderQueue::StableSort);
 
         // Set sane defaults for proper shadow mapping
-        mSceneManager->setShadowDirectionalLightExtrusionDistance(500.0f);
-        mSceneManager->setShadowFarDistance(500.0f);
+        m_sceneManager->setShadowDirectionalLightExtrusionDistance(500.0f);
+        m_sceneManager->setShadowFarDistance(500.0f);
     }
     //-----------------------------------------------------------------------------------
-    void GraphicsSystem::createCamera()
+    void GraphicSystem::createCamera()
     {
-        mCamera = mSceneManager->createCamera("Main Camera");
+        m_camera = m_sceneManager->createCamera("Main Camera");
 
         // Position it at 500 in Z direction
-        mCamera->setPosition(Ogre::Vector3(0, 5, 15));
+        m_camera->setPosition(Ogre::Vector3(0, 5, 15));
         // Look back along -Z
-        mCamera->lookAt(Ogre::Vector3(0, 0, 0));
-        mCamera->setNearClipDistance(0.2f);
-        mCamera->setFarClipDistance(1000.0f);
-        mCamera->setAutoAspectRatio(true);
+        m_camera->lookAt(Ogre::Vector3(0, 0, 0));
+        m_camera->setNearClipDistance(0.2f);
+        m_camera->setFarClipDistance(1000.0f);
+        m_camera->setAutoAspectRatio(true);
     }
     //-----------------------------------------------------------------------------------
-    Ogre::CompositorWorkspace* GraphicsSystem::setupCompositor()
+    Ogre::CompositorWorkspace* GraphicSystem::setupCompositor()
     {
-        Ogre::CompositorManager2* compositorManager = mRoot->getCompositorManager2();
+        Ogre::CompositorManager2* compositorManager = m_root->getCompositorManager2();
 
         const Ogre::String workspaceName("Demo Workspace");
         if (!compositorManager->hasWorkspaceDefinition(workspaceName))
         {
-            compositorManager->createBasicWorkspaceDef(workspaceName, mBackgroundColour,
+            compositorManager->createBasicWorkspaceDef(workspaceName, m_backgroundColour,
                 Ogre::IdString());
         }
 
-        return compositorManager->addWorkspace(mSceneManager, mRenderWindow->getTexture(), mCamera,
+        return compositorManager->addWorkspace(m_sceneManager, m_renderWindow->getTexture(), m_camera,
             workspaceName, true);
     }
     //-----------------------------------------------------------------------------------
-    void GraphicsSystem::initMiscParamsListener(Ogre::NameValuePairList& params) {}
+    void GraphicSystem::initMiscParamsListener(Ogre::NameValuePairList& params) {}
     //-----------------------------------------------------------------------------------
-    void GraphicsSystem::setAlwaysAskForConfig(bool alwaysAskForConfig)
+    void GraphicSystem::setAlwaysAskForConfig(bool alwaysAskForConfig)
     {
-        mAlwaysAskForConfig = alwaysAskForConfig;
+        m_alwaysAskForConfig = alwaysAskForConfig;
     }
     //-----------------------------------------------------------------------------------
-    const char* GraphicsSystem::getMediaReadArchiveType() const
+    const char* GraphicSystem::getMediaReadArchiveType() const
     {
 #if OGRE_PLATFORM != OGRE_PLATFORM_ANDROID
         return "FileSystem";
@@ -890,148 +638,147 @@ namespace Demo
 #endif
     }
     //-----------------------------------------------------------------------------------
-    void GraphicsSystem::stopCompositor()
+    void GraphicSystem::stopCompositor()
     {
-        if (mWorkspace)
+        if (m_workspace)
         {
-            Ogre::CompositorManager2* compositorManager = mRoot->getCompositorManager2();
-            compositorManager->removeWorkspace(mWorkspace);
-            mWorkspace = 0;
+            Ogre::CompositorManager2* compositorManager = m_root->getCompositorManager2();
+            compositorManager->removeWorkspace(m_workspace);
+            m_workspace = 0;
         }
     }
     //-----------------------------------------------------------------------------------
-    void GraphicsSystem::restartCompositor()
+    void GraphicSystem::restartCompositor()
     {
         stopCompositor();
-        mWorkspace = setupCompositor();
+        m_workspace = setupCompositor();
     }
     //-----------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------
-    struct GameEntityCmp
+    struct GameObjectCmp
     {
-        bool operator()(const GameEntity* _l, const Ogre::Matrix4* RESTRICT_ALIAS _r) const
+        bool operator()(const GameObject* _l, const Ogre::Matrix4* RESTRICT_ALIAS _r) const
         {
-            const Ogre::Transform& transform = _l->mSceneNode->_getTransform();
+            const Ogre::Transform& transform = _l->m_sceneNode->_getTransform();
             return &transform.mDerivedTransform[transform.mIndex] < _r;
         }
 
-        bool operator()(const Ogre::Matrix4* RESTRICT_ALIAS _r, const GameEntity* _l) const
+        bool operator()(const Ogre::Matrix4* RESTRICT_ALIAS _r, const GameObject* _l) const
         {
-            const Ogre::Transform& transform = _l->mSceneNode->_getTransform();
+            const Ogre::Transform& transform = _l->m_sceneNode->_getTransform();
             return _r < &transform.mDerivedTransform[transform.mIndex];
         }
 
-        bool operator()(const GameEntity* _l, const GameEntity* _r) const
+        bool operator()(const GameObject* _l, const GameObject* _r) const
         {
-            const Ogre::Transform& lTransform = _l->mSceneNode->_getTransform();
-            const Ogre::Transform& rTransform = _r->mSceneNode->_getTransform();
+            const Ogre::Transform& lTransform = _l->m_sceneNode->_getTransform();
+            const Ogre::Transform& rTransform = _r->m_sceneNode->_getTransform();
             return &lTransform.mDerivedTransform[lTransform.mIndex] <
                 &rTransform.mDerivedTransform[rTransform.mIndex];
         }
     };
     //-----------------------------------------------------------------------------------
-    void GraphicsSystem::gameEntityAdded(const GameEntityManager::CreatedGameEntity* cge)
+    void GraphicSystem::gameObjectAdded(const GameObjectManager::CreatedGameObject* cge)
     {
         Ogre::SceneNode* sceneNode =
-            mSceneManager->getRootSceneNode(cge->gameEntity->mType)
-            ->createChildSceneNode(cge->gameEntity->mType, cge->initialTransform.vPos,
-                cge->initialTransform.qRot);
+            m_sceneManager->getRootSceneNode(cge->m_gameObject->m_type)
+            ->createChildSceneNode(cge->m_gameObject->m_type, cge->m_initialTransform.m_vPos,
+                cge->m_initialTransform.m_qRot);
 
-        sceneNode->setScale(cge->initialTransform.vScale);
+        sceneNode->setScale(cge->m_initialTransform.m_vScale);
 
-        cge->gameEntity->mSceneNode = sceneNode;
+        cge->m_gameObject->m_sceneNode = sceneNode;
 
-        if (cge->gameEntity->mMoDefinition->moType == MoTypeItem)
+        if (cge->m_gameObject->m_moDefinition->m_moType == MoTypeItem)
         {
-            Ogre::Item* item = mSceneManager->createItem(cge->gameEntity->mMoDefinition->meshName,
-                cge->gameEntity->mMoDefinition->resourceGroup,
-                cge->gameEntity->mType);
+            Ogre::Item* item = m_sceneManager->createItem(cge->m_gameObject->m_moDefinition->m_meshName,
+                cge->m_gameObject->m_moDefinition->m_resourceGroup,
+                cge->m_gameObject->m_type);
 
-            Ogre::StringVector materialNames = cge->gameEntity->mMoDefinition->submeshMaterials;
+            Ogre::StringVector materialNames = cge->m_gameObject->m_moDefinition->m_submeshMaterials;
             size_t minMaterials = std::min(materialNames.size(), item->getNumSubItems());
 
             for (size_t i = 0; i < minMaterials; ++i)
             {
                 item->getSubItem(i)->setDatablockOrMaterialName(
-                    materialNames[i], cge->gameEntity->mMoDefinition->resourceGroup);
+                    materialNames[i], cge->m_gameObject->m_moDefinition->m_resourceGroup);
             }
 
-            cge->gameEntity->mMovableObject = item;
+            cge->m_gameObject->m_movableObject = item;
         }
 
-        sceneNode->attachObject(cge->gameEntity->mMovableObject);
+        sceneNode->attachObject(cge->m_gameObject->m_movableObject);
 
         // Keep them sorted on how Ogre's internal memory manager assigned them memory,
         // to avoid false cache sharing when we update the nodes concurrently.
         const Ogre::Transform& transform = sceneNode->_getTransform();
-        GameEntityVec::iterator itGameEntity = std::lower_bound(
-            mGameEntities[cge->gameEntity->mType].begin(), mGameEntities[cge->gameEntity->mType].end(),
-            &transform.mDerivedTransform[transform.mIndex], GameEntityCmp());
-        mGameEntities[cge->gameEntity->mType].insert(itGameEntity, cge->gameEntity);
+        GameObjectsVec::iterator itGameObject = std::lower_bound(
+            m_gameObjects[cge->m_gameObject->m_type].begin(), m_gameObjects[cge->m_gameObject->m_type].end(),
+            &transform.mDerivedTransform[transform.mIndex], GameObjectCmp());
+        m_gameObjects[cge->m_gameObject->m_type].insert(itGameObject, cge->m_gameObject);
     }
     //-----------------------------------------------------------------------------------
-    void GraphicsSystem::gameEntityRemoved(GameEntity* toRemove)
+    void GraphicSystem::gameObjectRemove(GameObject* toRemove)
     {
-        const Ogre::Transform& transform = toRemove->mSceneNode->_getTransform();
-        GameEntityVec::iterator itGameEntity = std::lower_bound(
-            mGameEntities[toRemove->mType].begin(), mGameEntities[toRemove->mType].end(),
-            &transform.mDerivedTransform[transform.mIndex], GameEntityCmp());
+        const Ogre::Transform& transform = toRemove->m_sceneNode->_getTransform();
+        GameObjectsVec::iterator itGameObject = std::lower_bound(
+            m_gameObjects[toRemove->m_type].begin(), m_gameObjects[toRemove->m_type].end(),
+            &transform.mDerivedTransform[transform.mIndex], GameObjectCmp());
 
-        assert(itGameEntity != mGameEntities[toRemove->mType].end() && *itGameEntity == toRemove);
-        mGameEntities[toRemove->mType].erase(itGameEntity);
+        assert(itGameObject != m_gameObjects[toRemove->m_type].end() && *itGameObject == toRemove);
+        m_gameObjects[toRemove->m_type].erase(itGameObject);
 
-        toRemove->mSceneNode->getParentSceneNode()->removeAndDestroyChild(toRemove->mSceneNode);
-        toRemove->mSceneNode = 0;
+        toRemove->m_sceneNode->getParentSceneNode()->removeAndDestroyChild(toRemove->m_sceneNode);
+        toRemove->m_sceneNode = 0;
 
-        assert(dynamic_cast<Ogre::Item*>(toRemove->mMovableObject));
+        assert(dynamic_cast<Ogre::Item*>(toRemove->m_movableObject));
 
-        mSceneManager->destroyItem(static_cast<Ogre::Item*>(toRemove->mMovableObject));
-        toRemove->mMovableObject = 0;
+        m_sceneManager->destroyItem(static_cast<Ogre::Item*>(toRemove->m_movableObject));
+        toRemove->m_movableObject = 0;
     }
     //-----------------------------------------------------------------------------------
-    void GraphicsSystem::updateGameEntities(const GameEntityVec& gameEntities, float weight)
+    void GraphicSystem::updateGameObjects(const GameObjectsVec& gameObjects, float weight)
     {
-        mThreadGameEntityToUpdate = &gameEntities;
-        mThreadWeight = weight;
+        m_threadGameObjectsToUpdate = &gameObjects;
+        m_threadWeight = weight;
 
         // Note: You could execute a non-blocking scalable task and do something else, you should
         // wait for the task to finish right before calling renderOneFrame or before trying to
         // execute another UserScalableTask (you would have to be careful, but it could work).
-        mSceneManager->executeUserScalableTask(this, true);
+        m_sceneManager->executeUserScalableTask(this, true);
     }
     //-----------------------------------------------------------------------------------
-    void GraphicsSystem::execute(size_t threadId, size_t numThreads)
+    void GraphicSystem::execute(size_t threadId, size_t numThreads)
     {
-        size_t currIdx = mCurrentTransformIdx;
+        size_t currIdx = m_currentTransformIdx;
         size_t prevIdx =
-            (mCurrentTransformIdx + NUM_GAME_ENTITY_BUFFERS - 1) % NUM_GAME_ENTITY_BUFFERS;
+            (m_currentTransformIdx + 4 - 1) % 4;
 
         const size_t objsPerThread =
-            (mThreadGameEntityToUpdate->size() + (numThreads - 1)) / numThreads;
-        const size_t toAdvance = std::min(threadId * objsPerThread, mThreadGameEntityToUpdate->size());
+            (m_threadGameObjectsToUpdate->size() + (numThreads - 1)) / numThreads;
+        const size_t toAdvance = std::min(threadId * objsPerThread, m_threadGameObjectsToUpdate->size());
 
-        GameEntityVec::const_iterator itor =
-            mThreadGameEntityToUpdate->begin() + static_cast<ptrdiff_t>(toAdvance);
-        GameEntityVec::const_iterator end =
-            mThreadGameEntityToUpdate->begin() +
+        GameObjectsVec::const_iterator itor =
+            m_threadGameObjectsToUpdate->begin() + static_cast<ptrdiff_t>(toAdvance);
+        GameObjectsVec::const_iterator end =
+            m_threadGameObjectsToUpdate->begin() +
             static_cast<ptrdiff_t>(
-                std::min(toAdvance + objsPerThread, mThreadGameEntityToUpdate->size()));
+                std::min(toAdvance + objsPerThread, m_threadGameObjectsToUpdate->size()));
         while (itor != end)
         {
-            GameEntity* gEnt = *itor;
-            Ogre::Vector3 interpVec = Ogre::Math::lerp(gEnt->mTransform[prevIdx]->vPos,
-                gEnt->mTransform[currIdx]->vPos, mThreadWeight);
-            gEnt->mSceneNode->setPosition(interpVec);
+            GameObject* gEnt = *itor;
+            Ogre::Vector3 interpVec = Ogre::Math::lerp(gEnt->m_transform[prevIdx]->m_vPos,
+                gEnt->m_transform[currIdx]->m_vPos, m_threadWeight);
+            gEnt->m_sceneNode->setPosition(interpVec);
 
-            interpVec = Ogre::Math::lerp(gEnt->mTransform[prevIdx]->vScale,
-                gEnt->mTransform[currIdx]->vScale, mThreadWeight);
-            gEnt->mSceneNode->setScale(interpVec);
+            interpVec = Ogre::Math::lerp(gEnt->m_transform[prevIdx]->m_vScale,
+                gEnt->m_transform[currIdx]->m_vScale, m_threadWeight);
+            gEnt->m_sceneNode->setScale(interpVec);
 
             Ogre::Quaternion interpQ = Ogre::Quaternion::nlerp(
-                mThreadWeight, gEnt->mTransform[prevIdx]->qRot, gEnt->mTransform[currIdx]->qRot, true);
-            gEnt->mSceneNode->setOrientation(interpQ);
+                m_threadWeight, gEnt->m_transform[prevIdx]->m_qRot, gEnt->m_transform[currIdx]->m_qRot, true);
+            gEnt->m_sceneNode->setOrientation(interpQ);
 
             ++itor;
         }
     }
-}  // namespace Demo

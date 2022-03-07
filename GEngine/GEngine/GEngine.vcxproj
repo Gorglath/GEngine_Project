@@ -148,8 +148,11 @@
     <ClCompile Include="code\engine\BaseSystem.cpp" />
     <ClCompile Include="code\engine\Engine.cpp" />
     <ClCompile Include="code\engine\GameObjectManager.cpp" />
+    <ClCompile Include="code\engine\GraphicSystem.cpp" />
     <ClCompile Include="code\engine\LogicSystem.cpp" />
     <ClCompile Include="code\engine\Rigidbody.cpp" />
+    <ClCompile Include="code\engine\SdlInputHandler.cpp" />
+    <ClCompile Include="code\engine\StaticPluginLoader.cpp" />
     <ClCompile Include="code\engine\Time.cpp" />
     <ClCompile Include="code\game\Game.cpp" />
     <ClCompile Include="code\game\SlidingSphere.cpp" />
@@ -161,7 +164,6 @@
     <ClInclude Include="code\engine\Engine.h" />
     <ClInclude Include="code\engine\GameObject.h" />
     <ClInclude Include="code\engine\GameObjectManager.h" />
-    <ClInclude Include="code\engine\GameState.h" />
     <ClInclude Include="code\engine\GraphicSystem.h" />
     <ClInclude Include="code\engine\InputData.hpp" />
     <ClInclude Include="code\engine\InputListeners.h" />
@@ -169,6 +171,9 @@
     <ClInclude Include="code\engine\MessageQueueSystem.h" />
     <ClInclude Include="code\engine\ResourcesManager.h" />
     <ClInclude Include="code\engine\Rigidbody.h" />
+    <ClInclude Include="code\engine\SdlEmulationLayer.h" />
+    <ClInclude Include="code\engine\SdlInputHandler.h" />
+    <ClInclude Include="code\engine\StaticPluginLoader.h" />
     <ClInclude Include="code\engine\Time.h" />
     <ClInclude Include="code\game\Game.h" />
     <ClInclude Include="code\game\SlidingSphere.h" />

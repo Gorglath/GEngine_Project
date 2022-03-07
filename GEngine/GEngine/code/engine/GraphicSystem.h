@@ -30,9 +30,6 @@ protected:
     /// @see MessageQueueSystem::processIncomingMessage
     void processIncomingMessage(MessageId messageId, const void* data) override;
 
-    static void addResourceLocation(const Ogre::String& archName, const Ogre::String& typeName,
-        const Ogre::String& secName);
-
     void loadTextureCache();
     void saveTextureCache();
     void loadHlmsDiskCache();
@@ -57,7 +54,7 @@ protected:
     virtual void createResourceListener() {}
 
     void gameObjectAdded(const GameObjectManager::CreatedGameObject* createdGameEntity);
-    void gameObjectRemoved(GameObject* toRemove);
+    void gameObjectRemove(GameObject* toRemove);
 
 public:
     GraphicSystem(GameState* gameState, Ogre::String resourcePath = Ogre::String(""),

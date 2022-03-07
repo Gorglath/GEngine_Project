@@ -9,9 +9,9 @@ class LogicSystem;
 class GameObjectManager
 {
 public:
-    struct CreatedGameEntity
+    struct CreatedGameObject
     {
-        GameObject* m_gameEntity;
+        GameObject* m_gameObject;
         GameObjectTransform m_initialTransform;
     };
 

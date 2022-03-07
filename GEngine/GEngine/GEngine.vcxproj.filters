@@ -61,6 +61,12 @@
     <Filter Include="Source Files\engine\system">
       <UniqueIdentifier>{a90e0191-bc99-4d94-859c-015e8f86b767}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\engine\ogreSys">
+      <UniqueIdentifier>{a91df95d-bcad-4909-814d-fbf4740c44c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\engine\ogreSys">
+      <UniqueIdentifier>{445c3210-9427-4376-84de-3b6c20921caa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\engine\Time.cpp">
@@ -93,6 +99,15 @@
     <ClCompile Include="code\engine\LogicSystem.cpp">
       <Filter>Source Files\engine\system</Filter>
     </ClCompile>
+    <ClCompile Include="code\engine\StaticPluginLoader.cpp">
+      <Filter>Source Files\engine\ogreSys</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\GraphicSystem.cpp">
+      <Filter>Source Files\engine\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\SdlInputHandler.cpp">
+      <Filter>Source Files\engine\ogreSys</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\engine\ResourcesManager.h">
@@ -119,9 +134,6 @@
     <ClInclude Include="code\engine\Rigidbody.h">
       <Filter>Header Files\engine\physics</Filter>
     </ClInclude>
-    <ClInclude Include="GameState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="code\engine\GraphicSystem.h">
       <Filter>Header Files\engine\graphics</Filter>
     </ClInclude>
@@ -134,9 +146,6 @@
     <ClInclude Include="code\engine\GameObjectManager.h">
       <Filter>Header Files\engine\system</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\GameState.h">
-      <Filter>Header Files\engine\system</Filter>
-    </ClInclude>
     <ClInclude Include="code\engine\InputListeners.h">
       <Filter>Header Files\engine\system</Filter>
     </ClInclude>
@@ -145,6 +154,18 @@
     </ClInclude>
     <ClInclude Include="code\engine\MessageQueueSystem.h">
       <Filter>Header Files\engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\StaticPluginLoader.h">
+      <Filter>Header Files\engine\ogreSys</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\SdlEmulationLayer.h">
+      <Filter>Header Files\engine\ogreSys</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Header Files\engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\SdlInputHandler.h">
+      <Filter>Header Files\engine\ogreSys</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
