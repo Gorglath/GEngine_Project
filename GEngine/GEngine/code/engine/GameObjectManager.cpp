@@ -1,5 +1,7 @@
 #include "GameObjectManager.h"
 #include "GameObject.h"
+
+#include "LogicSystem.h"
 const size_t cNumTransforms = 250;
 
 

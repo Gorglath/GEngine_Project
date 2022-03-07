@@ -19,7 +19,7 @@ struct MovableObjectDefinition
     MovableObjectType  m_moType;
 };
 
-struct GameEntityTransform
+struct GameObjectTransform
 {
     Ogre::Vector3    m_vPos;
     Ogre::Quaternion m_qRot;
@@ -38,7 +38,7 @@ public:
     Ogre::MovableObject* m_movableObject;
 
     //----- Logic and graphic threads memebers -----
-    GameEntityTransform* m_transform[4];
+    GameObjectTransform* m_transform[4];
     Ogre::SceneMemoryMgrTypes m_type;
 
     MovableObjectDefinition const* m_moDefinition;

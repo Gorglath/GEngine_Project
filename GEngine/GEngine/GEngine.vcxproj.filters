@@ -25,9 +25,6 @@
     <Filter Include="Header Files\engine\resources">
       <UniqueIdentifier>{82bb86c6-eb62-4832-8d44-009bcaf4872f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\engine\window">
-      <UniqueIdentifier>{a54cd607-d021-4333-a2f1-ebd14f759dc0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\engine\Utils">
       <UniqueIdentifier>{69765d96-94c4-4868-ace2-65d07cc8fd1d}</UniqueIdentifier>
     </Filter>
@@ -52,8 +49,17 @@
     <Filter Include="Source Files\engine\Physics">
       <UniqueIdentifier>{d9e7ed05-4273-4814-91d2-f1cb643fedf1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\engine\System">
+    <Filter Include="Header Files\engine\graphics">
+      <UniqueIdentifier>{3fc23160-85a8-4d05-93e2-d942f79c5e26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\engine\system">
       <UniqueIdentifier>{d99da77c-65ad-4644-b439-923ed7396a21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine\graphics">
+      <UniqueIdentifier>{a54cd607-d021-4333-a2f1-ebd14f759dc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine\system">
+      <UniqueIdentifier>{a90e0191-bc99-4d94-859c-015e8f86b767}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -78,6 +84,15 @@
     <ClCompile Include="code\engine\Rigidbody.cpp">
       <Filter>Source Files\engine\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="code\engine\BaseSystem.cpp">
+      <Filter>Source Files\engine\system</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\GameObjectManager.cpp">
+      <Filter>Source Files\engine\system</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\LogicSystem.cpp">
+      <Filter>Source Files\engine\system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\engine\ResourcesManager.h">
@@ -95,9 +110,6 @@
     <ClInclude Include="code\engine\InputData.hpp">
       <Filter>Source Files\engine\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\GraphicSystem.hpp">
-      <Filter>Source Files\engine\window</Filter>
-    </ClInclude>
     <ClInclude Include="code\game\SlidingSphere.h">
       <Filter>Header Files\Game\SlidingASphere</Filter>
     </ClInclude>
@@ -110,8 +122,29 @@
     <ClInclude Include="GameState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="InputListeners.h">
-      <Filter>Header Files\engine\System</Filter>
+    <ClInclude Include="code\engine\GraphicSystem.h">
+      <Filter>Header Files\engine\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\BaseSystem.h">
+      <Filter>Header Files\engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\GameObject.h">
+      <Filter>Header Files\engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\GameObjectManager.h">
+      <Filter>Header Files\engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\GameState.h">
+      <Filter>Header Files\engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\InputListeners.h">
+      <Filter>Header Files\engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\LogicSystem.h">
+      <Filter>Header Files\engine\system</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\MessageQueueSystem.h">
+      <Filter>Header Files\engine\system</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

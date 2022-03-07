@@ -133,7 +133,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\User\Desktop\Libraries\CPP\SDL\SDL2\SDL2-2.0.16\include;C:\Users\User\Desktop\Libraries\CPP\Ogre3d_Next\Dep\out\build\ogredeps\include;C:\Users\User\Desktop\Libraries\CPP\Ogre3d_Next\Ogre_Next\Components\Overlay\include;C:\Users\User\Desktop\Libraries\CPP\Ogre3d_Next\Ogre_Next\Samples\2.0\Common\include;C:\Users\User\Desktop\Libraries\CPP\Ogre3d_Next\Ogre_Next\OgreMain\include;C:\Users\User\Desktop\Libraries\CPP\Ogre3d_Next\Ogre_Next\out\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\User\Desktop\Libraries\CPP\SDL\SDL2\SDL2-2.0.16\include;C:\Users\User\Desktop\Libraries\CPP\Ogre3d_Next\Dep\out\build\ogredeps\include;C:\Users\User\Desktop\Libraries\CPP\Ogre3d_Next\Ogre_Next\Components\Overlay\include;C:\Users\User\Desktop\Libraries\CPP\Ogre3d_Next\Ogre_Next\OgreMain\include;C:\Users\User\Desktop\Libraries\CPP\Ogre3d_Next\Ogre_Next\out\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,7 +145,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="code\engine\BaseSystem.cpp" />
     <ClCompile Include="code\engine\Engine.cpp" />
+    <ClCompile Include="code\engine\GameObjectManager.cpp" />
+    <ClCompile Include="code\engine\LogicSystem.cpp" />
     <ClCompile Include="code\engine\Rigidbody.cpp" />
     <ClCompile Include="code\engine\Time.cpp" />
     <ClCompile Include="code\game\Game.cpp" />
@@ -154,9 +157,16 @@
     <ClCompile Include="code\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="code\engine\BaseSystem.h" />
     <ClInclude Include="code\engine\Engine.h" />
-    <ClInclude Include="code\engine\GraphicSystem.hpp" />
+    <ClInclude Include="code\engine\GameObject.h" />
+    <ClInclude Include="code\engine\GameObjectManager.h" />
+    <ClInclude Include="code\engine\GameState.h" />
+    <ClInclude Include="code\engine\GraphicSystem.h" />
     <ClInclude Include="code\engine\InputData.hpp" />
+    <ClInclude Include="code\engine\InputListeners.h" />
+    <ClInclude Include="code\engine\LogicSystem.h" />
+    <ClInclude Include="code\engine\MessageQueueSystem.h" />
     <ClInclude Include="code\engine\ResourcesManager.h" />
     <ClInclude Include="code\engine\Rigidbody.h" />
     <ClInclude Include="code\engine\Time.h" />
@@ -164,7 +174,6 @@
     <ClInclude Include="code\game\SlidingSphere.h" />
     <ClInclude Include="code\game\SlidingSphereGame.h" />
     <ClInclude Include="GameState.h" />
-    <ClInclude Include="InputListeners.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
