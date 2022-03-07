@@ -108,6 +108,9 @@
     <ClCompile Include="code\engine\SdlInputHandler.cpp">
       <Filter>Source Files\engine\ogreSys</Filter>
     </ClCompile>
+    <ClCompile Include="code\engine\MessageQueueSysten,cpp.cpp">
+      <Filter>Source Files\engine\system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\engine\ResourcesManager.h">

@@ -741,5 +741,3 @@ typedef union SDL_Event
 #else
 #define OGRE_USE_SDL2 1
 #endif
-
-#endif

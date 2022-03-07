@@ -1,11 +1,11 @@
 #include "SlidingSphereGame.h"
 
 void SlidingSphereGame::createScene01()
-{
+{/*
 	createFloor();
-	createLight();
+	createLight();*/
 
-	m_sphere.createSphere(m_sceneManager);
+	/*m_sphere.createSphere(m_sceneManager);*/
 
 	GameState::createScene01();
 }

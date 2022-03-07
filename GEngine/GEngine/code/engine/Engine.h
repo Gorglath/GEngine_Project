@@ -1,10 +1,9 @@
 #pragma once
 
 #include "GameState.h"
-#include "GraphicSystem.hpp"
+#include "GraphicSystem.h"
 #include "Time.h"
 #include "InputData.hpp"
-using namespace Demo;
 
 class Engine
 {

@@ -25,6 +25,9 @@ protected:
 
     void handleWindowEvent(const SDL_Event& evt);
 
+    static void addResourceLocation(const Ogre::String& archName, const Ogre::String& typeName,
+        const Ogre::String& secName);
+
     bool isWriteAccessFolder(const Ogre::String& folderPath, const Ogre::String& fileToSave);
 
     /// @see MessageQueueSystem::processIncomingMessage

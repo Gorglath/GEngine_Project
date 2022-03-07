@@ -18,7 +18,7 @@ enum MessageId
 
     NUM_MESSAGE_IDS
 };
-
+;
 class MessageQueueSystem
 {
     static const size_t cSizeOfHeader;

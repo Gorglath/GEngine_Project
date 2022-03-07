@@ -11,7 +11,7 @@ GameObjectManager::GameObjectManager(MessageQueueSystem* graphicsSystem, LogicSy
 	m_graphicsSystem{ graphicsSystem },
 	m_logicSystem{ logicSystem }
 {
-	m_logicSystem->
+	m_logicSystem->_notifyGameEntityManager(this);
 }
 
 GameObjectManager::~GameObjectManager()

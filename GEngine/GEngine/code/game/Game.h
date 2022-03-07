@@ -3,8 +3,8 @@
 #include "OgreItem.h"
 #include "OgreSceneManager.h"
 #include "OgreMeshManager2.h"
-#include "../engine/GraphicSystem.hpp"
-#include "GameState.h"
+#include "../engine/GraphicSystem.h"
+#include "../engine/GameState.h"
 
 using namespace Ogre;
 class Game : public GameState

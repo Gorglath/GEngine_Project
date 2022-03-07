@@ -133,7 +133,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\User\Desktop\Libraries\CPP\SDL\SDL2\SDL2-2.0.16\include;C:\Users\User\Desktop\Libraries\CPP\Ogre3d_Next\Dep\out\build\ogredeps\include;C:\Users\User\Desktop\Libraries\CPP\Ogre3d_Next\Ogre_Next\Components\Overlay\include;C:\Users\User\Desktop\Libraries\CPP\Ogre3d_Next\Ogre_Next\OgreMain\include;C:\Users\User\Desktop\Libraries\CPP\Ogre3d_Next\Ogre_Next\out\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\User\Desktop\Libraries\CPP\Ogre3d_Next\Ogre_Next\Components\Hlms\Common\include;C:\Users\User\Desktop\Libraries\CPP\Ogre3d_Next\Ogre_Next\Components\Hlms\Pbs\include;C:\Users\User\Desktop\Libraries\CPP\Ogre3d_Next\Ogre_Next\Components\Hlms\Unlit\include;C:\Users\User\Desktop\Libraries\CPP\SDL\SDL2\SDL2-2.0.16\include;C:\Users\User\Desktop\Libraries\CPP\Ogre3d_Next\Dep\out\build\ogredeps\include;C:\Users\User\Desktop\Libraries\CPP\Ogre3d_Next\Ogre_Next\Components\Overlay\include;C:\Users\User\Desktop\Libraries\CPP\Ogre3d_Next\Ogre_Next\OgreMain\include;C:\Users\User\Desktop\Libraries\CPP\Ogre3d_Next\Ogre_Next\out\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,6 +150,7 @@
     <ClCompile Include="code\engine\GameObjectManager.cpp" />
     <ClCompile Include="code\engine\GraphicSystem.cpp" />
     <ClCompile Include="code\engine\LogicSystem.cpp" />
+    <ClCompile Include="code\engine\MessageQueueSysten,cpp.cpp" />
     <ClCompile Include="code\engine\Rigidbody.cpp" />
     <ClCompile Include="code\engine\SdlInputHandler.cpp" />
     <ClCompile Include="code\engine\StaticPluginLoader.cpp" />

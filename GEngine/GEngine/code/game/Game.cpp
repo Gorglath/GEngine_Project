@@ -7,14 +7,14 @@ void Game::init(GraphicSystem* graphicSystem)
 
 void Game::createScene01()
 {
-    Ogre::Item* item = m_sceneManager->createItem(
+    /*Ogre::Item* item = m_sceneManager->createItem(
         "Sphere1000.mesh", Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME,
         Ogre::SCENE_DYNAMIC);
 
     Ogre::SceneNode* mSceneNode = m_sceneManager->getRootSceneNode(Ogre::SCENE_DYNAMIC)
         ->createChildSceneNode(Ogre::SCENE_DYNAMIC);
 
-    mSceneNode->attachObject(item);
+    mSceneNode->attachObject(item);*/
 
     GameState::createScene01();
 }
