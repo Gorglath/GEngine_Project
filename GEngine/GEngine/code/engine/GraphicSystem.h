@@ -1,12 +1,22 @@
 #pragma once
 
-#include "GraphicsSystem.h"
-#include "OgreCamera.h"
-#include "OgreSceneManager.h"
-using namespace Ogre;
-using namespace Demo;
+#include "OgreOverlayPrerequisites.h"
+#include "OgrePrerequisites.h"
 
-class GraphicSystem final : public GraphicsSystem 
+#include "BaseSystem.h"
+
+#include "GameObjectManager.h"
+#include "OgreColourValue.h"
+#include "OgreOverlaySystem.h"
+#include "SdlEmulationLayer.h"
+#include "System/StaticPluginLoader.h"
+#include "Threading/OgreUniformScalableTask.h"
+
+using namespace Ogre;
+
+class SdlInputHandler;
+
+class GraphicSystem : public BaseSystem, public Ogre::UniformScalableTask
 {
     void createCamera() override
     {

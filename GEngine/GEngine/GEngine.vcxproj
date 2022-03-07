@@ -146,6 +146,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="code\engine\Engine.cpp" />
+    <ClCompile Include="code\engine\Rigidbody.cpp" />
     <ClCompile Include="code\engine\Time.cpp" />
     <ClCompile Include="code\game\Game.cpp" />
     <ClCompile Include="code\game\SlidingSphere.cpp" />
@@ -157,10 +158,13 @@
     <ClInclude Include="code\engine\GraphicSystem.hpp" />
     <ClInclude Include="code\engine\InputData.hpp" />
     <ClInclude Include="code\engine\ResourcesManager.h" />
+    <ClInclude Include="code\engine\Rigidbody.h" />
     <ClInclude Include="code\engine\Time.h" />
     <ClInclude Include="code\game\Game.h" />
     <ClInclude Include="code\game\SlidingSphere.h" />
     <ClInclude Include="code\game\SlidingSphereGame.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="InputListeners.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

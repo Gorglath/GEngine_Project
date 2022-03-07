@@ -1,0 +1,38 @@
+
+union SDL_Event;
+struct SDL_MouseButtonEvent;
+
+struct SDL_TextEditingEvent;
+struct SDL_TextInputEvent;
+struct SDL_KeyboardEvent;
+
+struct SDL_JoyButtonEvent;
+struct SDL_JoyAxisEvent;
+struct SDL_JoyHatEvent;
+
+class MouseListener
+{
+public:
+    // Receives SDL_MOUSEMOTION and SDL_MOUSEWHEEL events
+    virtual void mouseMoved(const SDL_Event& arg) {}
+    virtual void mousePressed(const SDL_MouseButtonEvent& arg, int id) {}
+    virtual void mouseReleased(const SDL_MouseButtonEvent& arg, int id) {}
+};
+
+class KeyboardListener
+{
+public:
+    virtual void textEditing(const SDL_TextEditingEvent& arg) {}
+    virtual void textInput(const SDL_TextInputEvent& arg) {}
+    virtual void keyPressed(const SDL_KeyboardEvent& arg) {}
+    virtual void keyReleased(const SDL_KeyboardEvent& arg) {}
+};
+
+class JoystickListener
+{
+public:
+    virtual void joyButtonPressed(const SDL_JoyButtonEvent& evt, int button) {}
+    virtual void joyButtonReleased(const SDL_JoyButtonEvent& evt, int button) {}
+    virtual void joyAxisMoved(const SDL_JoyAxisEvent& arg, int axis) {}
+    virtual void joyPovMoved(const SDL_JoyHatEvent& arg, int index) {}
+};

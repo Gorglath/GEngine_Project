@@ -46,6 +46,15 @@
     <Filter Include="Header Files\Game\SlidingASphere">
       <UniqueIdentifier>{23901daa-da4a-49ce-8240-823076f6b439}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\engine\physics">
+      <UniqueIdentifier>{8ba43af3-2f94-49ff-b69b-39728074ae1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine\Physics">
+      <UniqueIdentifier>{d9e7ed05-4273-4814-91d2-f1cb643fedf1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\engine\System">
+      <UniqueIdentifier>{d99da77c-65ad-4644-b439-923ed7396a21}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\engine\Time.cpp">
@@ -65,6 +74,9 @@
     </ClCompile>
     <ClCompile Include="code\game\SlidingSphereGame.cpp">
       <Filter>Source Files\game\Sliding A Sphere</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\Rigidbody.cpp">
+      <Filter>Source Files\engine\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +103,15 @@
     </ClInclude>
     <ClInclude Include="code\game\SlidingSphereGame.h">
       <Filter>Header Files\Game\SlidingASphere</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\Rigidbody.h">
+      <Filter>Header Files\engine\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InputListeners.h">
+      <Filter>Header Files\engine\System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

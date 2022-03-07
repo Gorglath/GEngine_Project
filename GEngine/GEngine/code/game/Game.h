@@ -4,7 +4,7 @@
 #include "OgreSceneManager.h"
 #include "OgreMeshManager2.h"
 #include "../engine/GraphicSystem.hpp"
-#include "TutorialGameState.h"
+#include "GameState.h"
 
 using namespace Ogre;
 class Game : public GameState
