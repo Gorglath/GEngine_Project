@@ -123,6 +123,8 @@ GraphicSystem::GraphicSystem(GameState* gameState, Ogre::String resourcePath,
 
         m_root =
             OGRE_NEW Ogre::Root(pluginsPath, cfgPath, m_writeAccessFolder + "Ogre.log", windowTitle);
+        
+        m_staticPluginLoader.install(m_root);
 
         // enable sRGB Gamma Conversion mode by default for all renderers,
         // but still allow to override it via config dialog
@@ -254,6 +256,7 @@ GraphicSystem::GraphicSystem(GameState* gameState, Ogre::String resourcePath,
 
         m_overlaySystem = OGRE_NEW Ogre::v1::OverlaySystem();
 
+        setupResources();
         loadResources();
         chooseSceneManager();
         createCamera();
@@ -584,6 +587,7 @@ GraphicSystem::GraphicSystem(GameState* gameState, Ogre::String resourcePath,
         {
             // Create & Register HlmsUnlit
             // Get the path to all the subdirectories used by HlmsUnlit
+            Ogre::HlmsUnlit::getDefaultPaths(mainFolderPath, libraryFoldersPaths);
             Ogre::Archive* archiveUnlit =
                 archiveManager.load(rootHlmsFolder + mainFolderPath, archiveType, true);
             Ogre::ArchiveVec archiveUnlitLibraryFolders;
@@ -636,11 +640,11 @@ GraphicSystem::GraphicSystem(GameState* gameState, Ogre::String resourcePath,
             renderSystem->getCustomAttribute("MapNoOverwriteOnDynamicBufferSRV",
                 &supportsNoOverwriteOnTextureBuffers);
 
-            /*if (!supportsNoOverwriteOnTextureBuffers)
+            if (!supportsNoOverwriteOnTextureBuffers)
             {
                 hlmsPbs->setTextureBufferDefaultSize(512 * 1024);
                 hlmsUnlit->setTextureBufferDefaultSize(512 * 1024);
-            }*/
+            }
         }
     }
     void GraphicSystem::setupResources()
@@ -672,6 +676,8 @@ GraphicSystem::GraphicSystem(GameState* gameState, Ogre::String resourcePath,
     }
     void GraphicSystem::loadResources()
     {
+        registerHlms();
+
         loadTextureCache();
         loadHlmsDiskCache();
 
@@ -681,6 +687,19 @@ GraphicSystem::GraphicSystem(GameState* gameState, Ogre::String resourcePath,
         // Initialize resources for LTC area lights and accurate specular reflections (IBL)
         Ogre::Hlms* hlms = m_root->getHlmsManager()->getHlms(Ogre::HLMS_PBS);
         OGRE_ASSERT_HIGH(dynamic_cast<Ogre::HlmsPbs*>(hlms));
+        Ogre::HlmsPbs* hlmsPbs = static_cast<Ogre::HlmsPbs*>(hlms);
+        try
+        {
+            hlmsPbs->loadLtcMatrix();
+        }
+        catch (Ogre::FileNotFoundException& e)
+        {
+            Ogre::LogManager::getSingleton().logMessage(e.getFullDescription(), Ogre::LML_CRITICAL);
+            Ogre::LogManager::getSingleton().logMessage(
+                "WARNING: LTC matrix textures could not be loaded. Accurate specular IBL reflections "
+                "and LTC area lights won't be available or may not function properly!",
+                Ogre::LML_CRITICAL);
+        }
     }
     void GraphicSystem::addResourceLocation(const Ogre::String& archName, const Ogre::String& typeName,
         const Ogre::String& secName)

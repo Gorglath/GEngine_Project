@@ -1,6 +1,12 @@
 {
 	"reserved_pool_ids" :
 	[
+		{
+			"poolId" : 992044,
+			"resolution" : [64, 64, 3],
+			"mipmaps" : 1,
+			"format" : "PFG_RGBA16_FLOAT"
+		}
 	],
 	"textures" :
 	{

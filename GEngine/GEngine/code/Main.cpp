@@ -3,12 +3,12 @@
 
 int main(int argc, char *argv[])
 {
-    Game game;
+    SlidingSphereGame game;
     Engine engine;
 
     engine.init(game);
 
-    //game.init(&engine.m_graphicsSystem);
+    game.init(&engine.m_graphicsSystem);
     
     engine.loadScene();
 
