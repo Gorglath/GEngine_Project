@@ -3,12 +3,16 @@
 #include "OgreQuaternion.h"
 #include "OgreStringVector.h"
 #include "OgreVector3.h"
+#include <vector>
+class Component;
 
-enum MovableObjectType
+
+enum class MovableObjectType
 {
-    MoTypeItem,
-    MoTypeEntity,
-    NumMovableObjectType
+    NONE,
+    MO_TYPE_ITEM,
+    MO_TYPE_ENTITY,
+    NUM_MOVABLE_OBJECT_TYPE
 };
 
 struct MovableObjectDefinition
@@ -28,10 +32,35 @@ struct GameObjectTransform
 
 struct GameObject
 {
-private:
-    Ogre::uint32 m_id;
-
 public:
+
+    enum class GameObjectState
+    {
+        NONE,
+        ACTIVE,
+        PAUSED,
+        DEAD
+    };
+
+    GameObject();
+    GameObject(Ogre::uint32 id, const MovableObjectDefinition* moDefinition,
+        Ogre::SceneMemoryMgrTypes type);
+    virtual ~GameObject();
+
+    Ogre::uint32 getId() const { return m_id; }
+    GameObjectState getState() const { return m_state; }
+    bool operator<(const GameObject* _r) const { return m_id < _r->m_id; }
+
+    static bool OrderById(const GameObject* _l, const GameObject* _r) { return _l->m_id < _r->m_id; }
+
+    void update(float dt);
+    void addComponent(Component* pComponent);
+    void removeComponent(Component* pComponent);
+private:
+
+    void updateComponents(float dt);
+    Ogre::uint32 m_id;
+    GameObjectState m_state;
 
     //----- Graphics thread members -----
     Ogre::SceneNode* m_sceneNode;
@@ -44,24 +73,7 @@ public:
     MovableObjectDefinition const* m_moDefinition;
     size_t m_transformBufferIdx;
 
-    GameObject(Ogre::uint32 id, const MovableObjectDefinition* moDefinition,
-        Ogre::SceneMemoryMgrTypes type) :
-        m_id(id),
-        m_sceneNode(0),
-        m_movableObject(0),
-        m_type(type),
-        m_moDefinition(moDefinition),
-        m_transformBufferIdx(0)
-    {
-        for (int i = 0; i < 4; ++i)
-            m_transform[i] = 0;
-    }
-
-    Ogre::uint32 getId() const { return m_id; }
-
-    bool operator<(const GameObject* _r) const { return m_id < _r->m_id; }
-
-    static bool OrderById(const GameObject* _l, const GameObject* _r) { return _l->m_id < _r->m_id; }
+    std::vector<Component*> m_components;
 };
 
 typedef std::vector<GameObject*> GameObjectsVec;
