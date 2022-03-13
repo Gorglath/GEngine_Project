@@ -75,7 +75,7 @@ void LogicSystem::processIncomingMessage(MessageId messageId, const void* data)
         m_availableTransformIdx.push_back(newIdx);
     }
     break;
-    case GAME_ENTITY_SCHEDULED_FOR_REMOVAL_SLOT:
+    case GAME_OBJECT_SCHEDULED_FOR_REMOVAL_SLOT:
         m_gameObjectManager->_notifyGameEntitiesRemoved(
             *reinterpret_cast<const Ogre::uint32*>(data));
         break;

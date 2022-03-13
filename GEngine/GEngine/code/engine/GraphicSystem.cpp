@@ -391,15 +391,15 @@ GraphicSystem::GraphicSystem(GameState* gameState, Ogre::String resourcePath,
             }
         }
         break;
-        case GAME_ENTITY_ADDED:
+        case GAME_OBJECT_ADDED:
             gameObjectAdded(reinterpret_cast<const GameObjectManager::CreatedGameObject*>(data));
             break;
-        case GAME_ENTITY_REMOVED:
+        case GAME_OBJECT_REMOVED:
             gameObjectRemove(*reinterpret_cast<GameObject* const*>(data));
             break;
-        case GAME_ENTITY_SCHEDULED_FOR_REMOVAL_SLOT:
+        case GAME_OBJECT_SCHEDULED_FOR_REMOVAL_SLOT:
             // Acknowledge/notify back that we're done with this slot.
-            this->queueSendMessage(m_logicSystem, GAME_ENTITY_SCHEDULED_FOR_REMOVAL_SLOT,
+            this->queueSendMessage(m_logicSystem, GAME_OBJECT_SCHEDULED_FOR_REMOVAL_SLOT,
                 *reinterpret_cast<const Ogre::uint32*>(data));
             break;
         default:
@@ -734,9 +734,10 @@ GraphicSystem::GraphicSystem(GameState* gameState, Ogre::String resourcePath,
         m_camera = m_sceneManager->createCamera("Main Camera");
 
         // Position it at 500 in Z direction
-        m_camera->setPosition(Ogre::Vector3(0, 5, 15));
+        m_camera->setPosition(Ogre::Vector3(0, 20, 0));
         // Look back along -Z
         m_camera->lookAt(Ogre::Vector3(0, 0, 0));
+        m_camera->rotate(Ogre::Vector3(0, 1, 0), Radian(Degree(90.0f)));
         m_camera->setNearClipDistance(0.2f);
         m_camera->setFarClipDistance(1000.0f);
         m_camera->setAutoAspectRatio(true);
