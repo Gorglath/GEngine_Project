@@ -820,7 +820,7 @@ GraphicSystem::GraphicSystem(GameState* gameState, Ogre::String resourcePath,
 
         cge->m_gameObject->m_sceneNode = sceneNode;
 
-        if (cge->m_gameObject->m_moDefinition->m_moType == MoTypeItem)
+        if (cge->m_gameObject->m_moDefinition->m_moType == MovableObjectType::MO_TYPE_ITEM)
         {
             Ogre::Item* item = m_sceneManager->createItem(cge->m_gameObject->m_moDefinition->m_meshName,
                 cge->m_gameObject->m_moDefinition->m_resourceGroup,

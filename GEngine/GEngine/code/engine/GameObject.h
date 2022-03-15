@@ -56,10 +56,8 @@ public:
     void update(float dt);
     void addComponent(Component* pComponent);
     void removeComponent(Component* pComponent);
-private:
 
-    void updateComponents(float dt);
-    Ogre::uint32 m_id;
+
     GameObjectState m_state;
 
     //----- Graphics thread members -----
@@ -72,6 +70,10 @@ private:
 
     MovableObjectDefinition const* m_moDefinition;
     size_t m_transformBufferIdx;
+private:
+
+    void updateComponents(float dt);
+    Ogre::uint32 m_id;
 
     std::vector<Component*> m_components;
 };
