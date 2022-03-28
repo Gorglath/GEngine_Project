@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "Ogre.h"
 #include "OgreItem.h"
+#include "OgreMeshManager2.h"
 #include <string>
 
 class CompMeshLoader : public Component
@@ -20,6 +21,27 @@ public:
 		m_sceneNode->setPosition(0.0f, m_sceneNode->getScale().y / 2.0f, 0.0f);
 
 		return m_sceneNode;
+	}
+
+	Ogre::SceneNode* loadPlane(Ogre::SceneManager* sceneManager)
+	{
+		Ogre::v1::MeshPtr planeMeshV1 = Ogre::v1::MeshManager::getSingleton().createPlane(
+			"Plane v1", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+			Ogre::Plane(Ogre::Vector3::UNIT_Y, 1.0f), 15.0f, 15.0f, 1, 1, true, 1, 4.0f, 4.0f,
+			Ogre::Vector3::UNIT_Z, Ogre::v1::HardwareBuffer::HBU_STATIC,
+			Ogre::v1::HardwareBuffer::HBU_STATIC);
+
+		Ogre::MeshPtr planeMesh = Ogre::MeshManager::getSingleton().createByImportingV1(
+			"Plane", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, planeMeshV1.get(), true,
+			true, true);
+
+		m_mesh = sceneManager->createItem(planeMesh, Ogre::SCENE_DYNAMIC);
+		m_mesh->setDatablock("Marble");
+		m_sceneNode = sceneManager->getRootSceneNode(Ogre::SCENE_DYNAMIC)
+			->createChildSceneNode(Ogre::SCENE_DYNAMIC);
+
+		m_sceneNode->setPosition(0, -1, 0);
+		m_sceneNode->attachObject(m_mesh);
 	}
 
 	Ogre::SceneNode* getSceneNode() const { return m_sceneNode; }
