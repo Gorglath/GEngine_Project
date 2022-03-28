@@ -10,4 +10,5 @@ public:
 
 	void update() override;
 	void destroy() override;
+	void update(float dt) override {};
 };

@@ -1,0 +1,17 @@
+
+
+Create the physics engine to simulate the rigidbody component.
+
+Must include : 
+
+	- dynamics
+	- collision detection. (use collision utils).
+	- collision responders.
+		- impulse solver.
+		- position solver.
+
+Can include : 
+	
+	- collision detection. (more shapes)
+	- collision responders
+		- angluar solver.

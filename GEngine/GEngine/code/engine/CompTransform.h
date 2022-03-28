@@ -11,5 +11,6 @@ public:
 	Ogre::Quaternion m_rotation{ 0.0f,0.0f,0.0f,1.0f };
 
 	void update() override {};
+	void update() override {};
 	void destroy() override {};
 };
