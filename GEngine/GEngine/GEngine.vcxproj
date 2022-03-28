@@ -146,7 +146,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="code\engine\BaseSystem.cpp" />
+    <ClCompile Include="code\engine\CompBoxCollider.cpp" />
+    <ClCompile Include="code\engine\CompCollider.cpp" />
+    <ClCompile Include="code\engine\CompSphereCollider.cpp" />
     <ClCompile Include="code\engine\Engine.cpp" />
+    <ClCompile Include="code\engine\GameEntity.cpp" />
     <ClCompile Include="code\engine\GameObjectManager.cpp" />
     <ClCompile Include="code\engine\GraphicSystem.cpp" />
     <ClCompile Include="code\engine\LogicSystem.cpp" />
@@ -159,15 +163,19 @@
     <ClCompile Include="code\game\SlidingSphere.cpp" />
     <ClCompile Include="code\game\SlidingSphereGame.cpp" />
     <ClCompile Include="code\Main.cpp" />
-    <ClCompile Include="CompBoxCollider.cpp" />
-    <ClCompile Include="CompCollider.cpp" />
-    <ClCompile Include="CompSphereCollider.cpp" />
-    <ClCompile Include="GameEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Boundary.h" />
     <ClInclude Include="code\engine\BaseSystem.h" />
+    <ClInclude Include="code\engine\Boundary.h" />
+    <ClInclude Include="code\engine\CollisionUtils.h" />
+    <ClInclude Include="code\engine\CompBoxCollider.h" />
+    <ClInclude Include="code\engine\CompCollider.h" />
+    <ClInclude Include="code\engine\CompMeshLoader.h" />
+    <ClInclude Include="code\engine\Component.h" />
+    <ClInclude Include="code\engine\CompSphereCollider.h" />
+    <ClInclude Include="code\engine\CompTransform.h" />
     <ClInclude Include="code\engine\Engine.h" />
+    <ClInclude Include="code\engine\GameEntity.h" />
     <ClInclude Include="code\engine\GameObject.h" />
     <ClInclude Include="code\engine\GameObjectManager.h" />
     <ClInclude Include="code\engine\GraphicSystem.h" />
@@ -184,14 +192,6 @@
     <ClInclude Include="code\game\Game.h" />
     <ClInclude Include="code\game\SlidingSphere.h" />
     <ClInclude Include="code\game\SlidingSphereGame.h" />
-    <ClInclude Include="CollisionUtils.h" />
-    <ClInclude Include="CompBoxCollider.h" />
-    <ClInclude Include="CompCollider.h" />
-    <ClInclude Include="CompMeshLoader.h" />
-    <ClInclude Include="Component.h" />
-    <ClInclude Include="CompSphereCollider.h" />
-    <ClInclude Include="CompTransform.h" />
-    <ClInclude Include="GameEntity.h" />
     <ClInclude Include="GameState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

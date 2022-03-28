@@ -1,20 +1,15 @@
 #pragma once
-class GameObject;
+
+class GameEntity;
 
 class Component
 {
 public:
-	Component(GameObject* pOwner, int updateOrder = 100);
-	Component() = delete;
-	virtual ~Component();
-	Component(const Component&) = delete;
-	Component& operator=(const Component&) = delete;
+	virtual ~Component() {};
 
-	int getUpdateOrder() const { return m_updateOrder; }
+	bool m_isActive{ true };
+	GameEntity* m_gameEntity{ nullptr };
 
-	virtual void update(float dt);
-protected:
-	GameObject& m_owner;
-	int m_updateOrder;
+	virtual void update() = 0;
+	virtual void destroy() = 0;
 };
-

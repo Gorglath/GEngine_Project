@@ -2,8 +2,8 @@
 #include <math.h>
 void SlidingSphere::createSphere(SceneManager* sceneManager)
 {
-   m_sphereNode = m_meshLoader->loadMesh("Sphere1000.mesh", sceneManager);
-   m_meshLoader->m_gameEntity = this;
+   m_sphereNode = m_meshLoader.loadMesh("Sphere1000.mesh", sceneManager);
+   m_meshLoader.m_gameEntity = this;
 }
 
 void SlidingSphere::update(float dt,InputData inputData)

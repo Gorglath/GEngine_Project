@@ -87,9 +87,6 @@
     <ClCompile Include="code\game\Game.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
-    <ClCompile Include="code\Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="code\game\SlidingSphere.cpp">
       <Filter>Source Files\game\Sliding A Sphere</Filter>
     </ClCompile>
@@ -120,17 +117,20 @@
     <ClCompile Include="code\engine\MessageQueueSysten,cpp.cpp">
       <Filter>Source Files\engine\system</Filter>
     </ClCompile>
-    <ClCompile Include="GameEntity.cpp">
+    <ClCompile Include="code\engine\CompBoxCollider.cpp">
+      <Filter>Source Files\engine\system\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\CompCollider.cpp">
+      <Filter>Source Files\engine\system\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\CompSphereCollider.cpp">
+      <Filter>Source Files\engine\system\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\GameEntity.cpp">
       <Filter>Source Files\engine\system\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="CompCollider.cpp">
-      <Filter>Source Files\engine\system\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="CompBoxCollider.cpp">
-      <Filter>Source Files\engine\system\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="CompSphereCollider.cpp">
-      <Filter>Source Files\engine\system\Components</Filter>
+    <ClCompile Include="code\Main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -191,32 +191,32 @@
     <ClInclude Include="code\engine\SdlInputHandler.h">
       <Filter>Header Files\engine\ogreSys</Filter>
     </ClInclude>
-    <ClInclude Include="GameEntity.h">
+    <ClInclude Include="code\engine\CompBoxCollider.h">
+      <Filter>Header Files\engine\system\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\CompCollider.h">
+      <Filter>Header Files\engine\system\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\CompMeshLoader.h">
+      <Filter>Header Files\engine\system\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\Component.h">
+      <Filter>Header Files\engine\system\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\CompSphereCollider.h">
+      <Filter>Header Files\engine\system\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\CompTransform.h">
+      <Filter>Header Files\engine\system\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\GameEntity.h">
       <Filter>Header Files\engine\system\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Header Files\engine\system\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="CompTransform.h">
-      <Filter>Header Files\engine\system\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="CompCollider.h">
-      <Filter>Header Files\engine\system\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="CompBoxCollider.h">
-      <Filter>Header Files\engine\system\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="CompSphereCollider.h">
-      <Filter>Header Files\engine\system\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionUtils.h">
+    <ClInclude Include="code\engine\Boundary.h">
       <Filter>Header Files\engine\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Boundary.h">
+    <ClInclude Include="code\engine\CollisionUtils.h">
       <Filter>Header Files\engine\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="CompMeshLoader.h">
-      <Filter>Header Files\engine\system\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
