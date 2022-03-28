@@ -2,15 +2,8 @@
 #include <math.h>
 void SlidingSphere::createSphere(SceneManager* sceneManager)
 {
-    m_sphereMesh = sceneManager->createItem(
-        "Sphere1000.mesh", Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME,
-        Ogre::SCENE_DYNAMIC);
-    
-    m_sphereNode = sceneManager->getRootSceneNode(Ogre::SCENE_DYNAMIC)
-        ->createChildSceneNode(Ogre::SCENE_DYNAMIC);
-
-    m_sphereNode->attachObject(m_sphereMesh);
-    m_sphereNode->setPosition(0.0f, m_sphereNode->getScale().y / 2.0f, 0.0f);
+   m_sphereNode = m_meshLoader->loadMesh("Sphere1000.mesh", sceneManager);
+   m_meshLoader->m_gameEntity = this;
 }
 
 void SlidingSphere::update(float dt,InputData inputData)
@@ -44,12 +37,13 @@ void SlidingSphere::update(float dt,InputData inputData)
         clampAcceleration(desiredVelocity, dt);
         
         Vector3 translation = m_velocity * dt;
-        Vector3 newPosition = m_sphereNode->getPosition();
+        Vector3 newPosition = m_transform.m_position;
         newPosition += translation;
 
         clampNewPositionToBounds(newPosition);
         
-        m_sphereNode->setPosition(newPosition);
+        m_transform.m_position = newPosition;
+        m_sphereNode->setPosition(m_transform.m_position);
 }
 
 void SlidingSphere::clampNewPositionToBounds(Vector3& newPos)

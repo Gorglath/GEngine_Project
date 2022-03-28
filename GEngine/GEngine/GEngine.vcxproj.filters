@@ -16,9 +16,6 @@
     <Filter Include="Source Files\engine">
       <UniqueIdentifier>{da0733cf-b89d-4c96-90bf-b868a37c8bb8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\engine\resources">
-      <UniqueIdentifier>{243d89a0-ae2b-4496-b9ab-6f7aef2ef9ae}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\engine">
       <UniqueIdentifier>{14d40ee2-b022-4ae5-a3b4-5782febdfe84}</UniqueIdentifier>
     </Filter>
@@ -126,6 +123,15 @@
     <ClCompile Include="GameEntity.cpp">
       <Filter>Source Files\engine\system\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="CompCollider.cpp">
+      <Filter>Source Files\engine\system\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CompBoxCollider.cpp">
+      <Filter>Source Files\engine\system\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CompSphereCollider.cpp">
+      <Filter>Source Files\engine\system\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\engine\ResourcesManager.h">
@@ -192,6 +198,24 @@
       <Filter>Header Files\engine\system\Components</Filter>
     </ClInclude>
     <ClInclude Include="CompTransform.h">
+      <Filter>Header Files\engine\system\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CompCollider.h">
+      <Filter>Header Files\engine\system\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CompBoxCollider.h">
+      <Filter>Header Files\engine\system\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CompSphereCollider.h">
+      <Filter>Header Files\engine\system\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionUtils.h">
+      <Filter>Header Files\engine\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Boundary.h">
+      <Filter>Header Files\engine\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="CompMeshLoader.h">
       <Filter>Header Files\engine\system\Components</Filter>
     </ClInclude>
   </ItemGroup>

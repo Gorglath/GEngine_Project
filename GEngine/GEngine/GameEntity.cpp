@@ -20,16 +20,20 @@ void GameEntity::onStart()
 {
 }
 
-void GameEntity::update()
+void GameEntity::update(float dt)
 {
 	for (auto& component : m_components)
 		if (component->m_isActive)
 			component->update();
 
-	onUpdate();
+	onUpdate(dt);
 }
 
-void GameEntity::onUpdate()
+void GameEntity::onUpdate(float dt)
+{
+}
+
+void GameEntity::onColliderEnter(CompCollider* collider)
 {
 }
 
