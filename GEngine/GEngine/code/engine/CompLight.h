@@ -1,5 +1,5 @@
 #pragma once
-#include "code/engine/Component.h"
+#include "Component.h"
 #include "OgreSceneManager.h"
 class CompLight : public Component 
 {

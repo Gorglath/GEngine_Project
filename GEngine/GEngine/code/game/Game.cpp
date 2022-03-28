@@ -1,6 +1,6 @@
 #include "Game.h"
 #include "../engine/CompMeshLoader.h"
-#include "../../CompLight.h"
+#include "../engine/CompLight.h"
 void Game::init(GraphicSystem* graphicSystem)
 {
 	m_sceneManager = graphicSystem->getSceneManager();
