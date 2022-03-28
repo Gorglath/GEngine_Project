@@ -159,6 +159,7 @@
     <ClCompile Include="code\game\SlidingSphere.cpp" />
     <ClCompile Include="code\game\SlidingSphereGame.cpp" />
     <ClCompile Include="code\Main.cpp" />
+    <ClCompile Include="GameEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\engine\BaseSystem.h" />
@@ -179,6 +180,9 @@
     <ClInclude Include="code\game\Game.h" />
     <ClInclude Include="code\game\SlidingSphere.h" />
     <ClInclude Include="code\game\SlidingSphereGame.h" />
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="CompTransform.h" />
+    <ClInclude Include="GameEntity.h" />
     <ClInclude Include="GameState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

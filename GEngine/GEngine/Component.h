@@ -7,7 +7,7 @@ class Component
 public:
 	virtual ~Component() {};
 
-	bool m_active{ true };
+	bool m_isActive{ true };
 	GameEntity* m_gameEntity{ nullptr };
 
 	virtual void update() = 0;
