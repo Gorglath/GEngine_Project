@@ -1,6 +1,6 @@
 #pragma once
 #include "Component.h"
-#include "Ogre.h"
+#include "OgreSceneManager.h"
 #include "OgreItem.h"
 #include "OgreMeshManager2.h"
 #include <string>

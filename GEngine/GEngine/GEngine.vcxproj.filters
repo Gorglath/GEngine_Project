@@ -218,5 +218,8 @@
     <ClInclude Include="code\engine\CollisionUtils.h">
       <Filter>Header Files\engine\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="CompLight.h">
+      <Filter>Header Files\engine\system\Components</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
