@@ -40,12 +40,6 @@
     <Filter Include="Header Files\Game\SlidingASphere">
       <UniqueIdentifier>{23901daa-da4a-49ce-8240-823076f6b439}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\engine\physics">
-      <UniqueIdentifier>{8ba43af3-2f94-49ff-b69b-39728074ae1b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\engine\Physics">
-      <UniqueIdentifier>{d9e7ed05-4273-4814-91d2-f1cb643fedf1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\engine\graphics">
       <UniqueIdentifier>{3fc23160-85a8-4d05-93e2-d942f79c5e26}</UniqueIdentifier>
     </Filter>
@@ -76,6 +70,9 @@
     <Filter Include="Source Files\engine\system\Components">
       <UniqueIdentifier>{bee0b2dd-302d-4d32-851e-037dda792cd8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\engine\system\Physics">
+      <UniqueIdentifier>{7af82e1b-0e94-4b51-b8eb-9f11c45dfb4e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\engine\Time.cpp">
@@ -92,9 +89,6 @@
     </ClCompile>
     <ClCompile Include="code\game\SlidingSphereGame.cpp">
       <Filter>Source Files\game\Sliding A Sphere</Filter>
-    </ClCompile>
-    <ClCompile Include="code\engine\Rigidbody.cpp">
-      <Filter>Source Files\engine\Physics</Filter>
     </ClCompile>
     <ClCompile Include="code\engine\BaseSystem.cpp">
       <Filter>Source Files\engine\system</Filter>
@@ -132,6 +126,9 @@
     <ClCompile Include="code\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CompRigidbody.cpp">
+      <Filter>Source Files\engine\system\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\engine\ResourcesManager.h">
@@ -154,9 +151,6 @@
     </ClInclude>
     <ClInclude Include="code\game\SlidingSphereGame.h">
       <Filter>Header Files\Game\SlidingASphere</Filter>
-    </ClInclude>
-    <ClInclude Include="code\engine\Rigidbody.h">
-      <Filter>Header Files\engine\physics</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\GraphicSystem.h">
       <Filter>Header Files\engine\graphics</Filter>
@@ -218,8 +212,16 @@
     <ClInclude Include="code\engine\CollisionUtils.h">
       <Filter>Header Files\engine\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="CompLight.h">
+    <ClInclude Include="code\engine\CompLight.h">
       <Filter>Header Files\engine\system\Components</Filter>
     </ClInclude>
+    <ClInclude Include="CompRigidbody.h">
+      <Filter>Header Files\engine\system\Components</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="PhysicEngineTODO.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

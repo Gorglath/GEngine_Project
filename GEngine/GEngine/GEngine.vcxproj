@@ -155,7 +155,6 @@
     <ClCompile Include="code\engine\GraphicSystem.cpp" />
     <ClCompile Include="code\engine\LogicSystem.cpp" />
     <ClCompile Include="code\engine\MessageQueueSysten,cpp.cpp" />
-    <ClCompile Include="code\engine\Rigidbody.cpp" />
     <ClCompile Include="code\engine\SdlInputHandler.cpp" />
     <ClCompile Include="code\engine\StaticPluginLoader.cpp" />
     <ClCompile Include="code\engine\Time.cpp" />
@@ -163,6 +162,7 @@
     <ClCompile Include="code\game\SlidingSphere.cpp" />
     <ClCompile Include="code\game\SlidingSphereGame.cpp" />
     <ClCompile Include="code\Main.cpp" />
+    <ClCompile Include="CompRigidbody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\engine\BaseSystem.h" />
@@ -170,6 +170,7 @@
     <ClInclude Include="code\engine\CollisionUtils.h" />
     <ClInclude Include="code\engine\CompBoxCollider.h" />
     <ClInclude Include="code\engine\CompCollider.h" />
+    <ClInclude Include="code\engine\CompLight.h" />
     <ClInclude Include="code\engine\CompMeshLoader.h" />
     <ClInclude Include="code\engine\Component.h" />
     <ClInclude Include="code\engine\CompSphereCollider.h" />
@@ -184,7 +185,6 @@
     <ClInclude Include="code\engine\LogicSystem.h" />
     <ClInclude Include="code\engine\MessageQueueSystem.h" />
     <ClInclude Include="code\engine\ResourcesManager.h" />
-    <ClInclude Include="code\engine\Rigidbody.h" />
     <ClInclude Include="code\engine\SdlEmulationLayer.h" />
     <ClInclude Include="code\engine\SdlInputHandler.h" />
     <ClInclude Include="code\engine\StaticPluginLoader.h" />
@@ -192,8 +192,11 @@
     <ClInclude Include="code\game\Game.h" />
     <ClInclude Include="code\game\SlidingSphere.h" />
     <ClInclude Include="code\game\SlidingSphereGame.h" />
-    <ClInclude Include="CompLight.h" />
+    <ClInclude Include="CompRigidbody.h" />
     <ClInclude Include="GameState.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="PhysicEngineTODO.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

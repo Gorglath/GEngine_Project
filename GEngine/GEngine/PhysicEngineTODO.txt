@@ -15,3 +15,7 @@ Can include :
 	- collision detection. (more shapes)
 	- collision responders
 		- angluar solver.
+
+- PhysicsWorldManager which will manage all the bodies and solvers.
+- Rigidbody which will hold all the data.
+- Solvers which will manage the collision between two bodies (different solver for different).
