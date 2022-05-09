@@ -12,5 +12,4 @@ public:
 
 	virtual void update() = 0;
 	virtual void destroy() = 0;
-	virtual void update(float dt) = 0;
 };

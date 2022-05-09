@@ -126,9 +126,6 @@
     <ClCompile Include="code\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CompRigidbody.cpp">
-      <Filter>Source Files\engine\system\Components</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\engine\ResourcesManager.h">
@@ -213,9 +210,6 @@
       <Filter>Header Files\engine\Utils</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\CompLight.h">
-      <Filter>Header Files\engine\system\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="CompRigidbody.h">
       <Filter>Header Files\engine\system\Components</Filter>
     </ClInclude>
   </ItemGroup>

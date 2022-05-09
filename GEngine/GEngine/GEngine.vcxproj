@@ -162,7 +162,6 @@
     <ClCompile Include="code\game\SlidingSphere.cpp" />
     <ClCompile Include="code\game\SlidingSphereGame.cpp" />
     <ClCompile Include="code\Main.cpp" />
-    <ClCompile Include="CompRigidbody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\engine\BaseSystem.h" />
@@ -192,7 +191,6 @@
     <ClInclude Include="code\game\Game.h" />
     <ClInclude Include="code\game\SlidingSphere.h" />
     <ClInclude Include="code\game\SlidingSphereGame.h" />
-    <ClInclude Include="CompRigidbody.h" />
     <ClInclude Include="GameState.h" />
   </ItemGroup>
   <ItemGroup>
