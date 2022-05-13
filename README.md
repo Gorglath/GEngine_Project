@@ -3,6 +3,7 @@
 GEngine is a custom built game engine which uses Ogre3d-Next. <br />
 
 ## Usage
+The project only works on release x64, since only ogre-next x64 release is built.
 Currently GEngine is still a work in progress and is bound to changes. <br />
 
 ## Dependencies
