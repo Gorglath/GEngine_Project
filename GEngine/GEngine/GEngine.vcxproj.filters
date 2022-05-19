@@ -73,6 +73,12 @@
     <Filter Include="Header Files\engine\system\Physics">
       <UniqueIdentifier>{7af82e1b-0e94-4b51-b8eb-9f11c45dfb4e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\engine\sounds">
+      <UniqueIdentifier>{5df271dc-bb5c-4fdb-abd4-bac7391c51c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine\sounds">
+      <UniqueIdentifier>{f8c3c5bb-b85a-44d1-8716-4e00c033e226}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\engine\Time.cpp">
@@ -125,6 +131,9 @@
     </ClCompile>
     <ClCompile Include="code\Main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundSystem.cpp">
+      <Filter>Source Files\engine\sounds</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +220,9 @@
     </ClInclude>
     <ClInclude Include="code\engine\CompLight.h">
       <Filter>Header Files\engine\system\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundSystem.h">
+      <Filter>Header Files\engine\sounds</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

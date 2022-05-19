@@ -133,15 +133,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\Components\Hlms\Common\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\Components\Hlms\Pbs\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\Components\Hlms\Unlit\include;$(SolutionDir)\Externals\SDL2-2.0.16\include;$(SolutionDir)\Externals\Ogre3d_Next\Dep\out\build\ogredeps\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\Components\Overlay\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\OgreMain\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\out\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Externals\irrKlang-64bit-1.6.0\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\Components\Hlms\Common\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\Components\Hlms\Pbs\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\Components\Hlms\Unlit\include;$(SolutionDir)\Externals\SDL2-2.0.16\include;$(SolutionDir)\Externals\Ogre3d_Next\Dep\out\build\ogredeps\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\Components\Overlay\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\OgreMain\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\out\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\Externals\SDL2-2.0.16\lib\x64;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\out\build\lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>OgreOverlay.lib;OgreMain.lib;OgreSamplesCommon.lib;OgreHlmsPbs.lib;OgreHlmsUnlit.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Externals\irrKlang-64bit-1.6.0\lib\Winx64-visualStudio;$(SolutionDir)\Externals\SDL2-2.0.16\lib\x64;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\out\build\lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OgreOverlay.lib;OgreMain.lib;OgreSamplesCommon.lib;OgreHlmsPbs.lib;OgreHlmsUnlit.lib;SDL2.lib;SDL2main.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -162,6 +162,7 @@
     <ClCompile Include="code\game\SlidingSphere.cpp" />
     <ClCompile Include="code\game\SlidingSphereGame.cpp" />
     <ClCompile Include="code\Main.cpp" />
+    <ClCompile Include="SoundSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\engine\BaseSystem.h" />
@@ -192,6 +193,7 @@
     <ClInclude Include="code\game\SlidingSphere.h" />
     <ClInclude Include="code\game\SlidingSphereGame.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="SoundSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="PhysicEngineTODO.txt" />
