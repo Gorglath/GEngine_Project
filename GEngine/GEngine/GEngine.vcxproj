@@ -156,13 +156,13 @@
     <ClCompile Include="code\engine\LogicSystem.cpp" />
     <ClCompile Include="code\engine\MessageQueueSysten,cpp.cpp" />
     <ClCompile Include="code\engine\SdlInputHandler.cpp" />
+    <ClCompile Include="code\engine\SoundSystem.cpp" />
     <ClCompile Include="code\engine\StaticPluginLoader.cpp" />
     <ClCompile Include="code\engine\Time.cpp" />
     <ClCompile Include="code\game\Game.cpp" />
     <ClCompile Include="code\game\SlidingSphere.cpp" />
     <ClCompile Include="code\game\SlidingSphereGame.cpp" />
     <ClCompile Include="code\Main.cpp" />
-    <ClCompile Include="SoundSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\engine\BaseSystem.h" />
@@ -187,13 +187,13 @@
     <ClInclude Include="code\engine\ResourcesManager.h" />
     <ClInclude Include="code\engine\SdlEmulationLayer.h" />
     <ClInclude Include="code\engine\SdlInputHandler.h" />
+    <ClInclude Include="code\engine\SoundSystem.h" />
     <ClInclude Include="code\engine\StaticPluginLoader.h" />
     <ClInclude Include="code\engine\Time.h" />
     <ClInclude Include="code\game\Game.h" />
     <ClInclude Include="code\game\SlidingSphere.h" />
     <ClInclude Include="code\game\SlidingSphereGame.h" />
     <ClInclude Include="GameState.h" />
-    <ClInclude Include="SoundSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="PhysicEngineTODO.txt" />

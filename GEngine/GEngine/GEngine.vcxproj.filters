@@ -132,7 +132,7 @@
     <ClCompile Include="code\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SoundSystem.cpp">
+    <ClCompile Include="code\engine\SoundSystem.cpp">
       <Filter>Source Files\engine\sounds</Filter>
     </ClCompile>
   </ItemGroup>
@@ -221,7 +221,7 @@
     <ClInclude Include="code\engine\CompLight.h">
       <Filter>Header Files\engine\system\Components</Filter>
     </ClInclude>
-    <ClInclude Include="SoundSystem.h">
+    <ClInclude Include="code\engine\SoundSystem.h">
       <Filter>Header Files\engine\sounds</Filter>
     </ClInclude>
   </ItemGroup>

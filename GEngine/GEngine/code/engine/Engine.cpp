@@ -9,6 +9,12 @@ void Engine::init(GameState& gameState)
 {
     m_graphicsSystem = GraphicSystem(&gameState);
     m_graphicsSystem.initialize("GEngine");
+
+    bool isSoundEngineInitialized = m_soundSystem.intialize("C:\\Users\\User\\Desktop\\C++Projects\\GEngine\\GEngine\\GEngine\\assets\\sounds");
+    if (!isSoundEngineInitialized)
+        printf("Failed to load sound engine");
+
+    m_soundSystem.play2DSound("roar.wav", true);
 }
 
 bool Engine::loadScene()
