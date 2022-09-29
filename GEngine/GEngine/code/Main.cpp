@@ -15,6 +15,6 @@ int main(int argc, char *argv[])
     bool quit = false;
     while (!engine.update())
     {
-        //game.update(Time::getDeltaTime());
+        game.update(Time::getDeltaTime());
     }
 }
