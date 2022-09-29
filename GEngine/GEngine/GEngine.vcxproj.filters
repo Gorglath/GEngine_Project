@@ -224,6 +224,9 @@
     <ClInclude Include="code\engine\SoundSystem.h">
       <Filter>Header Files\engine\sounds</Filter>
     </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>Header Files\engine\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="PhysicEngineTODO.txt">

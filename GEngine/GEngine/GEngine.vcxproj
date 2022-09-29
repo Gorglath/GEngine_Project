@@ -194,6 +194,7 @@
     <ClInclude Include="code\game\SlidingSphere.h" />
     <ClInclude Include="code\game\SlidingSphereGame.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="PhysicEngineTODO.txt" />
