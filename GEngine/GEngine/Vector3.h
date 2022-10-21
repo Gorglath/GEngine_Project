@@ -44,11 +44,68 @@ namespace GEngine
 		Vector3 operator*(Vector3& scalar) {
 			return Vector3(m_x * scalar.m_x, m_y * scalar.m_y, m_z * scalar.m_z);
 		}
+		Vector3 operator==(Vector3& compared) {
+			return (fabs(m_x - compared.m_x) < FLT_EPSILON) && (fabs(m_y - compared.m_y) < FLT_EPSILON) && (fabs(m_z - compared.m_z) < FLT_EPSILON);
+		}
+		Vector3 operator!=(Vector3& compared) {
+			return (fabs(m_x - compared.m_x) > FLT_EPSILON) || (fabs(m_y - compared.m_y) > FLT_EPSILON) || (fabs(m_z - compared.m_z) > FLT_EPSILON);
+		}
 
+		//Getters
 		inline float GetMagnitude() const { return std::sqrt(m_x*m_x + m_y*m_y + m_z*m_z); }
 		inline float GetSqrMagnitude() const { return std::pow(GetMagnitude(),2); }
 		inline Vector3 GetNormlized() const { return Vector3(m_x / GetMagnitude(), m_y / GetMagnitude(), m_z / GetMagnitude()); }
 
+		//Setters
+		void SetAxis(float x, float y, float z) {
+			m_x = x;
+			m_y = y;
+			m_z = z;
+		}
+		
+		//static Functions
+		static Vector3 Cross(Vector3& lV, Vector3& rV) {
+			return { lV.m_y * rV.m_z - lV.m_z * rV.m_y,
+					 lV.m_z * rV.m_x - lV.m_x * rV.m_z,
+					 lV.m_x * rV.m_y - lV.m_y * rV.m_x};
+		}
+
+		static float Dot(Vector3& lV, Vector3& rV) {
+			return lV.m_x * rV.m_x + lV.m_y * rV.m_y + lV.m_z * rV.m_z;
+		}
+		
+		static float Angle(Vector3& lV, Vector3& rV) {
+			return acos((Dot(lV, rV)) / (lV.GetMagnitude() * rV.GetMagnitude()));
+		}
+
+		static Vector3 ClampMagnitude(Vector3& vector, float maxLength) {
+			
+			float vectorSqrMag = vector.GetSqrMagnitude();
+			if (vectorSqrMag > maxLength * maxLength)
+			{
+				float newMag = sqrt(vectorSqrMag);
+
+				float normalX = vector.m_x / newMag;
+				float normalY = vector.m_y / newMag;
+				float normalZ = vector.m_z / newMag;
+
+				return { normalX * maxLength, normalY * maxLength, normalZ * maxLength };
+			}
+
+			return vector;
+		}
+
+		static float Distance(Vector3& lV, Vector3& rV) {
+			return pow(pow((lV.m_x - rV.m_x),2) + pow((lV.m_y - rV.m_y),2) + pow((lV.m_z - rV.m_z),2),0.5f);
+		}
+
+		static Vector3 Max(Vector3& lV, Vector3& rV) {
+			return { (lV.m_x > rV.m_x) ? lV.m_x : rV.m_x,(lV.m_y > rV.m_y) ? lV.m_y : rV.m_y, (lV.m_z > rV.m_z) ? lV.m_z : rV.m_z };
+		}
+		
+		static Vector3 Min(Vector3& lV, Vector3& rV) {
+			return { (lV.m_x < rV.m_x) ? lV.m_x : rV.m_x,(lV.m_y < rV.m_y) ? lV.m_y : rV.m_y, (lV.m_z < rV.m_z) ? lV.m_z : rV.m_z };
+		}
 	public:
 		float m_x{ 0.0f };
 		float m_y{ 0.0f };
