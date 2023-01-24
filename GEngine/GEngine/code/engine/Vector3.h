@@ -12,12 +12,12 @@ namespace GEngine
 
 		Vector3() {}
 
-		Vector3(float value) {
+		Vector3(const float& value) {
 			m_x = value;
 			m_y = value;
 			m_z = value;
 		}
-		Vector3(float xValue, float yValue, float zValue) {
+		Vector3(const float& xValue, const float& yValue, const float& zValue) {
 			m_x = xValue;
 			m_y = yValue;
 			m_z = zValue;
@@ -33,37 +33,37 @@ namespace GEngine
 
 		//Operators
 
-		Vector3 operator*(float scalar) {
+		Vector3 operator*(const float& scalar) {
 			return { m_x * scalar, m_y * scalar, m_z * scalar };
 		}
 
-		Vector3 operator*(int scalar) {
+		Vector3 operator*(const int& scalar) {
 			return { m_x * scalar, m_y * scalar,m_z * scalar };
 		}
 
-		Vector3 operator/(float scalar) {
+		Vector3 operator/(const float& scalar) {
 			return { m_x / scalar, m_y / scalar, m_z / scalar };
 		}
 
-		Vector3 operator/(int scalar) {
+		Vector3 operator/(const int& scalar) {
 			return { m_x / scalar, m_y / scalar, m_z / scalar };
 		}
-		Vector3 operator-(Vector3 substracting) {
+		Vector3 operator-(const Vector3& substracting) {
 			return { m_x - substracting.m_x, m_y - substracting.m_y, m_z - substracting.m_z };
 		}
-		Vector3 operator+(Vector3 additive) {
+		Vector3 operator+(const Vector3& additive) {
 			return { m_x + additive.m_x, m_y + additive.m_y, m_z + additive.m_z };
 		}
-		Vector3 operator/(Vector3 dividing) {
+		Vector3 operator/(const Vector3& dividing) {
 			return { m_x / dividing.m_x, m_y / dividing.m_y, m_z / dividing.m_z };
 		}
-		Vector3 operator*(Vector3 scalar) {
+		Vector3 operator*(const Vector3& scalar) {
 			return { m_x * scalar.m_x, m_y * scalar.m_y, m_z * scalar.m_z };
 		}
-		Vector3 operator==(Vector3 compared) {
+		Vector3 operator==(const Vector3& compared) {
 			return (fabs(m_x - compared.m_x) < FLT_EPSILON) && (fabs(m_y - compared.m_y) < FLT_EPSILON) && (fabs(m_z - compared.m_z) < FLT_EPSILON);
 		}
-		Vector3 operator!=(Vector3 compared) {
+		Vector3 operator!=(const Vector3& compared) {
 			return (fabs(m_x - compared.m_x) > FLT_EPSILON) || (fabs(m_y - compared.m_y) > FLT_EPSILON) || (fabs(m_z - compared.m_z) > FLT_EPSILON);
 		}
 
@@ -73,28 +73,28 @@ namespace GEngine
 		inline Vector3 GetNormlized() const { return Vector3(m_x / GetMagnitude(), m_y / GetMagnitude(), m_z / GetMagnitude()); }
 
 		//Setters
-		void SetAxis(float x, float y, float z) {
+		void SetAxis(const float& x, const float& y, const float& z) {
 			m_x = x;
 			m_y = y;
 			m_z = z;
 		}
 
 		//static Functions
-		static Vector3 Cross(Vector3& lV, Vector3& rV) {
+		static Vector3 Cross(const Vector3& lV, const Vector3& rV) {
 			return { lV.m_y * rV.m_z - lV.m_z * rV.m_y,
 					 lV.m_z * rV.m_x - lV.m_x * rV.m_z,
 					 lV.m_x * rV.m_y - lV.m_y * rV.m_x };
 		}
 
-		static float Dot(Vector3& lV, Vector3& rV) {
+		static float Dot(const Vector3& lV, const Vector3& rV) {
 			return lV.m_x * rV.m_x + lV.m_y * rV.m_y + lV.m_z * rV.m_z;
 		}
 
-		static float Angle(Vector3& lV, Vector3& rV) {
+		static float Angle(const Vector3& lV, const Vector3& rV) {
 			return acos((Dot(lV, rV)) / (lV.GetMagnitude() * rV.GetMagnitude()));
 		}
 
-		static Vector3 ClampMagnitude(Vector3& vector, float maxLength) {
+		static Vector3 ClampMagnitude(const Vector3& vector, const float& maxLength) {
 
 			float vectorSqrMag = vector.GetSqrMagnitude();
 			if (vectorSqrMag > maxLength * maxLength)
@@ -110,7 +110,7 @@ namespace GEngine
 
 			return vector;
 		}
-		static Vector3 Lerp(Vector3& startingVector, Vector3& endingVector, float time) {
+		static Vector3 Lerp(const Vector3& startingVector, const Vector3& endingVector, float& time) {
 
 			if (time > 1)
 				time = 1;
@@ -121,7 +121,8 @@ namespace GEngine
 				startingVector.m_y + (endingVector.m_y - startingVector.m_y) * time,
 				startingVector.m_z + (endingVector.m_z - startingVector.m_z) * time };
 		}
-		static Vector3 LerpUnclamped(Vector3& startingVector, Vector3& endingVector, float time) {
+
+		static Vector3 LerpUnclamped(const Vector3& startingVector, const Vector3& endingVector, float& time) {
 			return { startingVector.m_x + (endingVector.m_x - startingVector.m_x) * time,
 					startingVector.m_y + (endingVector.m_y - startingVector.m_y) * time,
 					startingVector.m_z + (endingVector.m_z - startingVector.m_z) * time };
@@ -131,7 +132,7 @@ namespace GEngine
 			return (reflectedVector + (planeNormal * (-2 * Dot(reflectedVector, planeNormal))));
 		}
 		
-		static float SignedAngle(Vector3& lV, Vector3& rV,Vector3& axis) {
+		static float SignedAngle(const Vector3& lV, const Vector3& rV, const Vector3& axis) {
 			float unsignedAngle = Angle(lV, rV);
 
 			Vector3 cross = Cross(lV, rV);
@@ -142,7 +143,7 @@ namespace GEngine
 			return unsignedAngle* signAngle;
 		}
 
-		static Vector3 Slerp(Vector3& startingVector, Vector3& targetVector, float time) {
+		static Vector3 Slerp(Vector3& startingVector, Vector3& targetVector, const float& time) {
 			float dot = Dot(startingVector, targetVector);
 
 			if (dot < -1.0f)
@@ -158,7 +159,7 @@ namespace GEngine
 			return ((startingVector * cos(angle)) + (targetDirection * sin(angle)));
 		}
 
-		static Vector3 SlerpUnclamped(Vector3& startingVector, Vector3& targetVector, float time) {
+		static Vector3 SlerpUnclamped(Vector3& startingVector, Vector3& targetVector, const float& time) {
 			float dot = Dot(startingVector, targetVector);
 
 			float angle = acos(dot) * time;
@@ -168,7 +169,7 @@ namespace GEngine
 			return ((startingVector * cos(angle)) + (targetDirection * sin(angle)));
 
 		}
-		static Vector3 MoveTowards(Vector3& startingVector, Vector3& targetVector, float maxStep) {
+		static Vector3 MoveTowards(Vector3& startingVector, Vector3& targetVector,const float& maxStep) {
 			
 			Vector3 targetDirection = (targetDirection - startingVector);
 
@@ -186,11 +187,11 @@ namespace GEngine
 			startingVector.m_y + targetVector.m_y,
 			startingVector.m_z + targetVector.m_z};
 		}
-		static Vector3 Normalize(Vector3& vector) {
+		static Vector3 Normalize(const Vector3& vector) {
 			return vector.GetNormlized();
 		}
 
-		static Vector3 Project(Vector3& projectedV, Vector3& projectedOnV) {
+		static Vector3 Project(Vector3& projectedV,Vector3& projectedOnV) {
 			return (projectedOnV * (Dot(projectedV, projectedOnV) / Dot(projectedOnV,projectedOnV)));
 		}
 
@@ -198,7 +199,7 @@ namespace GEngine
 			return (projectedV - Project(projectedV, planeNormalV));
 		}
 		static float Distance(Vector3& lV, Vector3& rV) {
-			return pow(pow((lV.m_x - rV.m_x),2) + pow((lV.m_y - rV.m_y),2) + pow((lV.m_z - rV.m_z),2),0.5f);
+			return sqrt(pow((lV.m_x - rV.m_x),2) + pow((lV.m_y - rV.m_y),2) + pow((lV.m_z - rV.m_z),2));
 		}
 
 		static Vector3 Max(Vector3& lV, Vector3& rV) {

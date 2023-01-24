@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -184,17 +184,18 @@
     <ClInclude Include="code\engine\InputListeners.h" />
     <ClInclude Include="code\engine\LogicSystem.h" />
     <ClInclude Include="code\engine\MessageQueueSystem.h" />
+    <ClInclude Include="code\engine\Quaternion.h" />
     <ClInclude Include="code\engine\ResourcesManager.h" />
     <ClInclude Include="code\engine\SdlEmulationLayer.h" />
     <ClInclude Include="code\engine\SdlInputHandler.h" />
     <ClInclude Include="code\engine\SoundSystem.h" />
     <ClInclude Include="code\engine\StaticPluginLoader.h" />
     <ClInclude Include="code\engine\Time.h" />
+    <ClInclude Include="code\engine\Vector3.h" />
     <ClInclude Include="code\game\Game.h" />
     <ClInclude Include="code\game\SlidingSphere.h" />
     <ClInclude Include="code\game\SlidingSphereGame.h" />
     <ClInclude Include="GameState.h" />
-    <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="PhysicEngineTODO.txt" />

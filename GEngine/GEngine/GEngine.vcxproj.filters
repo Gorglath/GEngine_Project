@@ -227,6 +227,9 @@
     <ClInclude Include="Vector3.h">
       <Filter>Header Files\engine\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="code\engine\Quaternion.h">
+      <Filter>Header Files\engine\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="PhysicEngineTODO.txt">
