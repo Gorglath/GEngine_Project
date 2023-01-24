@@ -27,14 +27,14 @@ namespace GEngine
 			);
 		}
 
-		Quaternion operator==(const Quaternion& rQ)
+		bool operator==(const Quaternion& rQ)
 		{
-
+			return (m_x == rQ.m_x && m_y == rQ.m_y && m_z == rQ.m_z && m_w == rQ.m_w);
 		}
 
-		Quaternion operator!=(const Quaternion& rQ)
+		bool operator!=(const Quaternion& rQ)
 		{
-
+			return (m_x != rQ.m_x || m_y != rQ.m_y || m_z != rQ.m_z || m_w != rQ.m_w);
 		}
 
 		//Public Methods.
