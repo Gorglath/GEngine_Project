@@ -224,10 +224,10 @@
     <ClInclude Include="code\engine\SoundSystem.h">
       <Filter>Header Files\engine\sounds</Filter>
     </ClInclude>
-    <ClInclude Include="Vector3.h">
+    <ClInclude Include="code\engine\Quaternion.h">
       <Filter>Header Files\engine\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="code\engine\Quaternion.h">
+    <ClInclude Include="code\engine\Vector3.h">
       <Filter>Header Files\engine\Utils</Filter>
     </ClInclude>
   </ItemGroup>

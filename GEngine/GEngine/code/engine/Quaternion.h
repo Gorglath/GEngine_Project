@@ -4,6 +4,7 @@ namespace GEngine
 {
 	class Quaternion 
 	{
+	
 	public:
 
 		//Constructors
@@ -56,20 +57,44 @@ namespace GEngine
 		
 		void SetFromRotation(const Vector3& fromDirection, const Vector3& toDirection)
 		{
-
-		}
-
-		void SetLookRotation(const Vector3& viewDirection, const Vector3& upDirection = Vector3::up)
-		{
-
+			Quaternion targetRotation = Quaternion::FromToRotation(fromDirection, toDirection);
+			
+			m_x = targetRotation.m_x;
+			m_y = targetRotation.m_y;
+			m_z = targetRotation.m_z;
+			m_w = targetRotation.m_w;
 		}
 
 		void ToAngleAxis(float* angle, Vector3* axis)
 		{
-
+			Vector3 angleAxis;
+			float division = sqrt(1 - m_w * m_w);
+			angleAxis.m_x = m_x / division;
+			angleAxis.m_y = m_y / division;
+			angleAxis.m_z = m_z / division;
+			
+			*angle = 2 * acos(m_w);
+			*axis = angleAxis;
 		}
 
-		inline const Vector3 GetEularAngles(){}
+		inline const Vector3 GetEularAngles()
+		{
+			Vector3 eular;
+
+			float sinr_cosp = 2.0f * (m_w * m_x + m_y * m_z);
+			float cosr_cosp = 1.0f - 2.0f * (m_x * m_x + m_y * m_y);
+			eular.m_x = atan2(sinr_cosp, cosr_cosp);
+
+			float sinp = sqrt(1.0f + 2.0f * (m_w * m_y - m_x * m_z));
+			float cosp = sqrt(1.0f - 2.0f * (m_w * m_y - m_x * m_z));
+			eular.m_z = 2 * atan2(sinp, cosp) - 1.570796f;
+
+			float siny_cosp = 2.0f * (m_w * m_z + m_x * m_y);
+			float cosy_cosp = 1.0f - 2.0f * (m_y * m_y + m_z * m_z);
+			eular.m_y = atan2(siny_cosp, cosy_cosp);
+
+			return eular;
+		}
 		inline const Quaternion GetNormalized(){}
 
 		char* ToString()
@@ -78,11 +103,6 @@ namespace GEngine
 		}
 
 		//Static Methods
-
-		static float Dot(const Quaternion& lQ, const Quaternion& rQ)
-		{
-
-		}
 
 		static float Angle(const Quaternion& lQ, const Quaternion& rQ)
 		{
@@ -101,12 +121,14 @@ namespace GEngine
 
 		static Quaternion FromToRotation(const Vector3& fromDirection, const Vector3& toDirection)
 		{
-
-		}
-
-		static Quaternion Inverse(const Quaternion& quaternion)
-		{
-
+			Quaternion result;
+			Vector3 cross = Vector3::Cross(fromDirection, toDirection);
+			result.m_x = cross.m_x;
+			result.m_y = cross.m_y;
+			result.m_z = cross.m_z;
+			result.m_w = sqrt(fromDirection.GetSqrMagnitude() * toDirection.GetSqrMagnitude()) + Vector3::Dot(fromDirection, toDirection);
+			
+			return result.GetNormalized();
 		}
 
 		static Quaternion Lerp(const Quaternion& lQ, const Quaternion& rQ,const float& time)
@@ -115,11 +137,6 @@ namespace GEngine
 		}
 
 		static Quaternion LerpUnclamped(const Quaternion& lQ, const Quaternion& rQ, const float& time)
-		{
-
-		}
-
-		static Quaternion LookRotation(const Vector3& forward, const Vector3 upward = Vector3::up)
 		{
 
 		}
