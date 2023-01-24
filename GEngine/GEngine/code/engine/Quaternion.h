@@ -99,7 +99,15 @@ namespace GEngine
 
 		char* ToString()
 		{
-			return nullptr;
+			char quatString[7];
+			quatString[0] = m_x;
+			quatString[1] = '-';
+			quatString[2] = m_y;
+			quatString[3] = '-';
+			quatString[4] = m_z;
+			quatString[5] = '-';
+			quatString[6] = m_w;
+			return quatString;
 		}
 
 		//Static Methods
