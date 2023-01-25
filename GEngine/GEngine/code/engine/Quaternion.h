@@ -156,9 +156,15 @@ namespace GEngine
 			return result.GetNormalized();
 		}
 
+		static float Dot(const Quaternion& lQ, const Quaternion& rQ)
+		{
+			return (lQ.m_x * rQ.m_x + lQ.m_y * rQ.m_y + lQ.m_z * rQ.m_z + lQ.m_w * rQ.m_w);
+		}
+
 		static float Angle(const Quaternion& lQ, const Quaternion& rQ)
 		{
-			//TODO
+			float dot = fmin(abs(Quaternion::Dot(lQ, rQ)), 1.0F);
+			return acos(dot) * 2.0f * 180 / 3.14159265359;
 		}
 
 		static Quaternion AngleAxis(const float& angle, const Vector3& axis)
