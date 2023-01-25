@@ -171,7 +171,7 @@ namespace GEngine
 		}
 		static Vector3 MoveTowards(Vector3& startingVector, Vector3& targetVector,const float& maxStep) {
 			
-			Vector3 targetDirection = (targetDirection - startingVector);
+			Vector3 targetDirection = (targetVector - startingVector);
 
 			float sqDistance = targetDirection.GetMagnitude();
 			
@@ -181,11 +181,11 @@ namespace GEngine
 			float distance = sqrt(sqDistance);
 
 			targetDirection = targetDirection / distance;
-			targetDirection = targetDirection / maxStep;
+			targetDirection = targetDirection * maxStep;
 
 			return { startingVector.m_x + targetDirection.m_x,
-			startingVector.m_y + targetVector.m_y,
-			startingVector.m_z + targetVector.m_z};
+			startingVector.m_y + targetDirection.m_y,
+			startingVector.m_z + targetDirection.m_z};
 		}
 		static Vector3 Normalize(const Vector3& vector) {
 			return vector.GetNormlized();

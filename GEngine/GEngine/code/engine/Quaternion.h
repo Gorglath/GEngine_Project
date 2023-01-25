@@ -28,6 +28,26 @@ namespace GEngine
 			);
 		}
 
+		Quaternion operator+(const Quaternion& rQ)
+		{
+			return { m_x + rQ.m_x, m_y + rQ.m_y, m_z + rQ.m_z, m_w + rQ.m_w };
+		}
+		Quaternion operator*(const float& multiplier)
+		{
+			return { m_x * multiplier, m_y * multiplier, m_z * multiplier, m_w * multiplier };
+		}
+		Quaternion operator*(const int& multiplier)
+		{
+			return { m_x * multiplier, m_y * multiplier, m_z * multiplier, m_w * multiplier };
+		}
+		Quaternion operator/(const float& divider)
+		{
+			return { m_x / divider, m_y / divider, m_z / divider, m_w / divider };
+		}
+		Quaternion operator/(const int& divider)
+		{
+			return { m_x / divider, m_y / divider, m_z / divider, m_w / divider };
+		}
 		bool operator==(const Quaternion& rQ)
 		{
 			return (m_x == rQ.m_x && m_y == rQ.m_y && m_z == rQ.m_z && m_w == rQ.m_w);
@@ -95,7 +115,19 @@ namespace GEngine
 
 			return eular;
 		}
-		inline const Quaternion GetNormalized(){}
+		inline const Quaternion GetNormalized()
+		{
+			Quaternion normalized;
+
+			float distance = sqrt(m_w * m_w + m_x * m_x + m_y * m_y + m_z * m_z);
+
+			normalized.m_x = m_x / distance;
+			normalized.m_y = m_y / distance;
+			normalized.m_z = m_z / distance;
+			normalized.m_w = m_w / distance;
+
+			return normalized;
+		}
 
 		char* ToString()
 		{
@@ -112,21 +144,6 @@ namespace GEngine
 
 		//Static Methods
 
-		static float Angle(const Quaternion& lQ, const Quaternion& rQ)
-		{
-
-		}
-
-		static Quaternion AngleAxis(const float& angle, const Vector3& axis)
-		{
-
-		}
-
-		static Quaternion Eular(const float& x, const float& y, const float& z)
-		{
-
-		}
-
 		static Quaternion FromToRotation(const Vector3& fromDirection, const Vector3& toDirection)
 		{
 			Quaternion result;
@@ -135,38 +152,124 @@ namespace GEngine
 			result.m_y = cross.m_y;
 			result.m_z = cross.m_z;
 			result.m_w = sqrt(fromDirection.GetSqrMagnitude() * toDirection.GetSqrMagnitude()) + Vector3::Dot(fromDirection, toDirection);
-			
+
 			return result.GetNormalized();
 		}
 
-		static Quaternion Lerp(const Quaternion& lQ, const Quaternion& rQ,const float& time)
+		static float Angle(const Quaternion& lQ, const Quaternion& rQ)
 		{
-
+			//TODO
 		}
 
-		static Quaternion LerpUnclamped(const Quaternion& lQ, const Quaternion& rQ, const float& time)
+		static Quaternion AngleAxis(const float& angle, const Vector3& axis)
 		{
+			Quaternion q;
+			
+			axis.GetNormlized();
 
+			q.m_x = axis.m_x * sin(angle / 2);
+			q.m_y = axis.m_y * sin(angle / 2);
+			q.m_z = axis.m_z * sin(angle / 2);
+			q.m_w = cos(angle / 2);
+
+			return q.GetNormalized();
+		}
+
+		static Quaternion Eular(const float& x, const float& y, const float& z)
+		{
+			Quaternion result;
+
+			float xRad = x * 3.14159265359 * 180;
+			float yRad = y * 3.14159265359 * 180;
+			float zRad = z * 3.14159265359 * 180;
+
+			double cosy = cos(yRad / 2);
+			double siny = sin(yRad / 2);
+			double cosx = cos(xRad / 2);
+			double sinx = sin(xRad / 2);
+			double cosz = cos(zRad / 2);
+			double sinz = sin(zRad / 2);
+			double cosy_cosx = cosy * cosx;
+			double siny_sinx = siny * sinx;
+			
+			result.m_w = cosy_cosx * cosz - siny_sinx * sinz;
+			result.m_x = cosy_cosx * sinz + siny_sinx * cosz;
+			result.m_y = siny * cosx * cosz + cosy * sinx * sinz;
+			result.m_z = cosy * sinx * cosz - siny * cosx * sinz;
+
+			return result.GetNormalized();
 		}
 
 		static Quaternion Normalize(const Quaternion& q)
 		{
+			Quaternion normalized;
 
+			float distance = sqrt(q.m_w * q.m_w + q.m_x * q.m_x + q.m_y * q.m_y + q.m_z * q.m_z);
+
+			normalized.m_x = q.m_x / distance;
+			normalized.m_y = q.m_y / distance;
+			normalized.m_z = q.m_z / distance;
+			normalized.m_w = q.m_w / distance;
+
+			return normalized;
 		}
 
 		static Quaternion RotateTowards(const Quaternion& from, const Quaternion& to, const float& maxDegrees)
 		{
-
+			float angle = Quaternion::Angle(from, to);
+			if (angle == 0.0f)
+				return to;
+			return Quaternion::SlerpUnclamped(from, to, fmin(1.0f, maxDegrees / angle));
 		}
 
-		static Quaternion Slerp(const Quaternion& lQ, const Quaternion rQ, const float& time)
+		static Quaternion Lerp(const Quaternion& lQ, const Quaternion& rQ, float& time)
 		{
+			if (time > 1)
+				time = 1;
+			else if (time < 0)
+				time = 0;
 
+			return {
+				lQ.m_x + (rQ.m_x - lQ.m_x) * time,
+				lQ.m_y + (rQ.m_y - lQ.m_y) * time,
+				lQ.m_z + (rQ.m_z - lQ.m_z) * time,
+				lQ.m_w + (rQ.m_w - lQ.m_w) * time
+			};
+		}
+
+		static Quaternion LerpUnclamped(const Quaternion& lQ, const Quaternion& rQ, const float& time)
+		{
+			return {
+				lQ.m_x + (rQ.m_x - lQ.m_x) * time,
+				lQ.m_y + (rQ.m_y - lQ.m_y) * time,
+				lQ.m_z + (rQ.m_z - lQ.m_z) * time,
+				lQ.m_w + (rQ.m_w - lQ.m_w) * time
+			};
+		}
+
+		static Quaternion Slerp(const Quaternion& lQ, const Quaternion rQ, float& time)
+		{
+			if (time > 1)
+				time = 1;
+			else if (time < 0)
+				time = 0;
+
+			float halfAngle = Quaternion::Angle(lQ, rQ) / 2.0f;
+			
+			Quaternion Qa = lQ * sin((1 - time) * halfAngle);
+			Quaternion Qb = rQ * sin(time * halfAngle);
+
+			return ((Qa + Qb) / sin(halfAngle));
 		}
 
 		static Quaternion SlerpUnclamped(const Quaternion& lQ, const Quaternion& rQ, const float& time)
 		{
+			float halfAngle = Quaternion::Angle(lQ, rQ) / 2.0f;
 
+			Quaternion Qa = lQ * sin((1 - time) * halfAngle);
+			Quaternion Qb = rQ * sin(time * halfAngle);
+
+			return ((Qa + Qb) / sin(halfAngle));
 		}
 
 		float m_x{ 0.0f };
