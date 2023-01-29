@@ -75,7 +75,7 @@ namespace GEngine
 			m_w = quat.m_w;
 		}
 		
-		void SetFromRotation(const Vector3& fromDirection, const Vector3& toDirection)
+		void SetFromRotation(const GVector3& fromDirection, const GVector3& toDirection)
 		{
 			Quaternion targetRotation = Quaternion::FromToRotation(fromDirection, toDirection);
 			
@@ -85,9 +85,9 @@ namespace GEngine
 			m_w = targetRotation.m_w;
 		}
 
-		void ToAngleAxis(float* angle, Vector3* axis)
+		void ToAngleAxis(float* angle, GVector3* axis)
 		{
-			Vector3 angleAxis;
+			GVector3 angleAxis;
 			float division = sqrt(1 - m_w * m_w);
 			angleAxis.m_x = m_x / division;
 			angleAxis.m_y = m_y / division;
@@ -97,9 +97,9 @@ namespace GEngine
 			*axis = angleAxis;
 		}
 
-		inline const Vector3 GetEularAngles()
+		inline const GVector3 GetEularAngles()
 		{
-			Vector3 eular;
+			GVector3 eular;
 
 			float sinr_cosp = 2.0f * (m_w * m_x + m_y * m_z);
 			float cosr_cosp = 1.0f - 2.0f * (m_x * m_x + m_y * m_y);
@@ -144,14 +144,14 @@ namespace GEngine
 
 		//Static Methods
 
-		static Quaternion FromToRotation(const Vector3& fromDirection, const Vector3& toDirection)
+		static Quaternion FromToRotation(const GVector3& fromDirection, const GVector3& toDirection)
 		{
 			Quaternion result;
-			Vector3 cross = Vector3::Cross(fromDirection, toDirection);
+			GVector3 cross = GVector3::Cross(fromDirection, toDirection);
 			result.m_x = cross.m_x;
 			result.m_y = cross.m_y;
 			result.m_z = cross.m_z;
-			result.m_w = sqrt(fromDirection.GetSqrMagnitude() * toDirection.GetSqrMagnitude()) + Vector3::Dot(fromDirection, toDirection);
+			result.m_w = sqrt(fromDirection.GetSqrMagnitude() * toDirection.GetSqrMagnitude()) + GVector3::Dot(fromDirection, toDirection);
 
 			return result.GetNormalized();
 		}
@@ -164,10 +164,10 @@ namespace GEngine
 		static float Angle(const Quaternion& lQ, const Quaternion& rQ)
 		{
 			float dot = fmin(abs(Quaternion::Dot(lQ, rQ)), 1.0F);
-			return acos(dot) * 2.0f * 180 / 3.14159265359;
+			return acos(dot) * 2.0f * 180.0f / 3.14159265359f;
 		}
 
-		static Quaternion AngleAxis(const float& angle, const Vector3& axis)
+		static Quaternion AngleAxis(const float& angle, const GVector3& axis)
 		{
 			Quaternion q;
 			
@@ -185,18 +185,18 @@ namespace GEngine
 		{
 			Quaternion result;
 
-			float xRad = x * 3.14159265359 * 180;
-			float yRad = y * 3.14159265359 * 180;
-			float zRad = z * 3.14159265359 * 180;
+			float xRad = x * 3.14159265359f * 180.0f;
+			float yRad = y * 3.14159265359f * 180.0f;
+			float zRad = z * 3.14159265359f * 180.0f;
 
-			double cosy = cos(yRad / 2);
-			double siny = sin(yRad / 2);
-			double cosx = cos(xRad / 2);
-			double sinx = sin(xRad / 2);
-			double cosz = cos(zRad / 2);
-			double sinz = sin(zRad / 2);
-			double cosy_cosx = cosy * cosx;
-			double siny_sinx = siny * sinx;
+			float cosy = cos(yRad / 2);
+			float siny = sin(yRad / 2);
+			float cosx = cos(xRad / 2);
+			float sinx = sin(xRad / 2);
+			float cosz = cos(zRad / 2);
+			float sinz = sin(zRad / 2);
+			float cosy_cosx = cosy * cosx;
+			float siny_sinx = siny * sinx;
 			
 			result.m_w = cosy_cosx * cosz - siny_sinx * sinz;
 			result.m_x = cosy_cosx * sinz + siny_sinx * cosz;
@@ -220,7 +220,7 @@ namespace GEngine
 			return normalized;
 		}
 
-		static Quaternion RotateTowards(const Quaternion& from, const Quaternion& to, const float& maxDegrees)
+		static Quaternion RotateTowards(Quaternion& from, Quaternion& to, const float& maxDegrees)
 		{
 			float angle = Quaternion::Angle(from, to);
 			if (angle == 0.0f)
@@ -253,7 +253,7 @@ namespace GEngine
 			};
 		}
 
-		static Quaternion Slerp(const Quaternion& lQ, const Quaternion rQ, float& time)
+		static Quaternion Slerp(Quaternion& lQ, Quaternion& rQ, float& time)
 		{
 			if (time > 1)
 				time = 1;
@@ -268,7 +268,7 @@ namespace GEngine
 			return ((Qa + Qb) / sin(halfAngle));
 		}
 
-		static Quaternion SlerpUnclamped(const Quaternion& lQ, const Quaternion& rQ, const float& time)
+		static Quaternion SlerpUnclamped(Quaternion& lQ, Quaternion& rQ, const float& time)
 		{
 			float halfAngle = Quaternion::Angle(lQ, rQ) / 2.0f;
 
@@ -284,6 +284,4 @@ namespace GEngine
 		float m_w{ 0.0f };
 		static const Quaternion identity;
 	};
-
-	const Quaternion Quaternion::identity{ 0.0f,0.0f,0.0f,1.0f };
 }

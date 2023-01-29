@@ -3,6 +3,8 @@
 #include "CompTransform.h"
 #include "CompCollider.h"
 #include <vector>
+
+using namespace GEngine;
 using namespace Ogre;
 class GameEntity
 {

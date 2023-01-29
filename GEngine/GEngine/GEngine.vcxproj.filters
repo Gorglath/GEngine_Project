@@ -135,6 +135,12 @@
     <ClCompile Include="code\engine\SoundSystem.cpp">
       <Filter>Source Files\engine\sounds</Filter>
     </ClCompile>
+    <ClCompile Include="code\engine\Vector3.cpp">
+      <Filter>Source Files\engine\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="code\engine\Quaternion.cpp">
+      <Filter>Source Files\engine\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\engine\ResourcesManager.h">

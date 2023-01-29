@@ -119,10 +119,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Externals\irrKlang-64bit-1.6.0\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\Components\Hlms\Common\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\Components\Hlms\Pbs\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\Components\Hlms\Unlit\include;$(SolutionDir)\Externals\SDL2-2.0.16\include;$(SolutionDir)\Externals\Ogre3d_Next\Dep\out\build\ogredeps\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\Components\Overlay\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\OgreMain\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\out\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Externals\irrKlang-64bit-1.6.0\lib\Winx64-visualStudio;$(SolutionDir)\Externals\SDL2-2.0.16\lib\x64;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\out\build\lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OgreOverlay.lib;OgreMain.lib;OgreSamplesCommon.lib;OgreHlmsPbs.lib;OgreHlmsUnlit.lib;SDL2.lib;SDL2main.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -155,10 +158,12 @@
     <ClCompile Include="code\engine\GraphicSystem.cpp" />
     <ClCompile Include="code\engine\LogicSystem.cpp" />
     <ClCompile Include="code\engine\MessageQueueSysten,cpp.cpp" />
+    <ClCompile Include="code\engine\Quaternion.cpp" />
     <ClCompile Include="code\engine\SdlInputHandler.cpp" />
     <ClCompile Include="code\engine\SoundSystem.cpp" />
     <ClCompile Include="code\engine\StaticPluginLoader.cpp" />
     <ClCompile Include="code\engine\Time.cpp" />
+    <ClCompile Include="code\engine\Vector3.cpp" />
     <ClCompile Include="code\game\Game.cpp" />
     <ClCompile Include="code\game\SlidingSphere.cpp" />
     <ClCompile Include="code\game\SlidingSphereGame.cpp" />

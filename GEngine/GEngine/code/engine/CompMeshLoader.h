@@ -3,6 +3,7 @@
 #include "OgreSceneManager.h"
 #include "OgreItem.h"
 #include "OgreMeshManager2.h"
+#include "Ogre.h"
 #include <string>
 
 class CompMeshLoader : public Component

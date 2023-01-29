@@ -1,76 +1,114 @@
 #pragma once
+
 #include <cmath>
 #include <limits>
+#include "OgreVector3.h"
 namespace GEngine
 {
-	
-	class Vector3
+	class GVector3
 	{
 	public:
 
 		//Constructors
 
-		Vector3() {}
+		GVector3() {}
 
-		Vector3(const float& value) {
+		GVector3(const float& value) {
 			m_x = value;
 			m_y = value;
 			m_z = value;
 		}
-		Vector3(const float& xValue, const float& yValue, const float& zValue) {
+		GVector3(const float& xValue, const float& yValue, const float& zValue) {
 			m_x = xValue;
 			m_y = yValue;
 			m_z = zValue;
 		}
-		Vector3(Vector3* nVector) {
+		GVector3(GVector3* nVector) {
 			m_x = nVector->m_x;
 			m_y = nVector->m_y;
 			m_z = nVector->m_z;
 		}
 
 		//Destructor
-		~Vector3() {}
+		~GVector3() {}
 
 		//Operators
-
-		Vector3 operator*(const float& scalar) {
+		void operator=(const GVector3& scalar) {
+			m_x = scalar.m_x;
+			m_y = scalar.m_y;
+			m_z = scalar.m_z;
+		}
+		void operator*=(const GVector3& scalar) {
+			m_x *= scalar.m_x;
+			m_y *= scalar.m_y;
+			m_z *= scalar.m_z;
+		}
+		void operator/=(const GVector3& dividing) {
+			m_x /= dividing.m_x;
+			m_y /= dividing.m_y;
+			m_z /= dividing.m_z;
+		}
+		void operator-=(const GVector3& substracting) {
+			m_x -= substracting.m_x;
+			m_y -= substracting.m_y;
+			m_z -= substracting.m_z;
+		}
+		void operator+=(const GVector3& additive) {
+			m_x += additive.m_x;
+			m_y += additive.m_y;
+			m_z += additive.m_z;
+		}
+		operator Ogre::Vector3() const {
+			return { m_x,m_y,m_z };
+		}
+		GVector3 operator*(const float& scalar) {
 			return { m_x * scalar, m_y * scalar, m_z * scalar };
 		}
 
-		Vector3 operator*(const int& scalar) {
+		GVector3 operator*(const int& scalar) {
 			return { m_x * scalar, m_y * scalar,m_z * scalar };
 		}
 
-		Vector3 operator/(const float& scalar) {
+		GVector3 operator/(const float& scalar) {
 			return { m_x / scalar, m_y / scalar, m_z / scalar };
 		}
 
-		Vector3 operator/(const int& scalar) {
+		GVector3 operator/(const int& scalar) {
 			return { m_x / scalar, m_y / scalar, m_z / scalar };
 		}
-		Vector3 operator-(const Vector3& substracting) {
+		GVector3 operator-(const GVector3& substracting) {
 			return { m_x - substracting.m_x, m_y - substracting.m_y, m_z - substracting.m_z };
 		}
-		Vector3 operator+(const Vector3& additive) {
+		GVector3 operator+(const GVector3& additive) {
 			return { m_x + additive.m_x, m_y + additive.m_y, m_z + additive.m_z };
 		}
-		Vector3 operator/(const Vector3& dividing) {
+		GVector3 operator/(const GVector3& dividing) {
 			return { m_x / dividing.m_x, m_y / dividing.m_y, m_z / dividing.m_z };
 		}
-		Vector3 operator*(const Vector3& scalar) {
+		
+		GVector3 operator*(const GVector3& scalar) {
 			return { m_x * scalar.m_x, m_y * scalar.m_y, m_z * scalar.m_z };
 		}
-		Vector3 operator==(const Vector3& compared) {
+		
+		GVector3 operator==(const GVector3& compared) {
 			return (fabs(m_x - compared.m_x) < FLT_EPSILON) && (fabs(m_y - compared.m_y) < FLT_EPSILON) && (fabs(m_z - compared.m_z) < FLT_EPSILON);
 		}
-		Vector3 operator!=(const Vector3& compared) {
+		GVector3 operator!=(const GVector3& compared) {
 			return (fabs(m_x - compared.m_x) > FLT_EPSILON) || (fabs(m_y - compared.m_y) > FLT_EPSILON) || (fabs(m_z - compared.m_z) > FLT_EPSILON);
 		}
+		//Public Fuctions
 
+		bool IsZero() {
+			return (m_x == 0.0f && m_y == 0.0f && m_z == 0.0f);
+		}
+
+		float Length() {
+			return (sqrtf(m_x * m_x + m_y * m_y + m_z * m_z));
+		}
 		//Getters
 		inline float GetMagnitude() const { return std::sqrt(m_x * m_x + m_y * m_y + m_z * m_z); }
 		inline float GetSqrMagnitude() const { return std::pow(GetMagnitude(), 2); }
-		inline Vector3 GetNormlized() const { return Vector3(m_x / GetMagnitude(), m_y / GetMagnitude(), m_z / GetMagnitude()); }
+		inline GVector3 GetNormlized() const { return GVector3(m_x / GetMagnitude(), m_y / GetMagnitude(), m_z / GetMagnitude()); }
 
 		//Setters
 		void SetAxis(const float& x, const float& y, const float& z) {
@@ -80,21 +118,21 @@ namespace GEngine
 		}
 
 		//static Functions
-		static Vector3 Cross(const Vector3& lV, const Vector3& rV) {
+		static GVector3 Cross(const GVector3& lV, const GVector3& rV) {
 			return { lV.m_y * rV.m_z - lV.m_z * rV.m_y,
 					 lV.m_z * rV.m_x - lV.m_x * rV.m_z,
 					 lV.m_x * rV.m_y - lV.m_y * rV.m_x };
 		}
 
-		static float Dot(const Vector3& lV, const Vector3& rV) {
+		static float Dot(const GVector3& lV, const GVector3& rV) {
 			return lV.m_x * rV.m_x + lV.m_y * rV.m_y + lV.m_z * rV.m_z;
 		}
 
-		static float Angle(const Vector3& lV, const Vector3& rV) {
+		static float Angle(const GVector3& lV, const GVector3& rV) {
 			return acos((Dot(lV, rV)) / (lV.GetMagnitude() * rV.GetMagnitude()));
 		}
 
-		static Vector3 ClampMagnitude(const Vector3& vector, const float& maxLength) {
+		static GVector3 ClampMagnitude(const GVector3& vector, const float& maxLength) {
 
 			float vectorSqrMag = vector.GetSqrMagnitude();
 			if (vectorSqrMag > maxLength * maxLength)
@@ -110,7 +148,7 @@ namespace GEngine
 
 			return vector;
 		}
-		static Vector3 Lerp(const Vector3& startingVector, const Vector3& endingVector, float& time) {
+		static GVector3 Lerp(const GVector3& startingVector, const GVector3& endingVector, float& time) {
 
 			if (time > 1)
 				time = 1;
@@ -122,20 +160,20 @@ namespace GEngine
 				startingVector.m_z + (endingVector.m_z - startingVector.m_z) * time };
 		}
 
-		static Vector3 LerpUnclamped(const Vector3& startingVector, const Vector3& endingVector, float& time) {
+		static GVector3 LerpUnclamped(const GVector3& startingVector, const GVector3& endingVector, float& time) {
 			return { startingVector.m_x + (endingVector.m_x - startingVector.m_x) * time,
 					startingVector.m_y + (endingVector.m_y - startingVector.m_y) * time,
 					startingVector.m_z + (endingVector.m_z - startingVector.m_z) * time };
 		}
 
-		static Vector3 Reflect(Vector3& reflectedVector, Vector3& planeNormal) {
+		static GVector3 Reflect(GVector3& reflectedVector, GVector3& planeNormal) {
 			return (reflectedVector + (planeNormal * (-2 * Dot(reflectedVector, planeNormal))));
 		}
 		
-		static float SignedAngle(const Vector3& lV, const Vector3& rV, const Vector3& axis) {
+		static float SignedAngle(const GVector3& lV, const GVector3& rV, const GVector3& axis) {
 			float unsignedAngle = Angle(lV, rV);
 
-			Vector3 cross = Cross(lV, rV);
+			GVector3 cross = Cross(lV, rV);
 
 			float axisCrossDot = Dot(cross, axis);
 			float signAngle = (axisCrossDot >= 0 ? 1.0f : -1.0f);
@@ -143,7 +181,7 @@ namespace GEngine
 			return unsignedAngle* signAngle;
 		}
 
-		static Vector3 Slerp(Vector3& startingVector, Vector3& targetVector, const float& time) {
+		static GVector3 Slerp(GVector3& startingVector, GVector3& targetVector, const float& time) {
 			float dot = Dot(startingVector, targetVector);
 
 			if (dot < -1.0f)
@@ -153,25 +191,25 @@ namespace GEngine
 				dot = 1.0f;
 			
 			float angle = acos(dot) * time;
-			Vector3 targetDirection = targetVector - startingVector * dot;
+			GVector3 targetDirection = targetVector - startingVector * dot;
 			targetDirection.GetNormlized();
 
 			return ((startingVector * cos(angle)) + (targetDirection * sin(angle)));
 		}
 
-		static Vector3 SlerpUnclamped(Vector3& startingVector, Vector3& targetVector, const float& time) {
+		static GVector3 SlerpUnclamped(GVector3& startingVector, GVector3& targetVector, const float& time) {
 			float dot = Dot(startingVector, targetVector);
 
 			float angle = acos(dot) * time;
-			Vector3 targetDirection = targetVector - startingVector * dot;
+			GVector3 targetDirection = targetVector - startingVector * dot;
 			targetDirection.GetNormlized();
 
 			return ((startingVector * cos(angle)) + (targetDirection * sin(angle)));
 
 		}
-		static Vector3 MoveTowards(Vector3& startingVector, Vector3& targetVector,const float& maxStep) {
+		static GVector3 MoveTowards(GVector3& startingVector, GVector3& targetVector,const float& maxStep) {
 			
-			Vector3 targetDirection = (targetVector - startingVector);
+			GVector3 targetDirection = (targetVector - startingVector);
 
 			float sqDistance = targetDirection.GetMagnitude();
 			
@@ -187,26 +225,26 @@ namespace GEngine
 			startingVector.m_y + targetDirection.m_y,
 			startingVector.m_z + targetDirection.m_z};
 		}
-		static Vector3 Normalize(const Vector3& vector) {
+		static GVector3 Normalize(const GVector3& vector) {
 			return vector.GetNormlized();
 		}
 
-		static Vector3 Project(Vector3& projectedV,Vector3& projectedOnV) {
+		static GVector3 Project(GVector3& projectedV,GVector3& projectedOnV) {
 			return (projectedOnV * (Dot(projectedV, projectedOnV) / Dot(projectedOnV,projectedOnV)));
 		}
 
-		static Vector3 ProjectOnPlane(Vector3& projectedV, Vector3& planeNormalV) {
+		static GVector3 ProjectOnPlane(GVector3& projectedV, GVector3& planeNormalV) {
 			return (projectedV - Project(projectedV, planeNormalV));
 		}
-		static float Distance(Vector3& lV, Vector3& rV) {
+		static float Distance(GVector3& lV, GVector3& rV) {
 			return sqrt(pow((lV.m_x - rV.m_x),2) + pow((lV.m_y - rV.m_y),2) + pow((lV.m_z - rV.m_z),2));
 		}
 
-		static Vector3 Max(Vector3& lV, Vector3& rV) {
+		static GVector3 Max(GVector3& lV, GVector3& rV) {
 			return { (lV.m_x > rV.m_x) ? lV.m_x : rV.m_x,(lV.m_y > rV.m_y) ? lV.m_y : rV.m_y, (lV.m_z > rV.m_z) ? lV.m_z : rV.m_z };
 		}
 		
-		static Vector3 Min(Vector3& lV, Vector3& rV) {
+		static GVector3 Min(GVector3& lV, GVector3& rV) {
 			return { (lV.m_x < rV.m_x) ? lV.m_x : rV.m_x,(lV.m_y < rV.m_y) ? lV.m_y : rV.m_y, (lV.m_z < rV.m_z) ? lV.m_z : rV.m_z };
 		}
 	public:
@@ -214,26 +252,15 @@ namespace GEngine
 		float m_y{ 0.0f };
 		float m_z{ 0.0f };
 
-		static const Vector3 zero;
-		static const Vector3 one;
-		static const Vector3 up;
-		static const Vector3 down;
-		static const Vector3 right;
-		static const Vector3 left;
-		static const Vector3 forward;
-		static const Vector3 back;
-		static const Vector3 negativeInfinity;
-		static const Vector3 positiveInfinity;
+		static const GVector3 zeroVector;
+		static const GVector3 oneVector;
+		static const GVector3 upVector;
+		static const GVector3 downVector;
+		static const GVector3 rightVector;
+		static const GVector3 leftVector;
+		static const GVector3 forwardVector;
+		static const GVector3 backVector;
+		static const GVector3 negativeInfinityVector;
+		static const GVector3 positiveInfinityVector;
 	};
-
-	const Vector3 Vector3::zero{ 0,0,0 };
-	const Vector3 Vector3::one{ 1,1,1 };
-	const Vector3 Vector3::up{ 0,1,0 };
-	const Vector3 Vector3::down{ 0,-1,0 };
-	const Vector3 Vector3::right{ 1,0,0 };
-	const Vector3 Vector3::left{ -1,0,0 };
-	const Vector3 Vector3::forward{ 0,0,1 };
-	const Vector3 Vector3::back{ 0,0,-1 };
-	const Vector3 Vector3::negativeInfinity{std::numeric_limits<float>::min()};
-	const Vector3 Vector3::positiveInfinity{std::numeric_limits<float>::max()};
 }

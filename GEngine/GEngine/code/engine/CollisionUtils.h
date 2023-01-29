@@ -35,14 +35,14 @@ public:
 	static bool isBoxSphereOverlap(CompBoxCollider* boxCollider, CompSphereCollider* sphereCollider)
 	{
 		BoxBoundary boxBoundary = calculateBoxBoundary(boxCollider);
-		Ogre::Vector3 sphereCenter = sphereCollider->m_gameEntity->m_transform.m_position;
-		float closestX = getMax(boxBoundary.m_left, getMin(sphereCenter.x, boxBoundary.m_right));
-		float closestY = getMax(boxBoundary.m_bot, getMin(sphereCenter.y, boxBoundary.m_top));
-		float closestZ = getMax(boxBoundary.m_back, getMin(sphereCenter.z, boxBoundary.m_front));
+		GEngine::GVector3 sphereCenter = sphereCollider->m_gameEntity->m_transform.m_position;
+		float closestX = getMax(boxBoundary.m_left, getMin(sphereCenter.m_x, boxBoundary.m_right));
+		float closestY = getMax(boxBoundary.m_bot, getMin(sphereCenter.m_y, boxBoundary.m_top));
+		float closestZ = getMax(boxBoundary.m_back, getMin(sphereCenter.m_z, boxBoundary.m_front));
 
-		float distance = Math::Sqrt((closestX - sphereCenter.x) * (closestX - sphereCenter.x) +
-			(closestY - sphereCenter.y) * (closestY - sphereCenter.y) +
-			(closestZ - sphereCenter.z) * (closestZ - sphereCenter.z));
+		float distance = Math::Sqrt((closestX - sphereCenter.m_x) * (closestX - sphereCenter.m_x) +
+			(closestY - sphereCenter.m_y) * (closestY - sphereCenter.m_y) +
+			(closestZ - sphereCenter.m_z) * (closestZ - sphereCenter.m_z));
 
 		return distance < sphereCollider->getRadius();
 	}
@@ -70,12 +70,12 @@ public:
 
 	static bool isSphereSphereOverlap(CompSphereCollider* lSphereCollider, CompSphereCollider* rSphereCollider)
 	{
-		Ogre::Vector3 lSphereCenter = lSphereCollider->m_gameEntity->m_transform.m_position;
-		Ogre::Vector3 rSphereCenter = rSphereCollider->m_gameEntity->m_transform.m_position;
+		GEngine::GVector3 lSphereCenter = lSphereCollider->m_gameEntity->m_transform.m_position;
+		GEngine::GVector3 rSphereCenter = rSphereCollider->m_gameEntity->m_transform.m_position;
 
-		float distance = Math::Sqrt((lSphereCenter.x - rSphereCenter.x) * (lSphereCenter.x - rSphereCenter.x) +
-			(lSphereCenter.y - rSphereCenter.y) * (lSphereCenter.y - rSphereCenter.y) +
-			(lSphereCenter.z - rSphereCenter.z) * (lSphereCenter.z - rSphereCenter.z));
+		float distance = Math::Sqrt((lSphereCenter.m_x - rSphereCenter.m_x) * (lSphereCenter.m_x - rSphereCenter.m_x) +
+			(lSphereCenter.m_y - rSphereCenter.m_y) * (lSphereCenter.m_y - rSphereCenter.m_y) +
+			(lSphereCenter.m_z - rSphereCenter.m_z) * (lSphereCenter.m_z - rSphereCenter.m_z));
 
 		return distance < (lSphereCollider->getRadius() + rSphereCollider->getRadius());
 	}
@@ -90,15 +90,15 @@ public:
 	}
 	static BoxBoundary calculateBoxBoundary(CompBoxCollider* boxCollider)
 	{
-		Ogre::Vector3 boxCenter = boxCollider->m_gameEntity->m_transform.m_position;
+		GEngine::GVector3 boxCenter = boxCollider->m_gameEntity->m_transform.m_position;
 		BoxBoundary boxBoundary;
 
-		boxBoundary.m_right = boxCenter.x + boxCollider->getXWidth();
-		boxBoundary.m_left = boxCenter.x - boxCollider->getXWidth();
-		boxBoundary.m_front = boxCenter.z + boxCollider->getZWidth();
-		boxBoundary.m_back = boxCenter.z - boxCollider->getZWidth();
-		boxBoundary.m_top = boxCenter.y + boxCollider->getYHeight();
-		boxBoundary.m_bot = boxCenter.y - boxCollider->getYHeight();
+		boxBoundary.m_right = boxCenter.m_x + boxCollider->getXWidth();
+		boxBoundary.m_left = boxCenter.m_x - boxCollider->getXWidth();
+		boxBoundary.m_front = boxCenter.m_z + boxCollider->getZWidth();
+		boxBoundary.m_back = boxCenter.m_z - boxCollider->getZWidth();
+		boxBoundary.m_top = boxCenter.m_y + boxCollider->getYHeight();
+		boxBoundary.m_bot = boxCenter.m_y - boxCollider->getYHeight();
 
 		return boxBoundary;
 	}

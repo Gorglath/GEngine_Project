@@ -1,5 +1,6 @@
 #include "SlidingSphere.h"
 #include <math.h>
+#include <iostream>
 void SlidingSphere::createSphere(SceneManager* sceneManager)
 {
    m_sphereNode = m_meshLoader.loadMesh("Sphere1000.mesh", sceneManager);
@@ -8,77 +9,81 @@ void SlidingSphere::createSphere(SceneManager* sceneManager)
 
 void SlidingSphere::update(float dt,InputData inputData)
 {
-    Vector2 playerInput = Vector2::ZERO;
+    GVector3 playerInput = GVector3::zeroVector;
     if (inputData.m_isWKeyPressed)
     {
-        playerInput.y += 1;
+        playerInput.m_y += 1;
     }
     if (inputData.m_isAKeyPressed)
     {
-        playerInput.x += 1;
+        playerInput.m_x += 1;
     }
     if (inputData.m_isSKeyPressed)
     {
-        playerInput.y -= 1;
+        playerInput.m_y -= 1;
     }
     if (inputData.m_isDKeyPressed)
     {
-        playerInput.x -= 1;
+        playerInput.m_x -= 1;
     }
     
-    if (!playerInput.isZeroLength())
+    if (!playerInput.IsZero())
     {
         //Clamp the input magnitude.
-        float minValue = fminf(playerInput.length(), 1.0f) / playerInput.length();
-        playerInput = Vector2(minValue * playerInput.x, minValue * playerInput.y);
+        float minValue = fminf(playerInput.Length(), 1.0f) / playerInput.Length();
+        playerInput = GVector3(minValue * playerInput.m_x,0.0f, minValue * playerInput.m_y);
     }
-        Vector3 desiredVelocity = Vector3(playerInput.x, 0.0f, playerInput.y) * m_movementSpeed;
+     
+    GVector3 desiredVelocity = GVector3(playerInput.m_x, 0.0f, playerInput.m_z) * m_movementSpeed;
         
-        clampAcceleration(desiredVelocity, dt);
+    clampAcceleration(desiredVelocity, dt);
         
-        Vector3 translation = m_velocity * dt;
-        Vector3 newPosition = m_transform.m_position;
-        newPosition += translation;
+        
+    GVector3 translation = m_velocity * dt;
+    GVector3 newPosition = m_transform.m_position;
+  
+    newPosition += translation;
 
-        clampNewPositionToBounds(newPosition);
-        
-        m_transform.m_position = newPosition;
-        m_sphereNode->setPosition(m_transform.m_position);
+    clampNewPositionToBounds(newPosition);
+    
+    m_transform.m_position = newPosition;
+    
+    m_sphereNode->setPosition(m_transform.m_position);
 }
 
-void SlidingSphere::clampNewPositionToBounds(Vector3& newPos)
+void SlidingSphere::clampNewPositionToBounds(GEngine::GVector3& newPos)
 {
-    if (m_allowedArea.top < newPos.z)
+    if (m_allowedArea.top < newPos.m_z)
     {
-        newPos.z = m_allowedArea.top;
-        m_velocity.z = -m_velocity.z * m_bounceiness;
+        newPos.m_z = m_allowedArea.top;
+        m_velocity.m_z = -m_velocity.m_z * m_bounceiness;
     }
-    else if (m_allowedArea.bottom > newPos.z)
+    else if (m_allowedArea.bottom > newPos.m_z)
     {
-        newPos.z = m_allowedArea.bottom;
-        m_velocity.z = -m_velocity.z * m_bounceiness;
+        newPos.m_z = m_allowedArea.bottom;
+        m_velocity.m_z = -m_velocity.m_z * m_bounceiness;
     }
 
-    if (m_allowedArea.right < newPos.x)
+    if (m_allowedArea.right < newPos.m_x)
     {
-        newPos.x = m_allowedArea.right;
-        m_velocity.x = -m_velocity.x * m_bounceiness;
+        newPos.m_x = m_allowedArea.right;
+        m_velocity.m_x = -m_velocity.m_x * m_bounceiness;
     }
-    else if (m_allowedArea.left > newPos.x)
+    else if (m_allowedArea.left > newPos.m_x)
     {
-        newPos.x = m_allowedArea.left;
-        m_velocity.x = -m_velocity.x * m_bounceiness;
+        newPos.m_x = m_allowedArea.left;
+        m_velocity.m_x = -m_velocity.m_x * m_bounceiness;
     }
 }
 
-void SlidingSphere::clampAcceleration(Vector3 desiredVelocity,float dt)
+void SlidingSphere::clampAcceleration(GEngine::GVector3& desiredVelocity,float dt)
 {
     float maxSpeedChange = m_accelerationSpeed * dt;
 
-    m_velocity.x = (abs(desiredVelocity.x - m_velocity.x) <= maxSpeedChange) ?
-        desiredVelocity.x :
-        m_velocity.x + ((desiredVelocity.x - m_velocity.x >= 0) ? 1.0f : -1.0f) * maxSpeedChange;
-    m_velocity.z = (abs(desiredVelocity.z - m_velocity.z) <= maxSpeedChange) ?
-        desiredVelocity.z :
-        m_velocity.z + ((desiredVelocity.z - m_velocity.z >= 0) ? 1.0f : -1.0f) * maxSpeedChange;
+    m_velocity.m_x = (abs(desiredVelocity.m_x - m_velocity.m_x) <= maxSpeedChange) ?
+        desiredVelocity.m_x :
+        m_velocity.m_x + ((desiredVelocity.m_x - m_velocity.m_x >= 0) ? 1.0f : -1.0f) * maxSpeedChange;
+    m_velocity.m_z = (abs(desiredVelocity.m_z - m_velocity.m_z) <= maxSpeedChange) ?
+        desiredVelocity.m_z :
+        m_velocity.m_z + ((desiredVelocity.m_z - m_velocity.m_z >= 0) ? 1.0f : -1.0f) * maxSpeedChange;
 }
