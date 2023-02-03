@@ -119,13 +119,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Externals\irrKlang-64bit-1.6.0\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\Components\Hlms\Common\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\Components\Hlms\Pbs\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\Components\Hlms\Unlit\include;$(SolutionDir)\Externals\SDL2-2.0.16\include;$(SolutionDir)\Externals\Ogre3d_Next\Dep\out\build\ogredeps\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\Components\Overlay\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\OgreMain\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\out\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\src\vcpkg\packages\jsoncpp_x86-windows\include;$(SolutionDir)\Externals\irrKlang-64bit-1.6.0\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\Components\Hlms\Common\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\Components\Hlms\Pbs\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\Components\Hlms\Unlit\include;$(SolutionDir)\Externals\SDL2-2.0.16\include;$(SolutionDir)\Externals\Ogre3d_Next\Dep\out\build\ogredeps\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\Components\Overlay\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\OgreMain\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\out\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\Externals\irrKlang-64bit-1.6.0\lib\Winx64-visualStudio;$(SolutionDir)\Externals\SDL2-2.0.16\lib\x64;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\out\build\lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>OgreOverlay.lib;OgreMain.lib;OgreSamplesCommon.lib;OgreHlmsPbs.lib;OgreHlmsUnlit.lib;SDL2.lib;SDL2main.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\src\vcpkg\packages\jsoncpp_x86-windows\lib;$(SolutionDir)\Externals\irrKlang-64bit-1.6.0\lib\Winx64-visualStudio;$(SolutionDir)\Externals\SDL2-2.0.16\lib\x64;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\out\build\lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OgreOverlay.lib;OgreMain.lib;OgreSamplesCommon.lib;OgreHlmsPbs.lib;OgreHlmsUnlit.lib;SDL2.lib;SDL2main.lib;irrKlang.lib;jsoncpp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -156,6 +156,7 @@
     <ClCompile Include="code\engine\GameEntity.cpp" />
     <ClCompile Include="code\engine\GameObjectManager.cpp" />
     <ClCompile Include="code\engine\GraphicSystem.cpp" />
+    <ClCompile Include="code\engine\JsonParser.cpp" />
     <ClCompile Include="code\engine\LogicSystem.cpp" />
     <ClCompile Include="code\engine\MessageQueueSysten,cpp.cpp" />
     <ClCompile Include="code\engine\Quaternion.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="code\engine\GraphicSystem.h" />
     <ClInclude Include="code\engine\InputData.hpp" />
     <ClInclude Include="code\engine\InputListeners.h" />
+    <ClInclude Include="code\engine\JsonParser.h" />
     <ClInclude Include="code\engine\LogicSystem.h" />
     <ClInclude Include="code\engine\MessageQueueSystem.h" />
     <ClInclude Include="code\engine\Quaternion.h" />

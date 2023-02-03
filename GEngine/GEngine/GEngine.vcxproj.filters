@@ -144,6 +144,9 @@
     <ClCompile Include="code\engine\Quaternion.cpp">
       <Filter>Source Files\engine\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="code\engine\JsonParser.cpp">
+      <Filter>Source Files\engine\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\engine\ResourcesManager.h">
@@ -237,6 +240,9 @@
       <Filter>Header Files\engine\Utils</Filter>
     </ClInclude>
     <ClInclude Include="code\engine\Vector3.h">
+      <Filter>Header Files\engine\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\JsonParser.h">
       <Filter>Header Files\engine\Utils</Filter>
     </ClInclude>
   </ItemGroup>
