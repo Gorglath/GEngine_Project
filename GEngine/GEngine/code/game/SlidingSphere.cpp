@@ -3,7 +3,7 @@
 #include <iostream>
 void SlidingSphere::createSphere(SceneManager* sceneManager)
 {
-   m_sphereNode = m_meshLoader.loadMesh("Sphere1000.mesh", sceneManager);
+   m_entityNode = m_meshLoader.loadMesh("Sphere1000.mesh", sceneManager);
    m_meshLoader.m_gameEntity = this;
 }
 
@@ -48,7 +48,7 @@ void SlidingSphere::update(float dt,InputData inputData)
     
     m_transform.m_position = newPosition;
     
-    m_sphereNode->setPosition(m_transform.m_position);
+    m_entityNode->setPosition(m_transform.m_position);
 }
 
 void SlidingSphere::clampNewPositionToBounds(GEngine::GVector3& newPos)

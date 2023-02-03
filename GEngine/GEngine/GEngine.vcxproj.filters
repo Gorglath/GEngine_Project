@@ -79,6 +79,9 @@
     <Filter Include="Source Files\engine\sounds">
       <UniqueIdentifier>{f8c3c5bb-b85a-44d1-8716-4e00c033e226}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\game\Descent">
+      <UniqueIdentifier>{f3f04573-25e8-407d-b908-0be0caeeb8a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\engine\Time.cpp">

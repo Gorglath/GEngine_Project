@@ -2,6 +2,7 @@
 #include "Ogre.h"
 #include "CompTransform.h"
 #include "CompCollider.h"
+#include "CompMeshLoader.h"
 #include <vector>
 
 using namespace GEngine;
@@ -15,6 +16,8 @@ public:
 	Ogre::uint16 m_id{0};
 	bool m_active{ true };
 	CompTransform m_transform;
+	CompMeshLoader m_meshLoader;
+	SceneNode* m_entityNode{ nullptr };
 
 	virtual void load();
 

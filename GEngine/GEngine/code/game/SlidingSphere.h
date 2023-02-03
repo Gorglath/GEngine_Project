@@ -1,7 +1,6 @@
 #pragma once
 //#include "Ogre.h"
 #include "../engine/InputData.hpp"
-#include "../engine/CompMeshLoader.h"
 #include "../engine/GameEntity.h"
 
 using namespace Ogre;
@@ -15,8 +14,6 @@ using namespace Ogre;
 	private:
 		void clampNewPositionToBounds(GEngine::GVector3& newPos);
 		void clampAcceleration(GEngine::GVector3& desiredVelocity, float dt);
-		SceneNode* m_sphereNode{ nullptr };
-		CompMeshLoader m_meshLoader;
 		GEngine::GVector3 m_velocity = GEngine::GVector3::zeroVector;
 		FloatRect m_allowedArea = FloatRect(-6.8f, 6.8f, 6.8f, -6.8f);
 		float m_accelerationSpeed = 10.0f;
