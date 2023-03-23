@@ -165,6 +165,7 @@
     <ClCompile Include="code\engine\StaticPluginLoader.cpp" />
     <ClCompile Include="code\engine\Time.cpp" />
     <ClCompile Include="code\engine\Vector3.cpp" />
+    <ClCompile Include="code\game\DescentGame.cpp" />
     <ClCompile Include="code\game\Game.cpp" />
     <ClCompile Include="code\game\SlidingSphere.cpp" />
     <ClCompile Include="code\game\SlidingSphereGame.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="code\engine\StaticPluginLoader.h" />
     <ClInclude Include="code\engine\Time.h" />
     <ClInclude Include="code\engine\Vector3.h" />
+    <ClInclude Include="code\game\DescentGame.h" />
     <ClInclude Include="code\game\Game.h" />
     <ClInclude Include="code\game\SlidingSphere.h" />
     <ClInclude Include="code\game\SlidingSphereGame.h" />

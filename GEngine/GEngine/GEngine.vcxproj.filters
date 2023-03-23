@@ -82,6 +82,9 @@
     <Filter Include="Source Files\game\Descent">
       <UniqueIdentifier>{f3f04573-25e8-407d-b908-0be0caeeb8a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game\Descent">
+      <UniqueIdentifier>{fc54f333-df6e-406c-9de3-45916e1fd4d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\engine\Time.cpp">
@@ -146,6 +149,9 @@
     </ClCompile>
     <ClCompile Include="code\engine\JsonParser.cpp">
       <Filter>Source Files\engine\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game\DescentGame.cpp">
+      <Filter>Source Files\game\Descent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +250,9 @@
     </ClInclude>
     <ClInclude Include="code\engine\JsonParser.h">
       <Filter>Header Files\engine\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game\DescentGame.h">
+      <Filter>Header Files\Game\Descent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
