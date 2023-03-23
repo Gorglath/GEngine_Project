@@ -165,10 +165,20 @@
     <ClCompile Include="code\engine\StaticPluginLoader.cpp" />
     <ClCompile Include="code\engine\Time.cpp" />
     <ClCompile Include="code\engine\Vector3.cpp" />
+    <ClCompile Include="code\game\AmmoPickable.cpp" />
+    <ClCompile Include="code\game\BossEnemy.cpp" />
     <ClCompile Include="code\game\DescentGame.cpp" />
+    <ClCompile Include="code\game\Enemy.cpp" />
     <ClCompile Include="code\game\Game.cpp" />
+    <ClCompile Include="code\game\HostagePickable.cpp" />
+    <ClCompile Include="code\game\LifePickable.cpp" />
+    <ClCompile Include="code\game\NormalEnemy.cpp" />
+    <ClCompile Include="code\game\Pickable.cpp" />
+    <ClCompile Include="code\game\Player.cpp" />
+    <ClCompile Include="code\game\ScorePickable.cpp" />
     <ClCompile Include="code\game\SlidingSphere.cpp" />
     <ClCompile Include="code\game\SlidingSphereGame.cpp" />
+    <ClCompile Include="code\game\StaticObject.cpp" />
     <ClCompile Include="code\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -200,10 +210,20 @@
     <ClInclude Include="code\engine\StaticPluginLoader.h" />
     <ClInclude Include="code\engine\Time.h" />
     <ClInclude Include="code\engine\Vector3.h" />
+    <ClInclude Include="code\game\AmmoPickable.h" />
+    <ClInclude Include="code\game\BossEnemy.h" />
     <ClInclude Include="code\game\DescentGame.h" />
+    <ClInclude Include="code\game\Enemy.h" />
     <ClInclude Include="code\game\Game.h" />
+    <ClInclude Include="code\game\HostagePickable.h" />
+    <ClInclude Include="code\game\LifePickable.h" />
+    <ClInclude Include="code\game\NormalEnemy.h" />
+    <ClInclude Include="code\game\Pickable.h" />
+    <ClInclude Include="code\game\Player.h" />
+    <ClInclude Include="code\game\ScorePickable.h" />
     <ClInclude Include="code\game\SlidingSphere.h" />
     <ClInclude Include="code\game\SlidingSphereGame.h" />
+    <ClInclude Include="code\game\StaticObject.h" />
     <ClInclude Include="GameState.h" />
   </ItemGroup>
   <ItemGroup>

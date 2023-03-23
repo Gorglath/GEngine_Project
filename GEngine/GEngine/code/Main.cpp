@@ -13,8 +13,7 @@ int main(int argc, char *argv[])
     engine.loadScene();
 
     bool quit = false;
-    JsonToLevelParser::GetJsonFromLevel("JsonTest.json");
-
+    JsonToLevelParser::GetGameEntitiesFromLevelJson("level1.json");
     while (!engine.update())
     {
         game.update(Time::getDeltaTime());
