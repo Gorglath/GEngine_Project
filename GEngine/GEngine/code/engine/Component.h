@@ -1,7 +1,8 @@
 #pragma once
 
 class GameEntity;
-
+namespace GEngine
+{
 class Component
 {
 public:
@@ -13,3 +14,4 @@ public:
 	virtual void update() = 0;
 	virtual void destroy() = 0;
 };
+}

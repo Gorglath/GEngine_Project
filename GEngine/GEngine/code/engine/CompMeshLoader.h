@@ -5,51 +5,53 @@
 #include "OgreMeshManager2.h"
 #include "Ogre.h"
 #include <string>
-
-class CompMeshLoader : public Component
+namespace GEngine
 {
-public:
-	CompMeshLoader() = default;
-	~CompMeshLoader() = default;
-
-	Ogre::SceneNode* loadMesh(std::string name,Ogre::SceneManager* sceneManager)
+	class CompMeshLoader : public Component
 	{
-		m_mesh = sceneManager->createItem(name, Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME,Ogre::SCENE_DYNAMIC);
+	public:
+		CompMeshLoader() = default;
+		~CompMeshLoader() = default;
 
-		m_sceneNode = sceneManager->getRootSceneNode(Ogre::SCENE_DYNAMIC)->createChildSceneNode(Ogre::SCENE_DYNAMIC);
+		Ogre::SceneNode* loadMesh(std::string name, Ogre::SceneManager* sceneManager)
+		{
+			m_mesh = sceneManager->createItem(name, Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME, Ogre::SCENE_DYNAMIC);
 
-		m_sceneNode->attachObject(m_mesh);
-		m_sceneNode->setPosition(0.0f, m_sceneNode->getScale().y / 2.0f, 0.0f);
+			m_sceneNode = sceneManager->getRootSceneNode(Ogre::SCENE_DYNAMIC)->createChildSceneNode(Ogre::SCENE_DYNAMIC);
 
-		return m_sceneNode;
-	}
+			m_sceneNode->attachObject(m_mesh);
+			m_sceneNode->setPosition(0.0f, m_sceneNode->getScale().y / 2.0f, 0.0f);
 
-	Ogre::SceneNode* loadPlane(Ogre::SceneManager* sceneManager)
-	{
-		Ogre::v1::MeshPtr planeMeshV1 = Ogre::v1::MeshManager::getSingleton().createPlane(
-			"Plane v1", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-			Ogre::Plane(Ogre::Vector3::UNIT_Y, 1.0f), 15.0f, 15.0f, 1, 1, true, 1, 4.0f, 4.0f,
-			Ogre::Vector3::UNIT_Z, Ogre::v1::HardwareBuffer::HBU_STATIC,
-			Ogre::v1::HardwareBuffer::HBU_STATIC);
+			return m_sceneNode;
+		}
 
-		Ogre::MeshPtr planeMesh = Ogre::MeshManager::getSingleton().createByImportingV1(
-			"Plane", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, planeMeshV1.get(), true,
-			true, true);
+		Ogre::SceneNode* loadPlane(Ogre::SceneManager* sceneManager)
+		{
+			Ogre::v1::MeshPtr planeMeshV1 = Ogre::v1::MeshManager::getSingleton().createPlane(
+				"Plane v1", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+				Ogre::Plane(Ogre::Vector3::UNIT_Y, 1.0f), 15.0f, 15.0f, 1, 1, true, 1, 4.0f, 4.0f,
+				Ogre::Vector3::UNIT_Z, Ogre::v1::HardwareBuffer::HBU_STATIC,
+				Ogre::v1::HardwareBuffer::HBU_STATIC);
 
-		m_mesh = sceneManager->createItem(planeMesh, Ogre::SCENE_DYNAMIC);
-		m_mesh->setDatablock("Marble");
-		m_sceneNode = sceneManager->getRootSceneNode(Ogre::SCENE_DYNAMIC)
-			->createChildSceneNode(Ogre::SCENE_DYNAMIC);
+			Ogre::MeshPtr planeMesh = Ogre::MeshManager::getSingleton().createByImportingV1(
+				"Plane", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, planeMeshV1.get(), true,
+				true, true);
 
-		m_sceneNode->setPosition(0, -1, 0);
-		m_sceneNode->attachObject(m_mesh);
-	}
+			m_mesh = sceneManager->createItem(planeMesh, Ogre::SCENE_DYNAMIC);
+			m_mesh->setDatablock("Marble");
+			m_sceneNode = sceneManager->getRootSceneNode(Ogre::SCENE_DYNAMIC)
+				->createChildSceneNode(Ogre::SCENE_DYNAMIC);
 
-	Ogre::SceneNode* getSceneNode() const { return m_sceneNode; }
-	Ogre::Item* getMesh() const { return m_mesh; }
-	void update() override {}
-	void destroy() override {}
-private:
-	Ogre::SceneNode* m_sceneNode{ nullptr };
-	Ogre::Item* m_mesh{ nullptr };
-};
+			m_sceneNode->setPosition(0, -1, 0);
+			m_sceneNode->attachObject(m_mesh);
+		}
+
+		Ogre::SceneNode* getSceneNode() const { return m_sceneNode; }
+		Ogre::Item* getMesh() const { return m_mesh; }
+		void update() override {}
+		void destroy() override {}
+	private:
+		Ogre::SceneNode* m_sceneNode{ nullptr };
+		Ogre::Item* m_mesh{ nullptr };
+	};
+}

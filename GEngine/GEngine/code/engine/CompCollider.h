@@ -1,13 +1,16 @@
 #pragma once
 #include "Component.h"
 #include <vector>
-class CompCollider : public Component
+namespace GEngine
 {
-public:
-	static std::vector<CompCollider*> m_gColliders;
+	class CompCollider : public Component
+	{
+	public:
+		static std::vector<CompCollider*> m_gColliders;
 
-	CompCollider();
+		CompCollider();
 
-	void update() override;
-	void destroy() override;
-};
+		void update() override;
+		void destroy() override;
+	};
+}

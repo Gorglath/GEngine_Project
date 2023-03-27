@@ -5,93 +5,112 @@
 #include "CompMeshLoader.h"
 #include <vector>
 
-using namespace GEngine;
 using namespace Ogre;
-class GameEntity
+
+namespace GEngine
 {
-public:
-	GameEntity();
-
-	Ogre::String m_name{ "" };
-	Ogre::uint16 m_id{0};
-	bool m_active{ true };
-	CompTransform m_transform;
-	CompMeshLoader m_meshLoader;
-	SceneNode* m_entityNode{ nullptr };
-
-	virtual void load();
-
-	virtual void start();
-	virtual void onStart();
-
-	virtual void update(float dt);
-	virtual void onUpdate(float dt);
-
-	void addComponent(Component* component)
-	{
-		if (!hasComponent(component))
-		{
-			component->m_gameEntity = this;
-			m_components.push_back(component);
+	struct TransformDataStruct {
+	public:
+		TransformDataStruct(const json& config) {
+			m_location = config.at("m_location").get<GEngine::GVector3>();
+			m_eularAngles = config.at("m_rotation").get<GEngine::GVector3>();
+			m_scale = config.at("m_scale").get<GEngine::GVector3>();
 		}
-	}
 
-	template<typename T>
-	void removeComponent()
+		TransformDataStruct() {
+
+		}
+		GVector3 m_location;
+		GVector3 m_eularAngles;
+		GVector3 m_scale;
+	};
+
+	class GameEntity
 	{
-		if (hasComponent<T>())
+	public:
+		GameEntity();
+
+		Ogre::String m_name{ "" };
+		Ogre::uint16 m_id{ 0 };
+		bool m_active{ true };
+		CompTransform m_transform;
+		CompMeshLoader m_meshLoader;
+		SceneNode* m_entityNode{ nullptr };
+
+		virtual void load();
+
+		virtual void start();
+		virtual void onStart();
+
+		virtual void update(float dt);
+		virtual void onUpdate(float dt);
+
+		void addComponent(Component* component)
 		{
-			for (int i = 0; i < m_components.size(); i++)
+			if (!hasComponent(component))
 			{
-				if (T* subComponent = dynamic_cast<T*>(m_components[i]))
+				component->m_gameEntity = this;
+				m_components.push_back(component);
+			}
+		}
+
+		template<typename T>
+		void removeComponent()
+		{
+			if (hasComponent<T>())
+			{
+				for (int i = 0; i < m_components.size(); i++)
 				{
-					m_components[i].destroy();
-					m_components.erase(m_components.begin() + i);
-					break;
+					if (T* subComponent = dynamic_cast<T*>(m_components[i]))
+					{
+						m_components[i].destroy();
+						m_components.erase(m_components.begin() + i);
+						break;
+					}
 				}
 			}
 		}
-	}
 
-	template<typename T>
-	T* getComponent()
-	{
-		for (auto component : m_components)
+		template<typename T>
+		T* getComponent()
 		{
-			if (T* subComponent = dynamic_cast<T*>(component))
+			for (auto component : m_components)
 			{
-				return subComponent;
+				if (T* subComponent = dynamic_cast<T*>(component))
+				{
+					return subComponent;
+				}
 			}
+
+			return nullptr;
 		}
 
-		return nullptr;
-	}
-
-	template<typename T>
-	bool hasComponent()
-	{
-		for (auto component : m_components)
+		template<typename T>
+		bool hasComponent()
 		{
-			if (T* subComponent = dynamic_cast<T*>(component))
+			for (auto component : m_components)
 			{
+				if (T* subComponent = dynamic_cast<T*>(component))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		bool hasComponent(Component* component)
+		{
+			if (std::find(m_components.begin(), m_components.end(), component) != m_components.end())
 				return true;
-			}
+			return false;
 		}
-		return false;
-	}
 
-	bool hasComponent(Component* component)
-	{
-		if (std::find(m_components.begin(), m_components.end(), component) != m_components.end())
-			return true;
-		return false;
-	}
+		virtual void onColliderEnter(CompCollider* collider);
+		virtual void destroy();
 
-	virtual void onColliderEnter(CompCollider* collider);
-	virtual void destroy();
-
-private:
-	std::vector<Component*> m_components;
-	bool m_isInitialized = false;
-};
+	private:
+		std::vector<Component*> m_components;
+		bool m_isInitialized = false;
+	};
+}
 
