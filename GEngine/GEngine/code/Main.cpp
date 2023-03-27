@@ -1,9 +1,10 @@
 #include "engine/Engine.h"
 #include "game/SlidingSphereGame.h"
 #include "engine/JsonParser.h"
+using namespace GEngine;
 int main(int argc, char *argv[])
 {
-    SlidingSphereGame game;
+    GEngine::SlidingSphere::SlidingSphereGame game;
     Engine engine;
 
     engine.init(game);

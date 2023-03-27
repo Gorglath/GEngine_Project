@@ -8,18 +8,20 @@
 #include "../engine/GameEntity.h"
 #include <vector>
 using namespace Ogre;
-class Game : public GameState
+namespace GEngine
 {
-public:
-	void init(GraphicSystem* graphicSystem);
-	virtual void createScene01() override;
-	virtual void update(float dt) override;
-	virtual void destroyScene() override;
-protected:
-	virtual void createFloor();
-	virtual void createLight();
-	SceneManager* m_sceneManager;
-	GameEntity m_floor;
-	std::vector<GameEntity> m_gameEntities{};
-};
-
+	class Game : public GameState
+	{
+	public:
+		void init(GraphicSystem* graphicSystem);
+		virtual void createScene01() override;
+		virtual void update(float dt) override;
+		virtual void destroyScene() override;
+	protected:
+		virtual void createFloor();
+		virtual void createLight();
+		SceneManager* m_sceneManager;
+		GameEntity m_floor;
+		std::vector<GameEntity> m_gameEntities{};
+	};
+}

@@ -1,5 +1,7 @@
 #include "Engine.h"
-
+#include "Ogre.h"
+#include <filesystem>
+#include <iostream>
 Engine::~Engine()
 {
     clean();
@@ -14,7 +16,25 @@ void Engine::init(GameState& gameState)
     if (!isSoundEngineInitialized)
         printf("Failed to load sound engine");
 
-    m_soundSystem.play2DSound("roar.wav", true);
+    //m_soundSystem.play2DSound("roar.wav", true);
+
+    //Get the path to the current folder.
+    std::filesystem::path app_path = std::filesystem::current_path();
+    std::string app_path_string = app_path.string();
+
+    Ogre::ResourceGroupManager* rgm = Ogre::ResourceGroupManager::getSingletonPtr();
+    rgm->addResourceLocation(app_path_string + "\\assets\\models", "FileSystem","Models");
+    rgm->addResourceLocation(app_path_string + "\\assets\\materials\\textures", "FileSystem","Textures");
+    rgm->addResourceLocation(app_path_string + "\\assets\\materials\\scripts", "FileSystem","Scripts");
+    /*
+    for (auto group : rgm->getResourceGroups())
+    {
+        std::cout << group << std::endl;
+        for (auto location : rgm->getResourceLocationList(group))
+        {
+            std::cout << "     " << location->archive->getName() << std::endl;
+        }
+    }*/
 }
 
 bool Engine::loadScene()

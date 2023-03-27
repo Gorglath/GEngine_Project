@@ -19,24 +19,6 @@ namespace GEngine {
         int m_id{ 0 };
     };
 
-    
-    struct TransformDataStruct {
-    public:
-        TransformDataStruct(const json& config) {
-            m_location = config.at("m_location").get<GEngine::GVector3>();
-            m_eularAngles = config.at("m_rotation").get<GEngine::GVector3>();
-            m_scale = config.at("m_scale").get<GEngine::GVector3>();
-        }
-
-        TransformDataStruct() {
-
-        }
-        GVector3 m_location;
-        GVector3 m_eularAngles;
-        GVector3 m_scale;
-    };
-}
-
     std::vector<GameEntity> GEngine::JsonToLevelParser::GetGameEntitiesFromLevelJson(const std::string& levelName)
     {
         std::ifstream inFile;
@@ -69,18 +51,14 @@ namespace GEngine {
             globalDataJson.clear();
 
             placeHolder = splitObjects[i].substr(splitObjects[i].find('~') + 1, splitObjects[i].size());
-            
+
             vectorJson = json::parse(placeHolder.substr(0, placeHolder.find('~')));
             transformData = vectorJson;
 
-            entity.m_name = globalEntityData.m_name + std::to_string(i);
-            entity.m_id = globalEntityData.m_id;
-
-            entity.m_transform.m_position = transformData.m_location;
-            entity.m_transform.m_eularAngles = transformData.m_eularAngles;
-            entity.m_transform.m_scale = transformData.m_scale;
-
+            entity = Descent::DescentEntityFactory::CreateEnemy(globalEntityData.m_name + std::to_string(i), transformData);
+           
             gameEntities.push_back(entity);
         }
         return gameEntities;
     }
+}

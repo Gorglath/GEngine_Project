@@ -137,6 +137,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\Externals\irrKlang-64bit-1.6.0\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\Components\Hlms\Common\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\Components\Hlms\Pbs\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\Components\Hlms\Unlit\include;$(SolutionDir)\Externals\SDL2-2.0.16\include;$(SolutionDir)\Externals\Ogre3d_Next\Dep\out\build\ogredeps\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\Components\Overlay\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\OgreMain\include;$(SolutionDir)\Externals\Ogre3d_Next\Ogre_Next\out\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -152,6 +153,7 @@
     <ClCompile Include="code\engine\CompBoxCollider.cpp" />
     <ClCompile Include="code\engine\CompCollider.cpp" />
     <ClCompile Include="code\engine\CompSphereCollider.cpp" />
+    <ClCompile Include="code\engine\Descent\DescentEntityFactory.cpp" />
     <ClCompile Include="code\engine\Engine.cpp" />
     <ClCompile Include="code\engine\GameEntity.cpp" />
     <ClCompile Include="code\engine\GameObjectManager.cpp" />
@@ -165,20 +167,20 @@
     <ClCompile Include="code\engine\StaticPluginLoader.cpp" />
     <ClCompile Include="code\engine\Time.cpp" />
     <ClCompile Include="code\engine\Vector3.cpp" />
-    <ClCompile Include="code\game\AmmoPickable.cpp" />
-    <ClCompile Include="code\game\BossEnemy.cpp" />
-    <ClCompile Include="code\game\DescentGame.cpp" />
-    <ClCompile Include="code\game\Enemy.cpp" />
+    <ClCompile Include="code\game\Descent\AmmoPickable.cpp" />
+    <ClCompile Include="code\game\Descent\BossEnemy.cpp" />
+    <ClCompile Include="code\game\Descent\DescentGame.cpp" />
+    <ClCompile Include="code\game\Descent\Enemy.cpp" />
+    <ClCompile Include="code\game\Descent\HostagePickable.cpp" />
+    <ClCompile Include="code\game\Descent\LifePickable.cpp" />
+    <ClCompile Include="code\game\Descent\NormalEnemy.cpp" />
+    <ClCompile Include="code\game\Descent\Pickable.cpp" />
+    <ClCompile Include="code\game\Descent\Player.cpp" />
+    <ClCompile Include="code\game\Descent\ScorePickable.cpp" />
+    <ClCompile Include="code\game\Descent\StaticObject.cpp" />
     <ClCompile Include="code\game\Game.cpp" />
-    <ClCompile Include="code\game\HostagePickable.cpp" />
-    <ClCompile Include="code\game\LifePickable.cpp" />
-    <ClCompile Include="code\game\NormalEnemy.cpp" />
-    <ClCompile Include="code\game\Pickable.cpp" />
-    <ClCompile Include="code\game\Player.cpp" />
-    <ClCompile Include="code\game\ScorePickable.cpp" />
     <ClCompile Include="code\game\SlidingSphere.cpp" />
     <ClCompile Include="code\game\SlidingSphereGame.cpp" />
-    <ClCompile Include="code\game\StaticObject.cpp" />
     <ClCompile Include="code\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +194,7 @@
     <ClInclude Include="code\engine\Component.h" />
     <ClInclude Include="code\engine\CompSphereCollider.h" />
     <ClInclude Include="code\engine\CompTransform.h" />
+    <ClInclude Include="code\engine\Descent\DescentEntityFactory.h" />
     <ClInclude Include="code\engine\Engine.h" />
     <ClInclude Include="code\engine\GameEntity.h" />
     <ClInclude Include="code\engine\GameObject.h" />
@@ -210,20 +213,20 @@
     <ClInclude Include="code\engine\StaticPluginLoader.h" />
     <ClInclude Include="code\engine\Time.h" />
     <ClInclude Include="code\engine\Vector3.h" />
-    <ClInclude Include="code\game\AmmoPickable.h" />
-    <ClInclude Include="code\game\BossEnemy.h" />
-    <ClInclude Include="code\game\DescentGame.h" />
-    <ClInclude Include="code\game\Enemy.h" />
+    <ClInclude Include="code\game\Descent\AmmoPickable.h" />
+    <ClInclude Include="code\game\Descent\BossEnemy.h" />
+    <ClInclude Include="code\game\Descent\DescentGame.h" />
+    <ClInclude Include="code\game\Descent\Enemy.h" />
+    <ClInclude Include="code\game\Descent\HostagePickable.h" />
+    <ClInclude Include="code\game\Descent\LifePickable.h" />
+    <ClInclude Include="code\game\Descent\NormalEnemy.h" />
+    <ClInclude Include="code\game\Descent\Pickable.h" />
+    <ClInclude Include="code\game\Descent\Player.h" />
+    <ClInclude Include="code\game\Descent\ScorePickable.h" />
+    <ClInclude Include="code\game\Descent\StaticObject.h" />
     <ClInclude Include="code\game\Game.h" />
-    <ClInclude Include="code\game\HostagePickable.h" />
-    <ClInclude Include="code\game\LifePickable.h" />
-    <ClInclude Include="code\game\NormalEnemy.h" />
-    <ClInclude Include="code\game\Pickable.h" />
-    <ClInclude Include="code\game\Player.h" />
-    <ClInclude Include="code\game\ScorePickable.h" />
     <ClInclude Include="code\game\SlidingSphere.h" />
     <ClInclude Include="code\game\SlidingSphereGame.h" />
-    <ClInclude Include="code\game\StaticObject.h" />
     <ClInclude Include="GameState.h" />
   </ItemGroup>
   <ItemGroup>

@@ -1,44 +1,49 @@
 #include "Game.h"
 #include "../engine/CompMeshLoader.h"
 #include "../engine/CompLight.h"
-void Game::init(GraphicSystem* graphicSystem)
+#include "../engine/Descent/DescentEntityFactory.h"
+namespace GEngine
 {
-	m_sceneManager = graphicSystem->getSceneManager();
-}
-
-void Game::createScene01()
-{
-    GameState::createScene01();
-}
-
-void Game::update(float dt)
-{
-}
-
-void Game::destroyScene()
-{
-	for (auto gameEntity : m_gameEntities)
+	void Game::init(GraphicSystem* graphicSystem)
 	{
-		gameEntity.destroy();
+		m_sceneManager = graphicSystem->getSceneManager();
+		Descent::DescentEntityFactory::Init(m_sceneManager);
 	}
 
-	m_gameEntities.clear();
-}
+	void Game::createScene01()
+	{
+		GameState::createScene01();
+	}
 
-void Game::createFloor()
-{
-	CompMeshLoader loader;
-	loader.loadPlane(m_sceneManager);
-	m_floor.addComponent(&loader);
-}
+	void Game::update(float dt)
+	{
+	}
 
-void Game::createLight()
-{
-	GameEntity lightEntity;
-	
-	CompLight lightComp;
-	lightComp.initialize(m_sceneManager);
+	void Game::destroyScene()
+	{
+		for (auto gameEntity : m_gameEntities)
+		{
+			gameEntity.destroy();
+		}
 
-	lightEntity.addComponent(&lightComp);
+		m_gameEntities.clear();
+	}
 
+	void Game::createFloor()
+	{
+		CompMeshLoader loader;
+		loader.loadPlane(m_sceneManager);
+		m_floor.addComponent(&loader);
+	}
+
+	void Game::createLight()
+	{
+		GameEntity lightEntity;
+
+		CompLight lightComp;
+		lightComp.initialize(m_sceneManager);
+
+		lightEntity.addComponent(&lightComp);
+
+	}
 }

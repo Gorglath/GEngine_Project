@@ -1,16 +1,21 @@
 #pragma once
 #include "Game.h"
 #include "SlidingSphere.h"
-    class SlidingSphereGame :
-        public Game
+namespace GEngine
+{
+    namespace SlidingSphere
     {
-    public:
-        void createScene01() override;
-        void update(float dt) override;
-        void keyPressed(const SDL_KeyboardEvent& arg) override;
-        void keyReleased(const SDL_KeyboardEvent& arg) override;
-    private:
-        SlidingSphere m_sphere;
-        InputData m_inputData;
-    };
-
+        class SlidingSphereGame :
+            public Game
+        {
+        public:
+            void createScene01() override;
+            void update(float dt) override;
+            void keyPressed(const SDL_KeyboardEvent& arg) override;
+            void keyReleased(const SDL_KeyboardEvent& arg) override;
+        private:
+            SlidingSphere m_sphere;
+            InputData m_inputData;
+        };
+    }
+}

@@ -5,6 +5,7 @@
 #include "OgreMeshManager2.h"
 #include "Ogre.h"
 #include <string>
+#include <iostream>
 namespace GEngine
 {
 	class CompMeshLoader : public Component
@@ -13,9 +14,9 @@ namespace GEngine
 		CompMeshLoader() = default;
 		~CompMeshLoader() = default;
 
-		Ogre::SceneNode* loadMesh(std::string name, Ogre::SceneManager* sceneManager)
+		Ogre::SceneNode* loadMesh(const std::string& name,const std::string& group, Ogre::SceneManager* sceneManager)
 		{
-			m_mesh = sceneManager->createItem(name, Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME, Ogre::SCENE_DYNAMIC);
+			m_mesh = sceneManager->createItem(name,group);
 
 			m_sceneNode = sceneManager->getRootSceneNode(Ogre::SCENE_DYNAMIC)->createChildSceneNode(Ogre::SCENE_DYNAMIC);
 

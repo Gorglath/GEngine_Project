@@ -1,5 +1,6 @@
 #pragma once
 #include "GameEntity.h"
+#include "Descent/DescentEntityFactory.h"
 #include <vector>
 #include <string>
 namespace GEngine 

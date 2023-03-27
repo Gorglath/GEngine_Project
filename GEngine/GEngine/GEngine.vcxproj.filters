@@ -156,38 +156,41 @@
     <ClCompile Include="code\engine\JsonParser.cpp">
       <Filter>Source Files\engine\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="code\game\DescentGame.cpp">
+    <ClCompile Include="code\engine\Descent\DescentEntityFactory.cpp">
+      <Filter>Source Files\engine\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game\Descent\AmmoPickable.cpp">
+      <Filter>Source Files\game\Descent\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game\Descent\BossEnemy.cpp">
+      <Filter>Source Files\game\Descent\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game\Descent\Enemy.cpp">
+      <Filter>Source Files\game\Descent\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game\Descent\HostagePickable.cpp">
+      <Filter>Source Files\game\Descent\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game\Descent\LifePickable.cpp">
+      <Filter>Source Files\game\Descent\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game\Descent\NormalEnemy.cpp">
+      <Filter>Source Files\game\Descent\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game\Descent\Pickable.cpp">
+      <Filter>Source Files\game\Descent\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game\Descent\Player.cpp">
+      <Filter>Source Files\game\Descent\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game\Descent\ScorePickable.cpp">
+      <Filter>Source Files\game\Descent\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game\Descent\StaticObject.cpp">
+      <Filter>Source Files\game\Descent\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="code\game\Descent\DescentGame.cpp">
       <Filter>Source Files\game\Descent</Filter>
-    </ClCompile>
-    <ClCompile Include="code\game\Player.cpp">
-      <Filter>Source Files\game\Descent\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="code\game\Enemy.cpp">
-      <Filter>Source Files\game\Descent\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="code\game\NormalEnemy.cpp">
-      <Filter>Source Files\game\Descent\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="code\game\BossEnemy.cpp">
-      <Filter>Source Files\game\Descent\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="code\game\Pickable.cpp">
-      <Filter>Source Files\game\Descent\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="code\game\HostagePickable.cpp">
-      <Filter>Source Files\game\Descent\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="code\game\AmmoPickable.cpp">
-      <Filter>Source Files\game\Descent\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="code\game\LifePickable.cpp">
-      <Filter>Source Files\game\Descent\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="code\game\ScorePickable.cpp">
-      <Filter>Source Files\game\Descent\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="code\game\StaticObject.cpp">
-      <Filter>Source Files\game\Descent\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -287,38 +290,41 @@
     <ClInclude Include="code\engine\JsonParser.h">
       <Filter>Header Files\engine\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="code\game\DescentGame.h">
+    <ClInclude Include="code\engine\Descent\DescentEntityFactory.h">
+      <Filter>Header Files\engine\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game\Descent\StaticObject.h">
+      <Filter>Header Files\Game\Descent\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game\Descent\Pickable.h">
+      <Filter>Header Files\Game\Descent\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game\Descent\Player.h">
+      <Filter>Header Files\Game\Descent\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game\Descent\Enemy.h">
+      <Filter>Header Files\Game\Descent\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game\Descent\HostagePickable.h">
+      <Filter>Header Files\Game\Descent\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game\Descent\ScorePickable.h">
+      <Filter>Header Files\Game\Descent\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game\Descent\AmmoPickable.h">
+      <Filter>Header Files\Game\Descent\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game\Descent\LifePickable.h">
+      <Filter>Header Files\Game\Descent\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game\Descent\NormalEnemy.h">
+      <Filter>Header Files\Game\Descent\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game\Descent\BossEnemy.h">
+      <Filter>Header Files\Game\Descent\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="code\game\Descent\DescentGame.h">
       <Filter>Header Files\Game\Descent</Filter>
-    </ClInclude>
-    <ClInclude Include="code\game\Enemy.h">
-      <Filter>Header Files\Game\Descent\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="code\game\Player.h">
-      <Filter>Header Files\Game\Descent\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="code\game\NormalEnemy.h">
-      <Filter>Header Files\Game\Descent\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="code\game\BossEnemy.h">
-      <Filter>Header Files\Game\Descent\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="code\game\StaticObject.h">
-      <Filter>Header Files\Game\Descent\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="code\game\Pickable.h">
-      <Filter>Header Files\Game\Descent\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="code\game\ScorePickable.h">
-      <Filter>Header Files\Game\Descent\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="code\game\HostagePickable.h">
-      <Filter>Header Files\Game\Descent\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="code\game\AmmoPickable.h">
-      <Filter>Header Files\Game\Descent\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="code\game\LifePickable.h">
-      <Filter>Header Files\Game\Descent\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
