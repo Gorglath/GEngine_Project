@@ -1,9 +1,9 @@
 #pragma once
-#include "json/json.h"
+#include "GameEntity.h"
 #include <vector>
+#include <string>
 namespace GEngine 
 {
-	class GameEntity;
 	class JsonToLevelParser
 	{
 	public:
@@ -11,6 +11,6 @@ namespace GEngine
 		~JsonToLevelParser() = delete;
 		JsonToLevelParser(const JsonToLevelParser&) = delete;
 
-		static void GetGameEntitiesFromLevelJson(const Json::String& levelName);
+		static std::vector<GameEntity> GetGameEntitiesFromLevelJson(const std::string& levelName);
 	};
 }

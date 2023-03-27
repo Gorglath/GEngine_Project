@@ -3,6 +3,8 @@
 #include <cmath>
 #include <limits>
 #include "OgreVector3.h"
+#include "nlohmann/json.hpp"
+using json = nlohmann::json;
 namespace GEngine
 {
 	class GVector3
@@ -10,7 +12,11 @@ namespace GEngine
 	public:
 
 		//Constructors
-
+		GVector3(const json& json) {
+			json.at("x").get_to(m_x);
+			json.at("y").get_to(m_y);
+			json.at("z").get_to(m_z);
+		}
 		GVector3() {}
 
 		GVector3(const float& value) {
@@ -263,4 +269,16 @@ namespace GEngine
 		static const GVector3 negativeInfinityVector;
 		static const GVector3 positiveInfinityVector;
 	};
+
+
+	//Json Convertions.
+	inline void to_json(json& j, const GVector3& vector) {
+		j = json{ {"x", vector.m_x}, {"y", vector.m_y}, {"z", vector.m_z} };
+	}
+
+	inline void from_json(const json& j, GVector3& vector) {
+		j.at("x").get_to(vector.m_x);
+		j.at("y").get_to(vector.m_y);
+		j.at("z").get_to(vector.m_z);
+	}
 }
