@@ -154,6 +154,7 @@
     <ClCompile Include="code\engine\CompCollider.cpp" />
     <ClCompile Include="code\engine\CompSphereCollider.cpp" />
     <ClCompile Include="code\engine\Descent\DescentEntityFactory.cpp" />
+    <ClCompile Include="code\engine\Descent\DescentFactorySelector.cpp" />
     <ClCompile Include="code\engine\Engine.cpp" />
     <ClCompile Include="code\engine\GameEntity.cpp" />
     <ClCompile Include="code\engine\GameObjectManager.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="code\engine\CompSphereCollider.h" />
     <ClInclude Include="code\engine\CompTransform.h" />
     <ClInclude Include="code\engine\Descent\DescentEntityFactory.h" />
+    <ClInclude Include="code\engine\Descent\DescentFactorySelector.h" />
     <ClInclude Include="code\engine\Engine.h" />
     <ClInclude Include="code\engine\GameEntity.h" />
     <ClInclude Include="code\engine\GameObject.h" />

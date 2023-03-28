@@ -19,6 +19,11 @@ namespace GEngine {
         int m_id{ 0 };
     };
 
+    GameEntity JsonToLevelParser::GetGameEntityFromType(const std::string& objectType, const std::string& objectData)
+    {
+        return GameEntity();
+    }
+
     std::vector<GameEntity> GEngine::JsonToLevelParser::GetGameEntitiesFromLevelJson(const std::string& levelName)
     {
         std::ifstream inFile;
@@ -55,7 +60,7 @@ namespace GEngine {
             vectorJson = json::parse(placeHolder.substr(0, placeHolder.find('~')));
             transformData = vectorJson;
 
-            entity = Descent::DescentEntityFactory::CreateEnemy(globalEntityData.m_name + std::to_string(i), transformData);
+            entity = Descent::DescentEntityFactory::CreateNormalEnemy(globalEntityData.m_name + std::to_string(i), transformData);
            
             gameEntities.push_back(entity);
         }

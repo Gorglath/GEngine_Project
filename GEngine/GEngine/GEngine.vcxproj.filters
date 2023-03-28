@@ -192,6 +192,9 @@
     <ClCompile Include="code\game\Descent\DescentGame.cpp">
       <Filter>Source Files\game\Descent</Filter>
     </ClCompile>
+    <ClCompile Include="code\engine\Descent\DescentFactorySelector.cpp">
+      <Filter>Source Files\engine\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\engine\ResourcesManager.h">
@@ -325,6 +328,9 @@
     </ClInclude>
     <ClInclude Include="code\game\Descent\DescentGame.h">
       <Filter>Header Files\Game\Descent</Filter>
+    </ClInclude>
+    <ClInclude Include="code\engine\Descent\DescentFactorySelector.h">
+      <Filter>Header Files\engine\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
