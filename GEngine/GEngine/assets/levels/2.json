@@ -1,8 +1,0 @@
-{
-    "id": 2,
-    "simpleEnemies": 7,
-    "flyingEnemies": 7,
-    "maxSpawnTime": 3,
-    "minSpawnTime": 2,
-    "difficulty": 4
-}

@@ -1,16 +1,22 @@
 #pragma once
 #include "Vector3.h"
+#include "OgreQuaternion.h"
 namespace GEngine 
 {
-	class Quaternion 
+	class GQuaternion 
 	{
 	
 	public:
 
 		//Constructors
-		Quaternion();
-		
-		Quaternion(const float& x, const float& y, const float& z, const float& w) {
+		GQuaternion()
+		{
+			m_x = 0.0f;
+			m_y = 0.0f;
+			m_z = 0.0f;
+			m_w = 0.0f;
+		}
+		GQuaternion(const float& x, const float& y, const float& z, const float& w) {
 			m_x = x;
 			m_y = y;
 			m_z = z;
@@ -18,9 +24,13 @@ namespace GEngine
 		}
 
 		//Operators
-		Quaternion operator*(const Quaternion& rQ)
+		operator Ogre::Quaternion() const {
+			return { m_x,m_y,m_z,m_w };
+		}
+		
+		GQuaternion operator*(const GQuaternion& rQ)
 		{
-			return Quaternion(
+			return GQuaternion(
 				m_w * rQ.m_x + m_x * rQ.m_w + m_y * rQ.m_z - m_z * rQ.m_y,
 				m_w * rQ.m_y + m_y * rQ.m_w + m_z * rQ.m_x - m_x * rQ.m_z,
 				m_w * rQ.m_z + m_z * rQ.m_w + m_x * rQ.m_y - m_y * rQ.m_x,
@@ -28,32 +38,32 @@ namespace GEngine
 			);
 		}
 
-		Quaternion operator+(const Quaternion& rQ)
+		GQuaternion operator+(const GQuaternion& rQ)
 		{
 			return { m_x + rQ.m_x, m_y + rQ.m_y, m_z + rQ.m_z, m_w + rQ.m_w };
 		}
-		Quaternion operator*(const float& multiplier)
+		GQuaternion operator*(const float& multiplier)
 		{
 			return { m_x * multiplier, m_y * multiplier, m_z * multiplier, m_w * multiplier };
 		}
-		Quaternion operator*(const int& multiplier)
+		GQuaternion operator*(const int& multiplier)
 		{
 			return { m_x * multiplier, m_y * multiplier, m_z * multiplier, m_w * multiplier };
 		}
-		Quaternion operator/(const float& divider)
+		GQuaternion operator/(const float& divider)
 		{
 			return { m_x / divider, m_y / divider, m_z / divider, m_w / divider };
 		}
-		Quaternion operator/(const int& divider)
+		GQuaternion operator/(const int& divider)
 		{
 			return { m_x / divider, m_y / divider, m_z / divider, m_w / divider };
 		}
-		bool operator==(const Quaternion& rQ)
+		bool operator==(const GQuaternion& rQ)
 		{
 			return (m_x == rQ.m_x && m_y == rQ.m_y && m_z == rQ.m_z && m_w == rQ.m_w);
 		}
 
-		bool operator!=(const Quaternion& rQ)
+		bool operator!=(const GQuaternion& rQ)
 		{
 			return (m_x != rQ.m_x || m_y != rQ.m_y || m_z != rQ.m_z || m_w != rQ.m_w);
 		}
@@ -67,7 +77,7 @@ namespace GEngine
 			m_w = w;
 		}
 
-		void Set(const Quaternion& quat)
+		void Set(const GQuaternion& quat)
 		{
 			m_x = quat.m_x;
 			m_y = quat.m_y;
@@ -77,7 +87,7 @@ namespace GEngine
 		
 		void SetFromRotation(const GVector3& fromDirection, const GVector3& toDirection)
 		{
-			Quaternion targetRotation = Quaternion::FromToRotation(fromDirection, toDirection);
+			GQuaternion targetRotation = GQuaternion::FromToRotation(fromDirection, toDirection);
 			
 			m_x = targetRotation.m_x;
 			m_y = targetRotation.m_y;
@@ -115,9 +125,9 @@ namespace GEngine
 
 			return eular;
 		}
-		inline const Quaternion GetNormalized()
+		inline const GQuaternion GetNormalized()
 		{
-			Quaternion normalized;
+			GQuaternion normalized;
 
 			float distance = sqrt(m_w * m_w + m_x * m_x + m_y * m_y + m_z * m_z);
 
@@ -144,9 +154,9 @@ namespace GEngine
 
 		//Static Methods
 
-		static Quaternion FromToRotation(const GVector3& fromDirection, const GVector3& toDirection)
+		static GQuaternion FromToRotation(const GVector3& fromDirection, const GVector3& toDirection)
 		{
-			Quaternion result;
+			GQuaternion result;
 			GVector3 cross = GVector3::Cross(fromDirection, toDirection);
 			result.m_x = cross.m_x;
 			result.m_y = cross.m_y;
@@ -156,20 +166,20 @@ namespace GEngine
 			return result.GetNormalized();
 		}
 
-		static float Dot(const Quaternion& lQ, const Quaternion& rQ)
+		static float Dot(const GQuaternion& lQ, const GQuaternion& rQ)
 		{
 			return (lQ.m_x * rQ.m_x + lQ.m_y * rQ.m_y + lQ.m_z * rQ.m_z + lQ.m_w * rQ.m_w);
 		}
 
-		static float Angle(const Quaternion& lQ, const Quaternion& rQ)
+		static float Angle(const GQuaternion& lQ, const GQuaternion& rQ)
 		{
-			float dot = fmin(abs(Quaternion::Dot(lQ, rQ)), 1.0F);
+			float dot = fmin(abs(GQuaternion::Dot(lQ, rQ)), 1.0F);
 			return acos(dot) * 2.0f * 180.0f / 3.14159265359f;
 		}
 
-		static Quaternion AngleAxis(const float& angle, const GVector3& axis)
+		static GQuaternion AngleAxis(const float& angle, const GVector3& axis)
 		{
-			Quaternion q;
+			GQuaternion q;
 			
 			axis.GetNormlized();
 
@@ -181,9 +191,9 @@ namespace GEngine
 			return q.GetNormalized();
 		}
 
-		static Quaternion Eular(const float& x, const float& y, const float& z)
+		static GQuaternion Eular(const float& x, const float& y, const float& z)
 		{
-			Quaternion result;
+			GQuaternion result;
 
 			float xRad = x * 3.14159265359f * 180.0f;
 			float yRad = y * 3.14159265359f * 180.0f;
@@ -206,9 +216,13 @@ namespace GEngine
 			return result.GetNormalized();
 		}
 
-		static Quaternion Normalize(const Quaternion& q)
+		static GQuaternion Eular(const GVector3& v)
 		{
-			Quaternion normalized;
+			return Eular(v.m_x, v.m_y, v.m_z);
+		}
+		static GQuaternion Normalize(const GQuaternion& q)
+		{
+			GQuaternion normalized;
 
 			float distance = sqrt(q.m_w * q.m_w + q.m_x * q.m_x + q.m_y * q.m_y + q.m_z * q.m_z);
 
@@ -220,15 +234,15 @@ namespace GEngine
 			return normalized;
 		}
 
-		static Quaternion RotateTowards(Quaternion& from, Quaternion& to, const float& maxDegrees)
+		static GQuaternion RotateTowards(GQuaternion& from, GQuaternion& to, const float& maxDegrees)
 		{
-			float angle = Quaternion::Angle(from, to);
+			float angle = GQuaternion::Angle(from, to);
 			if (angle == 0.0f)
 				return to;
-			return Quaternion::SlerpUnclamped(from, to, fmin(1.0f, maxDegrees / angle));
+			return GQuaternion::SlerpUnclamped(from, to, fmin(1.0f, maxDegrees / angle));
 		}
 
-		static Quaternion Lerp(const Quaternion& lQ, const Quaternion& rQ, float& time)
+		static GQuaternion Lerp(const GQuaternion& lQ, const GQuaternion& rQ, float& time)
 		{
 			if (time > 1)
 				time = 1;
@@ -243,7 +257,7 @@ namespace GEngine
 			};
 		}
 
-		static Quaternion LerpUnclamped(const Quaternion& lQ, const Quaternion& rQ, const float& time)
+		static GQuaternion LerpUnclamped(const GQuaternion& lQ, const GQuaternion& rQ, const float& time)
 		{
 			return {
 				lQ.m_x + (rQ.m_x - lQ.m_x) * time,
@@ -253,27 +267,27 @@ namespace GEngine
 			};
 		}
 
-		static Quaternion Slerp(Quaternion& lQ, Quaternion& rQ, float& time)
+		static GQuaternion Slerp(GQuaternion& lQ, GQuaternion& rQ, float& time)
 		{
 			if (time > 1)
 				time = 1;
 			else if (time < 0)
 				time = 0;
 
-			float halfAngle = Quaternion::Angle(lQ, rQ) / 2.0f;
+			float halfAngle = GQuaternion::Angle(lQ, rQ) / 2.0f;
 			
-			Quaternion Qa = lQ * sin((1 - time) * halfAngle);
-			Quaternion Qb = rQ * sin(time * halfAngle);
+			GQuaternion Qa = lQ * sin((1 - time) * halfAngle);
+			GQuaternion Qb = rQ * sin(time * halfAngle);
 
 			return ((Qa + Qb) / sin(halfAngle));
 		}
 
-		static Quaternion SlerpUnclamped(Quaternion& lQ, Quaternion& rQ, const float& time)
+		static GQuaternion SlerpUnclamped(GQuaternion& lQ, GQuaternion& rQ, const float& time)
 		{
-			float halfAngle = Quaternion::Angle(lQ, rQ) / 2.0f;
+			float halfAngle = GQuaternion::Angle(lQ, rQ) / 2.0f;
 
-			Quaternion Qa = lQ * sin((1 - time) * halfAngle);
-			Quaternion Qb = rQ * sin(time * halfAngle);
+			GQuaternion Qa = lQ * sin((1 - time) * halfAngle);
+			GQuaternion Qb = rQ * sin(time * halfAngle);
 
 			return ((Qa + Qb) / sin(halfAngle));
 		}
@@ -282,6 +296,6 @@ namespace GEngine
 		float m_y{ 0.0f };
 		float m_z{ 0.0f };
 		float m_w{ 0.0f };
-		static const Quaternion identity;
+		static const GQuaternion identity;
 	};
 }

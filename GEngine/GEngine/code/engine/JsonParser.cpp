@@ -2,8 +2,6 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "nlohmann/json.hpp"
-using json = nlohmann::json;
 namespace GEngine {
 
     struct GlobalEntityStruct
@@ -18,12 +16,6 @@ namespace GEngine {
         std::string m_name{ };
         int m_id{ 0 };
     };
-
-    GameEntity JsonToLevelParser::GetGameEntityFromType(const std::string& objectType, const std::string& objectData)
-    {
-        return GameEntity();
-    }
-
     std::vector<GameEntity> GEngine::JsonToLevelParser::GetGameEntitiesFromLevelJson(const std::string& levelName)
     {
         std::ifstream inFile;
@@ -60,10 +52,99 @@ namespace GEngine {
             vectorJson = json::parse(placeHolder.substr(0, placeHolder.find('~')));
             transformData = vectorJson;
 
-            entity = Descent::DescentEntityFactory::CreateNormalEnemy(globalEntityData.m_name + std::to_string(i), transformData);
-           
+            placeHolder = placeHolder.substr(placeHolder.find('~') + 1, placeHolder.size());
+
+            entity = BuildGameEntityFromType(globalEntityData.m_name,globalEntityData.m_name,placeHolder,transformData);
+
             gameEntities.push_back(entity);
         }
         return gameEntities;
+    }
+
+    Descent::EDescentObjectType JsonToLevelParser::StringToDescentEnum(const std::string& objectType)
+    {
+        if (objectType == "OBSTACLE")
+            return Descent::EDescentObjectType::PLAYER;
+        
+        if (objectType == "WALL")
+            return Descent::EDescentObjectType::WALL;
+
+        if (objectType == "FLOOR")
+            return Descent::EDescentObjectType::FLOOR;
+
+        if (objectType == "PICKUP")
+            return Descent::EDescentObjectType::PICKABLE;
+
+        if (objectType == "ENEMY")
+            return Descent::EDescentObjectType::ENEMY;
+
+        return Descent::EDescentObjectType::NONE;
+    }
+
+    GameEntity JsonToLevelParser::BuildGameEntityFromType(const std::string& objectName,
+        const std::string& objectType, const std::string& objectData, const TransformDataStruct& transformData)
+    {
+        Descent::EDescentObjectType descentObjectType = StringToDescentEnum(objectType);
+        GameEntity gameEntity;
+        json objectDataJson = json::parse(objectData);
+
+        if (descentObjectType == Descent::EDescentObjectType::ENEMY)
+        {
+            Descent::DescentEnemyDataStruct enemyData = objectDataJson;
+
+            if (enemyData.m_enemyType == Descent::EDescentEnemyType::BOSS)
+                gameEntity = Descent::DescentEntityFactory::CreateBossEnemy(objectName, transformData);
+            else
+                gameEntity = Descent::DescentEntityFactory::CreateNormalEnemy(objectName, transformData);
+
+            return gameEntity;
+        }
+
+        if (descentObjectType == Descent::EDescentObjectType::PICKABLE)
+        {
+            Descent::DescentPickupDataStruct pickupData = objectDataJson;
+
+            if (pickupData.m_pickupType == Descent::EDescentPickupType::AMMO)
+                gameEntity = Descent::DescentEntityFactory::CreateAmmoPickup(objectName, transformData);
+            else if (pickupData.m_pickupType == Descent::EDescentPickupType::HEALTH)
+                gameEntity = Descent::DescentEntityFactory::CreateLifePickup(objectName, transformData);
+            else if (pickupData.m_pickupType == Descent::EDescentPickupType::HOSTAGE)
+                gameEntity = Descent::DescentEntityFactory::CreateHostagePickup(objectName, transformData);
+            else
+                gameEntity = Descent::DescentEntityFactory::CreateScorePickup(objectName, transformData);
+
+            return gameEntity;
+        }
+
+        if (descentObjectType == Descent::EDescentObjectType::FLOOR)
+        {
+            Descent::DescentFloorDataStruct floorData = objectDataJson;
+
+            if (floorData.m_floorType == Descent::EDescentFloorType::NORMAL)
+                gameEntity = Descent::DescentEntityFactory::CreateNormalFloorObject(objectName, transformData);
+            else
+                gameEntity = Descent::DescentEntityFactory::CreateRampFloorObject(objectName, transformData);
+
+            return gameEntity;
+        }
+
+        if (descentObjectType == Descent::EDescentObjectType::WALL)
+        {
+            Descent::DescentWallDataStruct wallData = objectDataJson;
+
+            if (wallData.m_wallType == Descent::EDescentWallType::NORMAL)
+                gameEntity = Descent::DescentEntityFactory::CreateNormalWallObject(objectName, transformData);
+            else
+                gameEntity = Descent::DescentEntityFactory::CreateRampWallObject(objectName, transformData);
+
+            return gameEntity;
+        }
+
+        if (descentObjectType == Descent::EDescentObjectType::PLAYER)
+        {
+            gameEntity = Descent::DescentEntityFactory::CreatePlayer(objectName, transformData);
+
+            return gameEntity;
+        }
     }
 }

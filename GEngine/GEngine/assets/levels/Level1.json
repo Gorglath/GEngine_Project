@@ -4048,32 +4048,6 @@
     "m_textureId": 1
 }
 ={
-    "m_objectType": "PROP",
-    "m_id": 150
-}
-~
-{
-    "m_location": {
-        "x": -1.2821916341781617,
-        "y": 220.70205688476563,
-        "z": 350.209716796875
-    },
-    "m_rotation": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-    },
-    "m_scale": {
-        "x": 1.0,
-        "y": 1.0,
-        "z": 1.0
-    }
-}
-~
-{
-    "m_propType": "COMPUTER"
-}
-={
     "m_objectType": "PICKUP",
     "m_id": 151
 }

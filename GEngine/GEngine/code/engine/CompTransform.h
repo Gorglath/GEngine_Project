@@ -19,7 +19,7 @@ namespace GEngine
 		GEngine::GVector3 m_position{ 0.0f,0.0f,0.0f };
 		GEngine::GVector3 m_scale{ 1.0f,1.0f,1.0f };
 		GEngine::GVector3 m_eularAngles{ 0.0f,0.0f,0.0f };
-		GEngine::Quaternion m_rotation{ 0.0f,0.0f,0.0f,1.0f };
+		GEngine::GQuaternion m_rotation{ 0.0f,0.0f,0.0f,1.0f };
 
 		void update() override {};
 		void destroy() override {};
