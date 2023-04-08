@@ -59,7 +59,7 @@ namespace GEngine
 			m_y -= substracting.m_y;
 			m_z -= substracting.m_z;
 		}
-		void operator+=(const GVector3& additive) {
+		void operator+=(const GEngine::GVector3& additive) {
 			m_x += additive.m_x;
 			m_y += additive.m_y;
 			m_z += additive.m_z;
@@ -84,6 +84,9 @@ namespace GEngine
 		}
 		GVector3 operator-(const GVector3& substracting) {
 			return { m_x - substracting.m_x, m_y - substracting.m_y, m_z - substracting.m_z };
+		}
+		const GVector3 operator+(const GVector3& additive) const {
+			return { m_x + additive.m_x, m_y + additive.m_y, m_z + additive.m_z };
 		}
 		GVector3 operator+(const GVector3& additive) {
 			return { m_x + additive.m_x, m_y + additive.m_y, m_z + additive.m_z };

@@ -195,25 +195,26 @@ namespace GEngine
 		{
 			GQuaternion result;
 
-			float xRad = x * 3.14159265359f * 180.0f;
-			float yRad = y * 3.14159265359f * 180.0f;
-			float zRad = z * 3.14159265359f * 180.0f;
-
+			float xRad = x * 3.14159265359f / 180.0f;
+			float yRad = y * 3.14159265359f / 180.0f;
+			float zRad = z * 3.14159265359f / 180.0f;
+			
 			float cosy = cos(yRad / 2);
 			float siny = sin(yRad / 2);
-			float cosx = cos(xRad / 2);
-			float sinx = sin(xRad / 2);
 			float cosz = cos(zRad / 2);
 			float sinz = sin(zRad / 2);
-			float cosy_cosx = cosy * cosx;
-			float siny_sinx = siny * sinx;
+			float cosx = cos(xRad / 2);
+			float sinx = sin(xRad / 2);
+			float cosy_cosz = cosz * cosy;
+			float siny_sinz = siny * sinz;
 			
-			result.m_w = cosy_cosx * cosz - siny_sinx * sinz;
-			result.m_x = cosy_cosx * sinz + siny_sinx * cosz;
-			result.m_y = siny * cosx * cosz + cosy * sinx * sinz;
-			result.m_z = cosy * sinx * cosz - siny * cosx * sinz;
+			result.m_w = cosy_cosz * cosx - siny_sinz * sinx;
+			result.m_x = cosy_cosz * sinx + siny_sinz * cosx;
+			result.m_y = siny * cosz * cosx + cosy * sinz * sinx;
+			result.m_z = cosy * sinz * cosx - siny * cosz * sinx;
 
 			return result.GetNormalized();
+			
 		}
 
 		static GQuaternion Eular(const GVector3& v)

@@ -146,10 +146,11 @@ namespace GEngine
 
 			staticObject.m_name = name;
 
+			const GVector3& newEuler = GVector3(transformData.m_eularAngles.m_z, transformData.m_eularAngles.m_y, transformData.m_eularAngles.m_x);
 			staticObject.m_transform.m_position = transformData.m_location;
-			staticObject.m_transform.m_eularAngles = transformData.m_eularAngles;
+			staticObject.m_transform.m_eularAngles = newEuler;
 			staticObject.m_transform.m_scale = transformData.m_scale;
-			staticObject.m_transform.m_rotation = GQuaternion::Eular(transformData.m_eularAngles);
+			staticObject.m_transform.m_rotation = GQuaternion::Eular(newEuler);
 
 			staticObject.m_entityNode = staticObject.m_meshLoader.loadMesh("NormalFloor.mesh", "Models", m_sceneManager);
 			staticObject.load();
@@ -161,10 +162,11 @@ namespace GEngine
 
 			staticObject.m_name = name;
 
+			const GVector3& newEuler = GVector3(transformData.m_eularAngles.m_z, transformData.m_eularAngles.m_y, transformData.m_eularAngles.m_x);
 			staticObject.m_transform.m_position = transformData.m_location;
-			staticObject.m_transform.m_eularAngles = transformData.m_eularAngles;
+			staticObject.m_transform.m_eularAngles = newEuler;
 			staticObject.m_transform.m_scale = transformData.m_scale;
-			staticObject.m_transform.m_rotation = GQuaternion::Eular(transformData.m_eularAngles);
+			staticObject.m_transform.m_rotation = GQuaternion::Eular(newEuler);
 
 			staticObject.m_entityNode = staticObject.m_meshLoader.loadMesh("NormalWall.mesh", "Models", m_sceneManager);
 			staticObject.load();
