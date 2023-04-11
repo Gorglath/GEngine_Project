@@ -29,10 +29,10 @@ namespace GEngine
 			static GameEntity CreateScorePickup(const std::string& name, const TransformDataStruct& transformData);
 			static GameEntity CreateLifePickup(const std::string& name, const TransformDataStruct& transformData);
 			static GameEntity CreateAmmoPickup(const std::string& name, const TransformDataStruct& transformData);
-			static GameEntity CreateRampFloorObject(const std::string& name, const TransformDataStruct& transformData);
-			static GameEntity CreateRampWallObject(const std::string& name, const TransformDataStruct& transformData);
-			static GameEntity CreateNormalFloorObject(const std::string& name, const TransformDataStruct& transformData);
-			static GameEntity CreateNormalWallObject(const std::string& name, const TransformDataStruct& transformData);
+			static GameEntity CreateRampFloorObject(const std::string& name, const TransformDataStruct& transformData, const std::string& materialName);
+			static GameEntity CreateRampWallObject(const std::string& name, const TransformDataStruct& transformData, const std::string& materialName);
+			static GameEntity CreateNormalFloorObject(const std::string& name, const TransformDataStruct& transformData, const std::string& materialName);
+			static GameEntity CreateNormalWallObject(const std::string& name, const TransformDataStruct& transformData, const std::string& materialName);
 		};
 	}
 }

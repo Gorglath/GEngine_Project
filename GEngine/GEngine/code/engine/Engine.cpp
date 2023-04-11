@@ -26,6 +26,8 @@ void Engine::init(GameState& gameState)
     rgm->addResourceLocation(app_path_string + "\\assets\\models", "FileSystem","Models");
     rgm->addResourceLocation(app_path_string + "\\assets\\materials\\textures", "FileSystem","Textures");
     rgm->addResourceLocation(app_path_string + "\\assets\\materials\\scripts", "FileSystem","Scripts");
+    
+    rgm->initialiseAllResourceGroups(false);
     /*
     for (auto group : rgm->getResourceGroups())
     {

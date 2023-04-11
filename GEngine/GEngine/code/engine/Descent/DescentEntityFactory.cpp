@@ -16,7 +16,7 @@ namespace GEngine
 			enemyEntity.m_transform.m_scale = transformData.m_scale;
 			enemyEntity.m_transform.m_rotation = GQuaternion::Eular(transformData.m_eularAngles);
 
-			enemyEntity.m_entityNode = enemyEntity.m_meshLoader.loadMesh("Enemy.mesh", "Models", m_sceneManager);
+			enemyEntity.m_entityNode = enemyEntity.m_meshLoader.loadMesh("Enemy.mesh", "Models","Demon", m_sceneManager);
 			enemyEntity.load();
 			return enemyEntity;
 		}
@@ -31,7 +31,7 @@ namespace GEngine
 			enemyEntity.m_transform.m_scale = transformData.m_scale;
 			enemyEntity.m_transform.m_rotation = GQuaternion::Eular(transformData.m_eularAngles);
 
-			enemyEntity.m_entityNode = enemyEntity.m_meshLoader.loadMesh("Enemy.mesh", "Models", m_sceneManager);//TODO: add different mesh for boss.
+			enemyEntity.m_entityNode = enemyEntity.m_meshLoader.loadMesh("Enemy.mesh", "Models", "Demon", m_sceneManager);//TODO: add different mesh for boss.
 			enemyEntity.load();
 			return enemyEntity;
 		}
@@ -61,7 +61,7 @@ namespace GEngine
 			hostagePickable.m_transform.m_scale = transformData.m_scale;
 			hostagePickable.m_transform.m_rotation = GQuaternion::Eular(transformData.m_eularAngles);
 
-			hostagePickable.m_entityNode = hostagePickable.m_meshLoader.loadMesh("Hostage.mesh", "Models", m_sceneManager);
+			hostagePickable.m_entityNode = hostagePickable.m_meshLoader.loadMesh("Hostage.mesh", "Models", "Demon", m_sceneManager);
 			hostagePickable.load();
 			return hostagePickable;
 		}
@@ -76,7 +76,7 @@ namespace GEngine
 			scorePickable.m_transform.m_scale = transformData.m_scale;
 			scorePickable.m_transform.m_rotation = GQuaternion::Eular(transformData.m_eularAngles);
 
-			scorePickable.m_entityNode = scorePickable.m_meshLoader.loadMesh("Score.mesh", "Models", m_sceneManager);
+			scorePickable.m_entityNode = scorePickable.m_meshLoader.loadMesh("Score.mesh", "Models", "Demon", m_sceneManager);
 			
 			scorePickable.load();
 			return scorePickable;
@@ -92,7 +92,7 @@ namespace GEngine
 			lifePickable.m_transform.m_scale = transformData.m_scale;
 			lifePickable.m_transform.m_rotation = GQuaternion::Eular(transformData.m_eularAngles);
 
-			lifePickable.m_entityNode = lifePickable.m_meshLoader.loadMesh("Life.mesh", "Models", m_sceneManager);
+			lifePickable.m_entityNode = lifePickable.m_meshLoader.loadMesh("Life.mesh", "Models", "Demon", m_sceneManager);
 			lifePickable.load();
 			return lifePickable;
 		}
@@ -105,12 +105,12 @@ namespace GEngine
 			ammoPickable.m_transform.m_scale = transformData.m_scale;
 			ammoPickable.m_transform.m_rotation = GQuaternion::Eular(transformData.m_eularAngles);
 
-			ammoPickable.m_entityNode = ammoPickable.m_meshLoader.loadMesh("Ammo.mesh", "Models", m_sceneManager);
+			ammoPickable.m_entityNode = ammoPickable.m_meshLoader.loadMesh("Ammo.mesh", "Models", "Demon", m_sceneManager);
 			ammoPickable.load();
 			return ammoPickable;
 		}	
 
-		GameEntity GEngine::Descent::DescentEntityFactory::CreateRampFloorObject(const std::string& name, const TransformDataStruct& transformData)
+		GameEntity GEngine::Descent::DescentEntityFactory::CreateRampFloorObject(const std::string& name, const TransformDataStruct& transformData, const std::string& materialName)
 		{
 			StaticObject staticObject;
 
@@ -121,11 +121,11 @@ namespace GEngine
 			staticObject.m_transform.m_scale = transformData.m_scale;
 			staticObject.m_transform.m_rotation = GQuaternion::Eular(transformData.m_eularAngles);
 
-			staticObject.m_entityNode = staticObject.m_meshLoader.loadMesh("RampFloor.mesh", "Models", m_sceneManager);
+			staticObject.m_entityNode = staticObject.m_meshLoader.loadMesh("RampFloor.mesh", "Models", materialName, m_sceneManager);
 			staticObject.load();
 			return staticObject;
 		}
-		GameEntity GEngine::Descent::DescentEntityFactory::CreateRampWallObject(const std::string& name, const TransformDataStruct& transformData)
+		GameEntity GEngine::Descent::DescentEntityFactory::CreateRampWallObject(const std::string& name, const TransformDataStruct& transformData, const std::string& materialName)
 		{
 			StaticObject staticObject;
 
@@ -136,11 +136,11 @@ namespace GEngine
 			staticObject.m_transform.m_scale = transformData.m_scale;
 			staticObject.m_transform.m_rotation = GQuaternion::Eular(transformData.m_eularAngles);
 
-			staticObject.m_entityNode = staticObject.m_meshLoader.loadMesh("RampWall.mesh", "Models", m_sceneManager);
+			staticObject.m_entityNode = staticObject.m_meshLoader.loadMesh("RampWall.mesh", "Models", materialName, m_sceneManager);
 			staticObject.load();
 			return staticObject;
 		}
-		GameEntity GEngine::Descent::DescentEntityFactory::CreateNormalFloorObject(const std::string& name, const TransformDataStruct& transformData) 
+		GameEntity GEngine::Descent::DescentEntityFactory::CreateNormalFloorObject(const std::string& name, const TransformDataStruct& transformData, const std::string& materialName)
 		{
 			StaticObject staticObject;
 
@@ -152,11 +152,12 @@ namespace GEngine
 			staticObject.m_transform.m_scale = transformData.m_scale;
 			staticObject.m_transform.m_rotation = GQuaternion::Eular(newEuler);
 
-			staticObject.m_entityNode = staticObject.m_meshLoader.loadMesh("NormalFloor.mesh", "Models", m_sceneManager);
+			staticObject.m_entityNode = staticObject.m_meshLoader.loadMesh("NormalFloor.mesh", "Models", materialName, m_sceneManager);
+			
 			staticObject.load();
 			return staticObject;
 		}
-		GameEntity GEngine::Descent::DescentEntityFactory::CreateNormalWallObject(const std::string& name, const TransformDataStruct& transformData)
+		GameEntity GEngine::Descent::DescentEntityFactory::CreateNormalWallObject(const std::string& name, const TransformDataStruct& transformData, const std::string& materialName)
 		{
 			StaticObject staticObject;
 
@@ -168,7 +169,7 @@ namespace GEngine
 			staticObject.m_transform.m_scale = transformData.m_scale;
 			staticObject.m_transform.m_rotation = GQuaternion::Eular(newEuler);
 
-			staticObject.m_entityNode = staticObject.m_meshLoader.loadMesh("NormalWall.mesh", "Models", m_sceneManager);
+			staticObject.m_entityNode = staticObject.m_meshLoader.loadMesh("NormalWall.mesh", "Models", materialName, m_sceneManager);
 			staticObject.load();
 			return staticObject;
 		}

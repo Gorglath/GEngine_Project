@@ -7,7 +7,7 @@ namespace GEngine
     {
         void SlidingSphere::createSphere(SceneManager* sceneManager)
         {
-            m_entityNode = m_meshLoader.loadMesh("Sphere1000.mesh",Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME, sceneManager);
+            m_entityNode = m_meshLoader.loadMesh("Sphere1000.mesh",Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME, "Demon", sceneManager);
             m_meshLoader.m_gameEntity = this;
         }
 

@@ -12,9 +12,9 @@ namespace GEngine {
 		if (!m_entityNode)
 			return;
 
-		m_entityNode->setPosition(m_transform.m_position);
-		m_entityNode->setScale(m_transform.m_scale);
+		m_entityNode->scale(m_transform.m_scale);
 		m_entityNode->setOrientation(m_transform.m_rotation);
+		m_entityNode->setPosition(m_transform.m_position);
 	}
 
 	void GameEntity::start()

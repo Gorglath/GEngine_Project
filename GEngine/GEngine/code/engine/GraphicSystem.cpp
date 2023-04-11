@@ -734,11 +734,10 @@ GraphicSystem::GraphicSystem(GameState* gameState, Ogre::String resourcePath,
         m_camera = m_sceneManager->createCamera("Main Camera");
 
         // Position it at 500 in Z direction
-        m_camera->setPosition(Ogre::Vector3(0, 20, 0));
-        // Look back along -Z
-        m_camera->lookAt(Ogre::Vector3(0, 0, 0));
-        m_camera->rotate(Ogre::Vector3(0, 1, 0), Radian(Degree(180.0f)));
-        //m_camera->rotate(Ogre::Vector3(0, 1, 0), Radian(Degree(90.0f)));
+        m_camera->setPosition(Ogre::Vector3(0, 500, 0));
+        // Look back along -ZS
+        m_camera->lookAt(Ogre::Vector3(0,0, 0));
+        m_camera->rotate(Ogre::Vector3(0, 1, 0), Radian(Degree(90.0f)));
         m_camera->setNearClipDistance(0.2f);
         m_camera->setFarClipDistance(1000.0f);
         m_camera->setAutoAspectRatio(true);

@@ -120,10 +120,18 @@ namespace GEngine {
         {
             Descent::DescentFloorDataStruct floorData = objectDataJson;
 
+            std::string materialName;
+            if (floorData.m_textureId == 0)
+                materialName = "WallFloorRock";
+            else if (floorData.m_textureId == 1)
+                materialName = "MetalFloor";
+            else if (floorData.m_textureId == 2)
+                materialName = "FurFloor";
+
             if (floorData.m_floorType == Descent::EDescentFloorType::NORMAL)
-                gameEntity = Descent::DescentEntityFactory::CreateNormalFloorObject(objectName, transformData);
+                gameEntity = Descent::DescentEntityFactory::CreateNormalFloorObject(objectName, transformData,materialName);
             else
-                gameEntity = Descent::DescentEntityFactory::CreateRampFloorObject(objectName, transformData);
+                gameEntity = Descent::DescentEntityFactory::CreateRampFloorObject(objectName, transformData,materialName);
 
             return gameEntity;
         }
@@ -132,10 +140,18 @@ namespace GEngine {
         {
             Descent::DescentWallDataStruct wallData = objectDataJson;
 
+            std::string materialName;
+            if (wallData.m_textureId == 0)
+                materialName = "MetalWall";
+            else if (wallData.m_textureId == 1)
+                materialName = "WallFloorRock";
+            else if (wallData.m_textureId == 2)
+                materialName = "FurWall";
+           
             if (wallData.m_wallType == Descent::EDescentWallType::NORMAL)
-                gameEntity = Descent::DescentEntityFactory::CreateNormalWallObject(objectName, transformData);
+                gameEntity = Descent::DescentEntityFactory::CreateNormalWallObject(objectName, transformData, materialName);
             else
-                gameEntity = Descent::DescentEntityFactory::CreateRampWallObject(objectName, transformData);
+                gameEntity = Descent::DescentEntityFactory::CreateRampWallObject(objectName, transformData, materialName);
 
             return gameEntity;
         }

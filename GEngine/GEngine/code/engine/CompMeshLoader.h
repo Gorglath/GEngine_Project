@@ -3,6 +3,8 @@
 #include "OgreSceneManager.h"
 #include "OgreItem.h"
 #include "OgreMeshManager2.h"
+#include "OgreHlmsManager.h"
+#include "OgreMesh2.h"
 #include "Ogre.h"
 #include <string>
 #include <iostream>
@@ -14,9 +16,13 @@ namespace GEngine
 		CompMeshLoader() = default;
 		~CompMeshLoader() = default;
 
-		Ogre::SceneNode* loadMesh(const std::string& name,const std::string& group, Ogre::SceneManager* sceneManager)
+		Ogre::SceneNode* loadMesh(const std::string& name,const std::string& group,const std::string& materialName, Ogre::SceneManager* sceneManager)
 		{
 			m_mesh = sceneManager->createItem(name,group);
+			Ogre::HlmsManager* manager = Ogre::Root::getSingletonPtr()->getHlmsManager();
+			Ogre::HlmsDatablock* material = manager->getMaterial(materialName);
+			
+			m_mesh->setDatablock(material);
 
 			m_sceneNode = sceneManager->getRootSceneNode(Ogre::SCENE_DYNAMIC)->createChildSceneNode(Ogre::SCENE_DYNAMIC);
 

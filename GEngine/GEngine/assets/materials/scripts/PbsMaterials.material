@@ -1,0 +1,46 @@
+hlms MetalFloor pbs
+{
+    roughness	1
+	fresnel		1.33
+
+	diffuse_map		FloorMetal_Diffuse.png
+	roughness_map	FloorMetal_roughness.png
+	specular_map	FloorMetal_metallic.png
+}
+hlms FurFloor pbs
+{
+    roughness	1
+	fresnel		1.33
+
+	diffuse_map		FloorFur_albedo.png
+	specular_map	FloorFur_ao.png
+	detail_weight_map	FloorFur_height.png
+}
+hlms MetalWall pbs
+{
+    roughness	1
+	fresnel		1.33
+
+	diffuse_map		WallMetal_albedo.png
+	specular_map	WallMetal_ao.png
+	detail_weight_map	WallMetal_height.png
+}
+hlms FurWall pbs
+{
+    roughness	1
+	fresnel		1.33
+
+	diffuse_map		WallFur_albedo.png
+	specular_map	WallFur_ao.png
+	detail_weight_map	WallFur_height.png
+}
+hlms WallFloorRock pbs
+{
+    roughness	1
+	fresnel		1.33
+
+	diffuse_map		WallFloorRocks_albedo.png
+	specular_map	WallFloorRocks_ao.png
+	detail_weight_map	WallFloorRocks_height.png
+}
+

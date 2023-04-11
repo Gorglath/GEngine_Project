@@ -10,6 +10,78 @@
 	],
 	"textures" :
 	{
+		"WallFur_ao.png" : 
+		{
+			"resolution" : [2048, 2048, 1],
+			"mipmaps" : 12,
+			"format" : "PFG_RGBA8_UNORM_SRGB",
+			"texture_type" : 3,
+			"poolId" : 0
+		},
+		"WallFloorRocks_albedo.png" : 
+		{
+			"resolution" : [2048, 2048, 1],
+			"mipmaps" : 12,
+			"format" : "PFG_RGBA8_UNORM_SRGB",
+			"texture_type" : 3,
+			"poolId" : 0
+		},
+		"WallMetal_ao.png" : 
+		{
+			"resolution" : [2048, 2048, 1],
+			"mipmaps" : 12,
+			"format" : "PFG_RGBA8_UNORM_SRGB",
+			"texture_type" : 3,
+			"poolId" : 0
+		},
+		"FloorFur_ao.png" : 
+		{
+			"resolution" : [2048, 2048, 1],
+			"mipmaps" : 12,
+			"format" : "PFG_RGBA8_UNORM_SRGB",
+			"texture_type" : 3,
+			"poolId" : 0
+		},
+		"FloorMetal_metallic.png" : 
+		{
+			"resolution" : [2048, 2048, 1],
+			"mipmaps" : 12,
+			"format" : "PFG_RGBA8_UNORM_SRGB",
+			"texture_type" : 3,
+			"poolId" : 0
+		},
+		"Demon.jpg" : 
+		{
+			"resolution" : [2, 2, 1],
+			"mipmaps" : 2,
+			"format" : "PFG_RGBA8_UNORM_SRGB",
+			"texture_type" : 3,
+			"poolId" : 0
+		},
+		"FloorMetal_Diffuse.png" : 
+		{
+			"resolution" : [2048, 2048, 1],
+			"mipmaps" : 12,
+			"format" : "PFG_RGBA8_UNORM_SRGB",
+			"texture_type" : 3,
+			"poolId" : 0
+		},
+		"WallFloorRocks_height.png" : 
+		{
+			"resolution" : [2048, 2048, 1],
+			"mipmaps" : 12,
+			"format" : "PFG_RGBA8_UNORM",
+			"texture_type" : 3,
+			"poolId" : 0
+		},
+		"WallFur_albedo.png" : 
+		{
+			"resolution" : [2048, 2048, 1],
+			"mipmaps" : 12,
+			"format" : "PFG_RGBA8_UNORM_SRGB",
+			"texture_type" : 3,
+			"poolId" : 0
+		},
 		"ltcMatrix1.dds" : 
 		{
 			"resolution" : [64, 64, 1],
@@ -17,6 +89,14 @@
 			"format" : "PFG_RGBA16_FLOAT",
 			"texture_type" : 3,
 			"poolId" : 992044
+		},
+		"FloorFur_height.png" : 
+		{
+			"resolution" : [2048, 2048, 1],
+			"mipmaps" : 12,
+			"format" : "PFG_RGBA8_UNORM",
+			"texture_type" : 3,
+			"poolId" : 0
 		},
 		"brtfLutDfg.dds" : 
 		{
@@ -26,6 +106,30 @@
 			"texture_type" : 3,
 			"poolId" : 992044
 		},
+		"FloorFur_albedo.png" : 
+		{
+			"resolution" : [2048, 2048, 1],
+			"mipmaps" : 12,
+			"format" : "PFG_RGBA8_UNORM_SRGB",
+			"texture_type" : 3,
+			"poolId" : 0
+		},
+		"WallMetal_albedo.png" : 
+		{
+			"resolution" : [2048, 2048, 1],
+			"mipmaps" : 12,
+			"format" : "PFG_RGBA8_UNORM_SRGB",
+			"texture_type" : 3,
+			"poolId" : 0
+		},
+		"WallFloorRocks_ao.png" : 
+		{
+			"resolution" : [2048, 2048, 1],
+			"mipmaps" : 12,
+			"format" : "PFG_RGBA8_UNORM_SRGB",
+			"texture_type" : 3,
+			"poolId" : 0
+		},
 		"ltcMatrix0.dds" : 
 		{
 			"resolution" : [64, 64, 1],
@@ -33,6 +137,30 @@
 			"format" : "PFG_RGBA16_FLOAT",
 			"texture_type" : 3,
 			"poolId" : 992044
+		},
+		"WallFur_height.png" : 
+		{
+			"resolution" : [2048, 2048, 1],
+			"mipmaps" : 12,
+			"format" : "PFG_RGBA8_UNORM",
+			"texture_type" : 3,
+			"poolId" : 0
+		},
+		"WallMetal_height.png" : 
+		{
+			"resolution" : [2048, 2048, 1],
+			"mipmaps" : 12,
+			"format" : "PFG_RGBA8_UNORM",
+			"texture_type" : 3,
+			"poolId" : 0
+		},
+		"FloorMetal_roughness.png" : 
+		{
+			"resolution" : [2048, 2048, 1],
+			"mipmaps" : 12,
+			"format" : "PFG_R8_UNORM",
+			"texture_type" : 3,
+			"poolId" : 0
 		}
 	}
 }
